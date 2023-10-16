@@ -1,20 +1,59 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Home from "./src/views/screens/Home";
+import Login from "./src/views/screens/Login";
+import Signup from "./src/views/screens/Signup";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Loader from "./src/views/components/Loader";
+import HomeScreen from "./src/views/screens/HomeScreen";
+// import { ThemeProvider } from "./src/views/themes/ThemeProvider";
 
-export default function App() {
+const Stack = createNativeStackNavigator();
+
+function App() {
+  const [initialRouteName, setInitialRouteName] = React.useState("");
+  React.useEffect(() => {
+    setTimeout(() => {
+      authUser();
+    }, 2000);
+  }, []);
+  const authUser = async () => {
+    try {
+      let userData = await AsyncStorage.getItem("user");
+      if (userData) {
+        userData = JSON.parse(userData);
+        if (userData?.loggedIn) {
+          setInitialRouteName("Home");
+        } else {
+          setInitialRouteName("HomeScreen");
+        }
+      } else {
+        setInitialRouteName("Signup");
+      }
+    } catch (error) {
+      setInitialRouteName("Signup");
+    }
+  };
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      {initialRouteName == "" ? (
+        <Loader visible={true} />
+      ) : (
+        <>
+          <Stack.Navigator
+            initialRouteName={initialRouteName}
+            screenOptions={{ headerShown: false }}
+          >
+            <Stack.Screen name="HomeScreen" component={HomeScreen} />
+            <Stack.Screen name="Signup" component={Signup} />
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="Login" component={Login} />
+          </Stack.Navigator>
+        </>
+      )}
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
