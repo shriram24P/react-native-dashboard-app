@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import Button from "../components/Button";
 import COLORS from "../../const/Colors";
-import HomeScreen from "./HomeScreen";
+import HomeScreen from "./Dashboard";
 import Loader from "../components/Loader";
 
 const Home = ({ navigation }) => {

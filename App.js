@@ -6,9 +6,10 @@ import Login from "./src/views/screens/Login";
 import Signup from "./src/views/screens/Signup";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loader from "./src/views/components/Loader";
-import HomeScreen from "./src/views/screens/HomeScreen";
+
 import { ThemeProvider } from "./src/views/customTheme/ThemeContext";
 import FooterMenu from "./src/views/screens/FooterMenu";
+import Dashboard from "./src/views/screens/Dashboard";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,7 +28,7 @@ const App = () => {
         if (userData?.loggedIn) {
           setInitialRouteName("Home");
         } else {
-          setInitialRouteName("HomeScreen");
+          setInitialRouteName("Dashboard");
         }
       } else {
         setInitialRouteName("Signup");
@@ -47,7 +48,7 @@ const App = () => {
               initialRouteName={initialRouteName}
               screenOptions={{ headerShown: false }}
             >
-              <Stack.Screen name="HomeScreen" component={HomeScreen} />
+              <Stack.Screen name="Dashboard" component={Dashboard} />
               <Stack.Screen name="Signup" component={Signup} />
               <Stack.Screen name="Home" component={Home} />
               <Stack.Screen name="Login" component={Login} />

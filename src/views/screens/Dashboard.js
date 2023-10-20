@@ -6,7 +6,7 @@ import { StyleSheet } from "react-native";
 import { useTheme } from "../customTheme/ThemeContext";
 import SettingsScreen from "../customTheme/SettingsScreen";
 
-const HomeScreen = ({ navigation }) => {
+const Dashboard = ({ navigation }) => {
   const { isDarkMode } = useTheme();
   const containerStyle = isDarkMode
     ? styles.darkContainer
@@ -89,4 +89,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default Dashboard;
