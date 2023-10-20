@@ -7,11 +7,12 @@ import Signup from "./src/views/screens/Signup";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loader from "./src/views/components/Loader";
 import HomeScreen from "./src/views/screens/HomeScreen";
-// import { ThemeProvider } from "./src/views/themes/ThemeProvider";
+import { ThemeProvider } from "./src/views/customTheme/ThemeContext";
+import FooterMenu from "./src/views/screens/FooterMenu";
 
 const Stack = createNativeStackNavigator();
 
-function App() {
+const App = () => {
   const [initialRouteName, setInitialRouteName] = React.useState("");
   React.useEffect(() => {
     setTimeout(() => {
@@ -36,24 +37,27 @@ function App() {
     }
   };
   return (
-    <NavigationContainer>
-      {initialRouteName == "" ? (
-        <Loader visible={true} />
-      ) : (
-        <>
-          <Stack.Navigator
-            initialRouteName={initialRouteName}
-            screenOptions={{ headerShown: false }}
-          >
-            <Stack.Screen name="HomeScreen" component={HomeScreen} />
-            <Stack.Screen name="Signup" component={Signup} />
-            <Stack.Screen name="Home" component={Home} />
-            <Stack.Screen name="Login" component={Login} />
-          </Stack.Navigator>
-        </>
-      )}
-    </NavigationContainer>
+    <ThemeProvider>
+      <NavigationContainer>
+        {initialRouteName == "" ? (
+          <Loader visible={true} />
+        ) : (
+          <>
+            <Stack.Navigator
+              initialRouteName={initialRouteName}
+              screenOptions={{ headerShown: false }}
+            >
+              <Stack.Screen name="HomeScreen" component={HomeScreen} />
+              <Stack.Screen name="Signup" component={Signup} />
+              <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen name="Login" component={Login} />
+            </Stack.Navigator>
+            <FooterMenu />
+          </>
+        )}
+      </NavigationContainer>
+    </ThemeProvider>
   );
-}
+};
 
 export default App;

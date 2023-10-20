@@ -1,11 +1,20 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaView } from "react-native";
 import COLORS from "../../const/Colors";
-import { View, Text, ScrollView, Keyboard, Alert } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  Keyboard,
+  Alert,
+  StyleSheet,
+} from "react-native";
 import React, { useState } from "react";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import Loader from "../components/Loader";
+import { useTheme } from "../customTheme/ThemeContext";
+import SettingsScreen from "../customTheme/SettingsScreen";
 
 const Login = ({ navigation }) => {
   const [inputs, setInputs] = useState({
@@ -16,6 +25,7 @@ const Login = ({ navigation }) => {
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+
   const validate = () => {
     Keyboard.dismiss();
     let valid = true;
@@ -66,13 +76,22 @@ const Login = ({ navigation }) => {
   const handleError = (errorMessage, input) => {
     setErrors((prevState) => ({ ...prevState, [input]: errorMessage }));
   };
+
+  const { isDarkMode } = useTheme();
+  const containerStyle = isDarkMode
+    ? styles.darkContainer
+    : styles.lightContainer;
+  const textStyle = isDarkMode ? styles.darkText : styles.lightText;
   return (
-    <SafeAreaView style={{ backgroundColor: COLORS.white, flex: 1 }}>
+    <SafeAreaView style={[containerStyle, { flex: 1 }]}>
+      <View style={{ marginTop: 25 }}>
+        <SettingsScreen />
+      </View>
       <Loader visible={loading} />
       <ScrollView
         contentContainerStyle={{ paddingTop: 50, paddingHorizontal: 20 }}
       >
-        <Text style={{ color: COLORS.black, fontSize: 40, fontWeight: "bold" }}>
+        <Text style={[textStyle, { fontSize: 40, fontWeight: "bold" }]}>
           Login
         </Text>
         <Text style={{ color: COLORS.grey, fontSize: 18, marginVertical: 10 }}>
@@ -104,13 +123,15 @@ const Login = ({ navigation }) => {
           <Button title="Login" onPress={validate} />
           <Text
             onPress={() => navigation.navigate("Signup")}
-            style={{
-              color: COLORS.black,
-              textAlign: "center",
-              fontSize: 16,
-              fontWeight: "bold",
-              marginVertical: 20,
-            }}
+            style={[
+              textStyle,
+              {
+                textAlign: "center",
+                fontSize: 16,
+                fontWeight: "bold",
+                marginVertical: 20,
+              },
+            ]}
           >
             Don't have an account ? Signup
           </Text>
@@ -119,5 +140,26 @@ const Login = ({ navigation }) => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  lightContainer: {
+    backgroundColor: "white",
+  },
+  darkContainer: {
+    backgroundColor: "#192734",
+  },
+  text: {
+    fontSize: 24,
+  },
+  lightText: {
+    color: "#192734",
+  },
+  darkText: {
+    color: "white",
+  },
+  footer: {
+    margin: 10,
+  },
+});
 
 export default Login;
