@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import Button from "../components/Button";
 import COLORS from "../../const/Colors";
-import HomeScreen from "./Dashboard";
+
 import Loader from "../components/Loader";
+import { useToast } from "react-native-toast-notifications";
 
 const Home = ({ navigation }) => {
   const [userDetails, setUserDetails] = useState();
@@ -21,6 +22,7 @@ const Home = ({ navigation }) => {
     }
   };
 
+  const toast = useToast();
   const logout = () => {
     AsyncStorage.setItem(
       "user",
@@ -28,8 +30,15 @@ const Home = ({ navigation }) => {
     );
 
     setTimeout(() => {
-      navigation.navigate("HomeScreen");
-    }, 3000);
+      toast.show("Logged out successfully", {
+        type: "success",
+        placement: "top",
+        duration: 2000,
+        offset: 30,
+        animationType: "slide-in",
+      });
+      navigation.navigate("Dashboard");
+    }, 2000);
   };
 
   return (

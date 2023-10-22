@@ -1,20 +1,14 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaView } from "react-native";
 import COLORS from "../../const/Colors";
-import {
-  View,
-  Text,
-  ScrollView,
-  Keyboard,
-  Alert,
-  StyleSheet,
-} from "react-native";
+import { View, Text, ScrollView, Keyboard, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import Loader from "../components/Loader";
 import { useTheme } from "../customTheme/ThemeContext";
 import SettingsScreen from "../customTheme/SettingsScreen";
+import { useToast } from "react-native-toast-notifications";
 
 const Login = ({ navigation }) => {
   const [inputs, setInputs] = useState({
@@ -44,6 +38,7 @@ const Login = ({ navigation }) => {
     }
   };
 
+  const toast = useToast();
   const login = () => {
     setLoading(true);
     setTimeout(async () => {
@@ -59,12 +54,31 @@ const Login = ({ navigation }) => {
             "user",
             JSON.stringify({ ...userData, loggedIn: true })
           );
+          toast.show("Logged in successfully", {
+            type: "success",
+            placement: "top",
+            duration: 2000,
+            offset: 30,
+            animationType: "slide-in",
+          });
           navigation.navigate("Home");
         } else {
-          Alert.alert("Error", "Invalid Details");
+          toast.show("Invalid Details", {
+            type: "danger",
+            placement: "top",
+            duration: 2000,
+            offset: 30,
+            animationType: "zoom-in",
+          });
         }
       } else {
-        Alert.alert("Error", "User does not exist");
+        toast.show("User does not exist", {
+          type: "danger",
+          placement: "top",
+          duration: 2000,
+          offset: 30,
+          animationType: "zoom-in",
+        });
       }
     }, 3000);
   };

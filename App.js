@@ -6,15 +6,17 @@ import Login from "./src/views/screens/Login";
 import Signup from "./src/views/screens/Signup";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loader from "./src/views/components/Loader";
-
 import { ThemeProvider } from "./src/views/customTheme/ThemeContext";
 import FooterMenu from "./src/views/screens/FooterMenu";
 import Dashboard from "./src/views/screens/Dashboard";
+import About from "./src/views/screens/About";
+import { ToastProvider } from "react-native-toast-notifications";
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   const [initialRouteName, setInitialRouteName] = React.useState("");
+
   React.useEffect(() => {
     setTimeout(() => {
       authUser();
@@ -39,24 +41,27 @@ const App = () => {
   };
   return (
     <ThemeProvider>
-      <NavigationContainer>
-        {initialRouteName == "" ? (
-          <Loader visible={true} />
-        ) : (
-          <>
-            <Stack.Navigator
-              initialRouteName={initialRouteName}
-              screenOptions={{ headerShown: false }}
-            >
-              <Stack.Screen name="Dashboard" component={Dashboard} />
-              <Stack.Screen name="Signup" component={Signup} />
-              <Stack.Screen name="Home" component={Home} />
-              <Stack.Screen name="Login" component={Login} />
-            </Stack.Navigator>
-            <FooterMenu />
-          </>
-        )}
-      </NavigationContainer>
+      <ToastProvider>
+        <NavigationContainer>
+          {initialRouteName == "" ? (
+            <Loader visible={true} />
+          ) : (
+            <>
+              <Stack.Navigator
+                initialRouteName={initialRouteName}
+                screenOptions={{ headerShown: false }}
+              >
+                <Stack.Screen name="Dashboard" component={Dashboard} />
+                <Stack.Screen name="Signup" component={Signup} />
+                <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen name="About" component={About} />
+              </Stack.Navigator>
+              <FooterMenu />
+            </>
+          )}
+        </NavigationContainer>
+      </ToastProvider>
     </ThemeProvider>
   );
 };

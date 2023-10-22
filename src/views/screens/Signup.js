@@ -15,6 +15,7 @@ import Loader from "../components/Loader";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useTheme } from "../customTheme/ThemeContext";
 import SettingsScreen from "../customTheme/SettingsScreen";
+import { useToast } from "react-native-toast-notifications";
 
 const Signup = ({ navigation }) => {
   const [inputs, setInputs] = useState({
@@ -58,15 +59,30 @@ const Signup = ({ navigation }) => {
     }
   };
 
+  const toast = useToast();
+
   const register = () => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
       try {
         AsyncStorage.setItem("user", JSON.stringify(inputs));
+        toast.show("new user added successfully", {
+          type: "success",
+          placement: "top",
+          duration: 2000,
+          offset: 30,
+          animationType: "slide-in",
+        });
         navigation.navigate("Login");
       } catch (error) {
-        Alert.alert("Error", "Something went wrong");
+        toast.show("Something went wrong", {
+          type: "warning",
+          placement: "top",
+          duration: 2000,
+          offset: 30,
+          animationType: "slide-in",
+        });
       }
     }, 3000);
   };
