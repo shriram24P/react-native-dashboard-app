@@ -1,7 +1,6 @@
 import { View, Text } from "react-native";
 import React from "react";
 import COLORS from "../../const/Colors";
-
 import { StyleSheet } from "react-native";
 import { useTheme } from "../customTheme/ThemeContext";
 import SettingsScreen from "../customTheme/SettingsScreen";
@@ -85,7 +84,8 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   darkBtn: {
-    marginTop: 30,
+    marginTop: 20,
+    marginRight: 10,
   },
 });
 

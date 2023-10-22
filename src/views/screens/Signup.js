@@ -102,12 +102,12 @@ const Signup = ({ navigation }) => {
   const textStyle = isDarkMode ? styles.darkText : styles.lightText;
   return (
     <SafeAreaView style={[containerStyle, { flex: 1 }]}>
-      <View style={{ marginTop: 25 }}>
+      <View style={{ marginTop: 20, marginRight: 10 }}>
         <SettingsScreen />
       </View>
       <Loader visible={loading} />
       <ScrollView
-        contentContainerStyle={{ paddingTop: 50, paddingHorizontal: 20 }}
+        contentContainerStyle={{ marginTop: 30, paddingHorizontal: 20 }}
       >
         <Text style={[textStyle, { fontSize: 40, fontWeight: "bold" }]}>
           Register

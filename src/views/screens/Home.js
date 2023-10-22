@@ -4,7 +4,6 @@ import { View, Text } from "react-native";
 import Button from "../components/Button";
 import COLORS from "../../const/Colors";
 
-import Loader from "../components/Loader";
 import { useToast } from "react-native-toast-notifications";
 
 const Home = ({ navigation }) => {

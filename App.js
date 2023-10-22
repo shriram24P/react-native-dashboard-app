@@ -9,7 +9,6 @@ import Loader from "./src/views/components/Loader";
 import { ThemeProvider } from "./src/views/customTheme/ThemeContext";
 import FooterMenu from "./src/views/screens/FooterMenu";
 import Dashboard from "./src/views/screens/Dashboard";
-import About from "./src/views/screens/About";
 import { ToastProvider } from "react-native-toast-notifications";
 
 const Stack = createNativeStackNavigator();
@@ -55,7 +54,7 @@ const App = () => {
                 <Stack.Screen name="Signup" component={Signup} />
                 <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="Login" component={Login} />
-                <Stack.Screen name="About" component={About} />
+                <Stack.Screen name="Footer" component={FooterMenu} />
               </Stack.Navigator>
               <FooterMenu />
             </>
