@@ -4,10 +4,10 @@
     "slug": "react-native-dashboard-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/bg1.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/bg1.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,9 +19,10 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/bg1.png",
         "backgroundColor": "#ffffff"
       }
+      
     },
     "web": {
       "favicon": "./assets/favicon.png"
