@@ -18,29 +18,10 @@
 //       <Stack.Navigator screenOptions={{ headerShown: false }}>
 //         <Stack.Screen name="MainDashboard">
 //           {() => (
-//             <Drawer.Navigator
-//               screenOptions={{
-//                 drawerStyle: {
-//                   backgroundColor: "white", //change bg color
-//                   width: 230, //change width of sidebar
-//                 },
-//               }}
-//             >
-//               <Drawer.Screen
-//                 name="Dashboard"
-//                 component={Dashboard}
-//                 options={{ drawerIcon: DashboardIcon }}
-//               />
-//               <Drawer.Screen
-//                 name="Login"
-//                 component={Login}
-//                 options={{ drawerIcon: ProfileIcon }}
-//               />
-//               <Drawer.Screen
-//                 name="Signup"
-//                 component={Signup}
-//                 options={{ drawerIcon: HelpdIcon }}
-//               />
+//             <Drawer.Navigator>
+//               <Drawer.Screen name="Dashboard" component={Dashboard} />
+//               <Drawer.Screen name="Login" component={Login} />
+//               <Drawer.Screen name="Signup" component={Signup} />
 //             </Drawer.Navigator>
 //           )}
 //         </Stack.Screen>

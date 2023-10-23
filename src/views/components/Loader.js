@@ -10,6 +10,7 @@ import COLORS from "./../../const/Colors";
 
 const Loader = ({ visible = true }) => {
   const { height, width } = useWindowDimensions();
+
   return (
     visible && (
       <View style={[styles.container, { height, width }]}>
