@@ -15,6 +15,8 @@ const Home = ({ navigation }) => {
   const [userDetails, setUserDetails] = useState();
   const [loading, setLoading] = useState(false);
 
+  const { t } = useTranslation();
+
   useEffect(() => {
     getUserDetails();
   }, []);
@@ -35,7 +37,7 @@ const Home = ({ navigation }) => {
     );
     setLoading(true);
     setTimeout(() => {
-      toast.show("Logged out successfully", {
+      toast.show(t("successLogout"), {
         type: "success",
         placement: "top",
         duration: 2000,
@@ -52,8 +54,6 @@ const Home = ({ navigation }) => {
     ? styles.darkContainer
     : styles.lightContainer;
   const textStyle = isDarkMode ? styles.darkText : styles.lightText;
-
-  const { t } = useTranslation();
 
   return (
     <>

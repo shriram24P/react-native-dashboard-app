@@ -16,6 +16,19 @@
     "fname":"Full Name",
     "enterPhone":"Enter your phone number",
     "phone":"Phone Number",
-    "alreadyAC":"Already have an account?"
-
+    "alreadyAC":"Already have an account?",
+    "logout":"Logout",
+    "wel":"Welcome",
+    "successAdd":"Logged in successfully",
+    "invDetails":"Invalid Details",
+    "notExist":"User does not exist",
+    "successAdded":"new user added successfully",
+    "wentWrong":"Something went wrong",
+    "pEmail":"Please input email",
+    "validEmail":"Please input valid email",
+    "pFullName":"Please input fullname",
+    "pPhone":"Please input phone number",
+    "pPass":"Please input password",
+    "minPass":"Min password length of 5",
+    "successLogout":"Logged out successfully"
 }

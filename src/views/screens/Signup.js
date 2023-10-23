@@ -27,31 +27,32 @@ const Signup = ({ navigation }) => {
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const { t } = useTranslation();
   const validate = () => {
     Keyboard.dismiss();
     let valid = true;
     if (!inputs.email) {
-      handleError("Please input email", "email");
+      handleError(t("pEmail"), "email");
       valid = false;
     } else if (!inputs.email.match(/\S+@\S+\.\S+/)) {
-      handleError("Please input valid email", "email");
+      handleError(t("validEmail"), "email");
     }
 
     if (!inputs.fullname) {
-      handleError("Please input fullname", "fullname");
+      handleError(t("pFullName"), "fullname");
       valid = false;
     }
 
     if (!inputs.phone) {
-      handleError("Please input phone number", "phone");
+      handleError(t("pPhone"), "phone");
       valid = false;
     }
 
     if (!inputs.password) {
-      handleError("Please input password", "password");
+      handleError(t("pPass"), "password");
       valid = false;
     } else if (inputs.password.length < 5) {
-      handleError("Min password length of 5", "password");
+      handleError(t("minPass"), "password");
       valid = false;
     }
 
@@ -68,7 +69,7 @@ const Signup = ({ navigation }) => {
       setLoading(false);
       try {
         AsyncStorage.setItem("user", JSON.stringify(inputs));
-        toast.show("new user added successfully", {
+        toast.show(t("successAdded"), {
           type: "success",
           placement: "top",
           duration: 2000,
@@ -77,7 +78,7 @@ const Signup = ({ navigation }) => {
         });
         navigation.navigate("Login");
       } catch (error) {
-        toast.show("Something went wrong", {
+        toast.show(t("wentWrong"), {
           type: "warning",
           placement: "top",
           duration: 2000,
@@ -101,8 +102,6 @@ const Signup = ({ navigation }) => {
     ? styles.darkContainer
     : styles.lightContainer;
   const textStyle = isDarkMode ? styles.darkText : styles.lightText;
-
-  const { t } = useTranslation();
 
   return (
     <SafeAreaView style={[containerStyle, { flex: 1 }]}>

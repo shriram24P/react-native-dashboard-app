@@ -25,13 +25,13 @@ const Login = ({ navigation }) => {
     Keyboard.dismiss();
     let valid = true;
     if (!inputs.email) {
-      handleError("Please input email", "email");
+      handleError(t("pEmail"), "email");
       valid = false;
     }
 
     if (!inputs.password) {
       valid = false;
-      handleError("Please input password", "password");
+      handleError(t("pPass"), "password");
     }
 
     if (valid) {
@@ -55,7 +55,7 @@ const Login = ({ navigation }) => {
             "user",
             JSON.stringify({ ...userData, loggedIn: true })
           );
-          toast.show("Logged in successfully", {
+          toast.show(t("successAdd"), {
             type: "success",
             placement: "top",
             duration: 2000,
@@ -64,7 +64,7 @@ const Login = ({ navigation }) => {
           });
           navigation.navigate("Home");
         } else {
-          toast.show("Invalid Details", {
+          toast.show(t("invDetails"), {
             type: "danger",
             placement: "top",
             duration: 2000,
@@ -73,7 +73,7 @@ const Login = ({ navigation }) => {
           });
         }
       } else {
-        toast.show("User does not exist", {
+        toast.show(t("notExist"), {
           type: "danger",
           placement: "top",
           duration: 2000,
