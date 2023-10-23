@@ -1,0 +1,21 @@
+{
+    "change-language":"Change Language",
+    "welcome":"Welcome to my app",
+    "enterLogin":"Enter your details to Login",
+    "login":"Login",
+    "email":"Email",
+    "enterEmail":"Enter your email",
+    "enterPassword":"Enter your password",
+    "password":"Password",
+    "noAccount":"Dont't have an account?",
+    "signup":"Signup",
+    "home":"Home",
+    "registerNew":"Enter your details to Register",
+    "register":"Register",
+    "enterFname":"Enter your fullname",
+    "fname":"Full Name",
+    "enterPhone":"Enter your phone number",
+    "phone":"Phone Number",
+    "alreadyAC":"Already have an account?"
+
+}

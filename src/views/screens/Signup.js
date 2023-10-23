@@ -16,6 +16,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useTheme } from "../customTheme/ThemeContext";
 import SettingsScreen from "../customTheme/SettingsScreen";
 import { useToast } from "react-native-toast-notifications";
+import { useTranslation } from "react-i18next";
 
 const Signup = ({ navigation }) => {
   const [inputs, setInputs] = useState({
@@ -100,6 +101,9 @@ const Signup = ({ navigation }) => {
     ? styles.darkContainer
     : styles.lightContainer;
   const textStyle = isDarkMode ? styles.darkText : styles.lightText;
+
+  const { t } = useTranslation();
+
   return (
     <SafeAreaView style={[containerStyle, { flex: 1 }]}>
       <View style={{ marginTop: 20, marginRight: 10 }}>
@@ -110,16 +114,16 @@ const Signup = ({ navigation }) => {
         contentContainerStyle={{ marginTop: 30, paddingHorizontal: 20 }}
       >
         <Text style={[textStyle, { fontSize: 40, fontWeight: "bold" }]}>
-          Register
+          {t("register")}
         </Text>
         <Text style={{ color: COLORS.grey, fontSize: 18, marginVertical: 10 }}>
-          Enter your details to Register
+          {t("registerNew")}
         </Text>
         <View style={{ marginVertical: 20 }}>
           <Input
-            placeholder="Enter your fullname"
+            placeholder={t("enterFname")}
             iconName="account-outline"
-            label="Full Name"
+            label={t("fname")}
             error={errors.fullname}
             onFocus={() => {
               handleError(null, "fullname");
@@ -127,9 +131,9 @@ const Signup = ({ navigation }) => {
             onChangeText={(text) => handleOnChange(text, "fullname")}
           />
           <Input
-            placeholder="Enter your email address"
+            placeholder={t("enterEmail")}
             iconName="email-outline"
-            label="Email"
+            label={t("email")}
             error={errors.email}
             onFocus={() => {
               handleError(null, "email");
@@ -138,9 +142,9 @@ const Signup = ({ navigation }) => {
           />
           <Input
             keyboardType="numeric"
-            placeholder="Enter your phone number"
+            placeholder={t("enterPhone")}
             iconName="phone-outline"
-            label="Phone Number"
+            label={t("phone")}
             error={errors.phone}
             onFocus={() => {
               handleError(null, "phone");
@@ -148,9 +152,9 @@ const Signup = ({ navigation }) => {
             onChangeText={(text) => handleOnChange(text, "phone")}
           />
           <Input
-            placeholder="Enter your password"
+            placeholder={t("enterPassword")}
             iconName="lock-outline"
-            label="Password"
+            label={t("password")}
             error={errors.password}
             onFocus={() => {
               handleError(null, "password");
@@ -158,7 +162,7 @@ const Signup = ({ navigation }) => {
             onChangeText={(text) => handleOnChange(text, "password")}
             password
           />
-          <Button title="Register" onPress={validate} />
+          <Button title={t("register")} onPress={validate} />
           <Text
             onPress={() => navigation.navigate("Login")}
             style={[
@@ -171,7 +175,7 @@ const Signup = ({ navigation }) => {
               },
             ]}
           >
-            Already have account ? Login
+            {`${t("alreadyAC")} ${t("login")}`}
           </Text>
         </View>
       </ScrollView>

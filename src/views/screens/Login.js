@@ -9,6 +9,7 @@ import Loader from "../components/Loader";
 import { useTheme } from "../customTheme/ThemeContext";
 import SettingsScreen from "../customTheme/SettingsScreen";
 import { useToast } from "react-native-toast-notifications";
+import { useTranslation } from "react-i18next";
 
 const Login = ({ navigation }) => {
   const [inputs, setInputs] = useState({
@@ -96,6 +97,8 @@ const Login = ({ navigation }) => {
     ? styles.darkContainer
     : styles.lightContainer;
   const textStyle = isDarkMode ? styles.darkText : styles.lightText;
+
+  const { t } = useTranslation();
   return (
     <SafeAreaView style={[containerStyle, { flex: 1 }]}>
       <View style={{ marginTop: 20, marginRight: 10 }}>
@@ -110,16 +113,16 @@ const Login = ({ navigation }) => {
         }}
       >
         <Text style={[textStyle, { fontSize: 40, fontWeight: "bold" }]}>
-          Login
+          {t("login")}
         </Text>
         <Text style={{ color: COLORS.grey, fontSize: 18, marginVertical: 10 }}>
-          Enter your details to Login
+          {t("enterLogin")}
         </Text>
         <View style={{ marginVertical: 20 }}>
           <Input
-            placeholder="Enter your email address"
+            placeholder={t("enterEmail")}
             iconName="email-outline"
-            label="Email"
+            label={t("email")}
             error={errors.email}
             onFocus={() => {
               handleError(null, "email");
@@ -128,9 +131,9 @@ const Login = ({ navigation }) => {
           />
 
           <Input
-            placeholder="Enter your password"
+            placeholder={t("enterPassword")}
             iconName="lock-outline"
-            label="Password"
+            label={t("password")}
             error={errors.password}
             onFocus={() => {
               handleError(null, "password");
@@ -138,7 +141,7 @@ const Login = ({ navigation }) => {
             onChangeText={(text) => handleOnChange(text, "password")}
             password
           />
-          <Button title="Login" onPress={validate} />
+          <Button title={t("login")} onPress={validate} />
           <Text
             onPress={() => navigation.navigate("Signup")}
             style={[
@@ -151,7 +154,7 @@ const Login = ({ navigation }) => {
               },
             ]}
           >
-            Don't have an account ? Signup
+            {`${t("noAccount")} ${t("signup")}`}
           </Text>
         </View>
       </ScrollView>

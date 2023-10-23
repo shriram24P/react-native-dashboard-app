@@ -5,6 +5,7 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { useTheme } from "../customTheme/ThemeContext";
 import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 
 const FooterMenu = () => {
   const { isDarkMode } = useTheme();
@@ -14,22 +15,24 @@ const FooterMenu = () => {
   const textStyle = isDarkMode ? styles.darkText : styles.lightText;
   const navigation = useNavigation();
 
+  const { t } = useTranslation();
+
   return (
     <View style={[containerStyle, styles.container]}>
       <TouchableOpacity onPress={() => navigation.navigate("Dashboard")}>
         <FontAwesome5 name="home" style={[textStyle, styles.iconStyle]} />
-        <Text style={textStyle}>Home</Text>
+        <Text style={textStyle}>{t("home")}</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate("Login")}>
         <MaterialIcons name="login" style={[textStyle, styles.iconStyle]} />
-        <Text style={textStyle}>Login</Text>
+        <Text style={textStyle}>{t("login")}</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
         <FontAwesome5
           name="sign-in-alt"
           style={[textStyle, styles.iconStyle]}
         />
-        <Text style={textStyle}>Signup</Text>
+        <Text style={textStyle}>{t("signup")}</Text>
       </TouchableOpacity>
     </View>
   );

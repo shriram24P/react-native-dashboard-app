@@ -9,6 +9,7 @@ import Loader from "../components/Loader";
 
 import { useTheme } from "../customTheme/ThemeContext";
 import SettingsScreen from "../customTheme/SettingsScreen";
+import { useTranslation } from "react-i18next";
 
 const Home = ({ navigation }) => {
   const [userDetails, setUserDetails] = useState();
@@ -52,6 +53,8 @@ const Home = ({ navigation }) => {
     : styles.lightContainer;
   const textStyle = isDarkMode ? styles.darkText : styles.lightText;
 
+  const { t } = useTranslation();
+
   return (
     <>
       <View style={[containerStyle]}>
@@ -72,10 +75,10 @@ const Home = ({ navigation }) => {
               },
             ]}
           >
-            Welcome {userDetails?.fullname}
+            {t("wel")} {userDetails?.fullname}
           </Text>
           <View style={{ width: "70%", marginLeft: 60 }}>
-            <Button title="Logout" onPress={logout} />
+            <Button title={t("logout")} onPress={logout} />
           </View>
         </View>
       </View>
