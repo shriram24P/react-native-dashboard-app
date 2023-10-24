@@ -58,7 +58,9 @@ const Home = ({ navigation }) => {
   return (
     <>
       <View style={[containerStyle]}>
-        <View style={{ marginTop: 20 }}>
+        <View
+          style={{ alignItems: "flex-end", marginTop: 10, marginRight: 20 }}
+        >
           <SettingsScreen />
         </View>
         <Loader visible={loading} />
