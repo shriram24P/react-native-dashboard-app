@@ -105,13 +105,11 @@ const Signup = ({ navigation }) => {
 
   return (
     <SafeAreaView style={[containerStyle, { flex: 1 }]}>
-      <View style={{ marginTop: 20, marginRight: 10 }}>
+      <View style={{ marginRight: 10 }}>
         <SettingsScreen />
       </View>
       <Loader visible={loading} />
-      <ScrollView
-        contentContainerStyle={{ marginTop: 30, paddingHorizontal: 20 }}
-      >
+      <ScrollView contentContainerStyle={{ paddingHorizontal: 20 }}>
         <Text style={[textStyle, { fontSize: 40, fontWeight: "bold" }]}>
           {t("register")}
         </Text>
@@ -187,13 +185,13 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   darkContainer: {
-    backgroundColor: "#192734",
+    backgroundColor: "#38385b",
   },
   text: {
     fontSize: 24,
   },
   lightText: {
-    color: "#192734",
+    color: "#38385b",
   },
   darkText: {
     color: "white",

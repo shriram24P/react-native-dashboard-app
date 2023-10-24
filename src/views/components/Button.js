@@ -10,7 +10,7 @@ const Button = ({ title, onPress = () => {} }) => {
       style={{
         height: 55,
         width: "100%",
-        backgroundColor: COLORS.blue,
+        backgroundColor: COLORS.darkBlue,
         justifyContent: "center",
         alignItems: "center",
       }}

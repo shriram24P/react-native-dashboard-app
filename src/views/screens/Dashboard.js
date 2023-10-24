@@ -67,28 +67,48 @@ const Dashboard = ({ navigation }) => {
           >
             {t("welcome")}
           </Text>
-          <Text
-            onPress={() => navigation.navigate("Login")}
+          <View
             style={{
-              fontSize: 18,
-              color: COLORS.darkBlue,
-              fontWeight: "bold",
-              marginBottom: 10,
+              padding: 5,
+              paddingHorizontal: 15,
+              backgroundColor: COLORS.darkBlue,
+              marginBottom: 20,
+              marginTop: 10,
+              borderRadius: 5,
             }}
           >
-            {t("login")}
-          </Text>
-          <Text
-            onPress={() => navigation.navigate("Signup")}
+            <Text
+              onPress={() => navigation.navigate("Login")}
+              style={{
+                fontSize: 18,
+                fontWeight: "bold",
+                marginBottom: 10,
+                color: "white",
+              }}
+            >
+              {t("login")}
+            </Text>
+          </View>
+          <View
             style={{
-              fontSize: 18,
-              color: COLORS.darkBlue,
-              fontWeight: "bold",
-              marginBottom: 10,
+              padding: 5,
+              paddingHorizontal: 15,
+              backgroundColor: COLORS.darkBlue,
+              borderRadius: 5,
             }}
           >
-            {t("signup")}
-          </Text>
+            <Text
+              onPress={() => navigation.navigate("Signup")}
+              style={{
+                fontSize: 18,
+                color: COLORS.white,
+                fontWeight: "bold",
+                marginBottom: 10,
+              }}
+            >
+              {t("signup")}
+            </Text>
+          </View>
         </View>
       </View>
     </>
@@ -103,13 +123,13 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   darkContainer: {
-    backgroundColor: "#192734",
+    backgroundColor: "#38385b",
   },
   text: {
     fontSize: 24,
   },
   lightText: {
-    color: "#192734",
+    color: "#38385b",
   },
   darkText: {
     color: "white",
@@ -121,14 +141,13 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 30,
+    marginTop: 10,
   },
   button: {
     backgroundColor: COLORS.darkBlue,
     padding: 10,
     borderRadius: 3,
     marginLeft: 20,
-    marginTop: 10,
   },
   buttonText: {
     color: "white",

@@ -10,11 +10,15 @@ import { ThemeProvider } from "./src/views/customTheme/ThemeContext";
 import FooterMenu from "./src/views/screens/FooterMenu";
 import Dashboard from "./src/views/screens/Dashboard";
 import { ToastProvider } from "react-native-toast-notifications";
+import COLORS from "./src/const/Colors";
+import { useTranslation } from "react-i18next";
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   const [initialRouteName, setInitialRouteName] = React.useState("");
+
+  const { t } = useTranslation();
 
   React.useEffect(() => {
     setTimeout(() => {
@@ -48,12 +52,46 @@ const App = () => {
             <>
               <Stack.Navigator
                 initialRouteName={initialRouteName}
-                screenOptions={{ headerShown: false }}
+                screenOptions={{
+                  headerStyle: {
+                    backgroundColor: COLORS.darkBlue,
+                  },
+                }}
               >
-                <Stack.Screen name="Dashboard" component={Dashboard} />
-                <Stack.Screen name="Signup" component={Signup} />
+                <Stack.Screen
+                  name="Dashboard"
+                  component={Dashboard}
+                  options={{
+                    title: t("home"),
+                    headerBackVisible: false,
+                    headerTitleStyle: {
+                      color: COLORS.white,
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="Signup"
+                  component={Signup}
+                  options={{
+                    title: t("signup"),
+                    headerBackVisible: false,
+                    headerTitleStyle: {
+                      color: COLORS.white,
+                    },
+                  }}
+                />
                 <Stack.Screen name="Home" component={Home} />
-                <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen
+                  name="Login"
+                  component={Login}
+                  options={{
+                    title: t("login"),
+                    headerBackVisible: false,
+                    headerTitleStyle: {
+                      color: COLORS.white,
+                    },
+                  }}
+                />
                 <Stack.Screen name="Footer" component={FooterMenu} />
               </Stack.Navigator>
               <FooterMenu />

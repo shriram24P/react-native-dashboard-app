@@ -55,13 +55,13 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   darkContainer: {
-    backgroundColor: "#192734",
+    backgroundColor: "#38385b",
   },
   text: {
     fontSize: 24,
   },
   lightText: {
-    color: "#192734",
+    color: "#38385b",
   },
   darkText: {
     color: "white",
