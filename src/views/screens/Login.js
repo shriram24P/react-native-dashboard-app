@@ -101,7 +101,7 @@ const Login = ({ navigation }) => {
   const { t } = useTranslation();
   return (
     <SafeAreaView style={[containerStyle, { flex: 1 }]}>
-      <View style={{ marginRight: 10 }}>
+      <View style={{ alignItems: "flex-end", marginTop: 10, marginRight: 20 }}>
         <SettingsScreen />
       </View>
       <Loader visible={loading} />

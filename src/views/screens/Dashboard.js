@@ -11,6 +11,7 @@ import allLang from "../../../services/allLang.json";
 const Dashboard = ({ navigation }) => {
   const [visible, setVisible] = useState(false);
   const { isDarkMode } = useTheme();
+
   const containerStyle = isDarkMode
     ? styles.darkContainer
     : styles.lightContainer;
@@ -84,6 +85,7 @@ const Dashboard = ({ navigation }) => {
                 fontWeight: "bold",
                 marginBottom: 10,
                 color: "white",
+                paddingTop: 7,
               }}
             >
               {t("login")}
@@ -104,6 +106,7 @@ const Dashboard = ({ navigation }) => {
                 color: COLORS.white,
                 fontWeight: "bold",
                 marginBottom: 10,
+                paddingTop: 5,
               }}
             >
               {t("signup")}
@@ -142,6 +145,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 10,
+    marginRight: 20,
   },
   button: {
     backgroundColor: COLORS.darkBlue,
@@ -154,7 +158,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   languageList: {
-    height: "50%",
+    height: "auto",
     justifyContent: "center",
     padding: 10,
     backgroundColor: COLORS.darkBlue,
