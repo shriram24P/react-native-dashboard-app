@@ -62,7 +62,7 @@ const Login = ({ navigation }) => {
             offset: 30,
             animationType: "slide-in",
           });
-          navigation.navigate("Home");
+          navigation.navigate("Profile");
         } else {
           toast.show(t("invDetails"), {
             type: "danger",

@@ -1,7 +1,6 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Home from "./src/views/screens/Home";
+
 import Login from "./src/views/screens/Login";
 import Signup from "./src/views/screens/Signup";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -12,8 +11,11 @@ import Dashboard from "./src/views/screens/Dashboard";
 import { ToastProvider } from "react-native-toast-notifications";
 import COLORS from "./src/const/Colors";
 import { useTranslation } from "react-i18next";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
-const Stack = createNativeStackNavigator();
+import Profile from "./src/views/screens/Profile";
+
+const Drawer = createDrawerNavigator();
 
 const App = () => {
   const [initialRouteName, setInitialRouteName] = React.useState("");
@@ -42,6 +44,7 @@ const App = () => {
       setInitialRouteName("Signup");
     }
   };
+
   return (
     <ThemeProvider>
       <ToastProvider>
@@ -50,15 +53,20 @@ const App = () => {
             <Loader visible={true} />
           ) : (
             <>
-              <Stack.Navigator
+              <Drawer.Navigator
                 initialRouteName={initialRouteName}
                 screenOptions={{
+                  drawerStyle: { backgroundColor: "#7978B5" },
                   headerStyle: {
                     backgroundColor: COLORS.darkBlue,
                   },
+                  headerTintColor: "#fff",
+                  drawerLabelStyle: {
+                    color: "white",
+                  },
                 }}
               >
-                <Stack.Screen
+                <Drawer.Screen
                   name="Dashboard"
                   component={Dashboard}
                   options={{
@@ -69,7 +77,7 @@ const App = () => {
                     },
                   }}
                 />
-                <Stack.Screen
+                <Drawer.Screen
                   name="Signup"
                   component={Signup}
                   options={{
@@ -80,8 +88,8 @@ const App = () => {
                     },
                   }}
                 />
-                <Stack.Screen name="Home" component={Home} />
-                <Stack.Screen
+
+                <Drawer.Screen
                   name="Login"
                   component={Login}
                   options={{
@@ -92,8 +100,14 @@ const App = () => {
                     },
                   }}
                 />
-                <Stack.Screen name="Footer" component={FooterMenu} />
-              </Stack.Navigator>
+                <Drawer.Screen
+                  name="Profile"
+                  component={Profile}
+                  options={{
+                    drawerItemStyle: { height: 0 },
+                  }}
+                />
+              </Drawer.Navigator>
               <FooterMenu />
             </>
           )}

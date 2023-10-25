@@ -11,7 +11,7 @@ import { useTheme } from "../customTheme/ThemeContext";
 import SettingsScreen from "../customTheme/SettingsScreen";
 import { useTranslation } from "react-i18next";
 
-const Home = ({ navigation }) => {
+const Profile = ({ navigation }) => {
   const [userDetails, setUserDetails] = useState();
   const [loading, setLoading] = useState(false);
 
@@ -93,17 +93,17 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   darkContainer: {
-    backgroundColor: "#192734",
+    backgroundColor: "#38385b",
   },
   text: {
     fontSize: 24,
   },
   lightText: {
-    color: "#192734",
+    color: "#38385b",
   },
   darkText: {
     color: "white",
   },
 });
 
-export default Home;
+export default Profile;
