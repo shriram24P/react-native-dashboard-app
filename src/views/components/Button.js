@@ -13,6 +13,7 @@ const Button = ({ title, onPress = () => {} }) => {
         backgroundColor: COLORS.darkBlue,
         justifyContent: "center",
         alignItems: "center",
+        marginVertical: 10,
       }}
     >
       <Text style={{ color: COLORS.white, fontWeight: "bold", fontSize: 18 }}>

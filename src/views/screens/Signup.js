@@ -104,19 +104,25 @@ const Signup = ({ navigation }) => {
   const textStyle = isDarkMode ? styles.darkText : styles.lightText;
 
   return (
-    <SafeAreaView style={[containerStyle, { flex: 1 }]}>
+    <SafeAreaView style={[containerStyle, { height: "100%" }]}>
       <View style={{ alignItems: "flex-end", marginTop: 10, marginRight: 20 }}>
         <SettingsScreen />
       </View>
       <Loader visible={loading} />
-      <ScrollView contentContainerStyle={{ paddingHorizontal: 20 }}>
+      <ScrollView
+        contentContainerStyle={{
+          paddingHorizontal: 30,
+          width: "auto",
+          height: "auto",
+        }}
+      >
         <Text style={[textStyle, { fontSize: 40, fontWeight: "bold" }]}>
           {t("register")}
         </Text>
-        <Text style={{ color: COLORS.grey, fontSize: 18, marginVertical: 10 }}>
+        <Text style={{ color: COLORS.grey, fontSize: 18 }}>
           {t("registerNew")}
         </Text>
-        <View style={{ marginVertical: 20 }}>
+        <View style={{ marginTop: 10 }}>
           <Input
             placeholder={t("enterFname")}
             iconName="account-outline"
@@ -168,7 +174,7 @@ const Signup = ({ navigation }) => {
                 textAlign: "center",
                 fontSize: 16,
                 fontWeight: "bold",
-                marginVertical: 20,
+                marginVertical: 3,
               },
             ]}
           >

@@ -149,7 +149,7 @@ const Login = ({ navigation }) => {
                 textAlign: "center",
                 fontSize: 16,
                 fontWeight: "bold",
-                marginVertical: 20,
+                marginVertical: 4,
               },
             ]}
           >
