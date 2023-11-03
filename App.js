@@ -1,24 +1,24 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ToastProvider } from "react-native-toast-notifications";
+
+import { ThemeProvider } from "./src/views/customTheme/ThemeContext";
+import COLORS from "./src/const/Colors";
+import { useTranslation } from "react-i18next";
 
 import Login from "./src/views/screens/Login";
 import Signup from "./src/views/screens/Signup";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loader from "./src/views/components/Loader";
-import { ThemeProvider } from "./src/views/customTheme/ThemeContext";
 import FooterMenu from "./src/views/screens/FooterMenu";
 import Dashboard from "./src/views/screens/Dashboard";
-import { ToastProvider } from "react-native-toast-notifications";
-import COLORS from "./src/const/Colors";
-import { useTranslation } from "react-i18next";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-
 import Profile from "./src/views/screens/Profile";
 
 const Drawer = createDrawerNavigator();
 
 const App = () => {
-  const [initialRouteName, setInitialRouteName] = React.useState("");
+  const [initialRoute, setInitialRoute] = React.useState("");
 
   const { t } = useTranslation();
 
@@ -27,21 +27,22 @@ const App = () => {
       authUser();
     }, 2000);
   }, []);
+
   const authUser = async () => {
     try {
       let userData = await AsyncStorage.getItem("user");
       if (userData) {
-        userData = JSON.parse(userData);
-        if (userData?.loggedIn) {
-          setInitialRouteName("Home");
+        const parsedUserData = JSON.parse(userData);
+        if (parsedUserData.loggedIn) {
+          setInitialRoute("Profile");
         } else {
-          setInitialRouteName("Dashboard");
+          setInitialRoute("Dashboard");
         }
       } else {
-        setInitialRouteName("Signup");
+        setInitialRoute("Signup");
       }
     } catch (error) {
-      setInitialRouteName("Signup");
+      setInitialRoute("Signup");
     }
   };
 
@@ -49,12 +50,12 @@ const App = () => {
     <ThemeProvider>
       <ToastProvider>
         <NavigationContainer>
-          {initialRouteName == "" ? (
+          {!initialRoute ? (
             <Loader visible={true} />
           ) : (
             <>
               <Drawer.Navigator
-                initialRouteName={initialRouteName}
+                initialRouteName={initialRoute}
                 screenOptions={{
                   drawerStyle: { backgroundColor: "#7978B5" },
                   headerStyle: {
@@ -69,43 +70,43 @@ const App = () => {
                 <Drawer.Screen
                   name="Dashboard"
                   component={Dashboard}
-                  options={{
+                  options={() => ({
                     title: t("home"),
                     headerBackVisible: false,
                     headerTitleStyle: {
                       color: COLORS.white,
                     },
-                  }}
+                  })}
                 />
                 <Drawer.Screen
                   name="Signup"
                   component={Signup}
-                  options={{
+                  options={() => ({
                     title: t("signup"),
                     headerBackVisible: false,
                     headerTitleStyle: {
                       color: COLORS.white,
                     },
-                  }}
+                  })}
                 />
 
                 <Drawer.Screen
                   name="Login"
                   component={Login}
-                  options={{
+                  options={() => ({
                     title: t("login"),
                     headerBackVisible: false,
                     headerTitleStyle: {
                       color: COLORS.white,
                     },
-                  }}
+                  })}
                 />
                 <Drawer.Screen
                   name="Profile"
                   component={Profile}
-                  options={{
+                  options={() => ({
                     drawerItemStyle: { height: 0 },
-                  }}
+                  })}
                 />
               </Drawer.Navigator>
               <FooterMenu />

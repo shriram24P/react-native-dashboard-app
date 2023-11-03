@@ -17,7 +17,6 @@ export const ThemeProvider = ({ children }) => {
       background: isDarkMode ? "black" : "white",
       text: isDarkMode ? "white" : "black",
     },
-    // Add more theme properties here (fonts, dimensions, etc.).
   };
 
   return (
