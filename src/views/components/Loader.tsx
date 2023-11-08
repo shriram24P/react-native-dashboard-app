@@ -6,7 +6,7 @@ import {
   View,
   useWindowDimensions,
 } from "react-native";
-import COLORS from "./../../const/Colors";
+import COLORS from "../../const/Colors";
 
 const Loader = ({ visible = true }) => {
   const { height, width } = useWindowDimensions();
@@ -16,7 +16,9 @@ const Loader = ({ visible = true }) => {
       <View style={[styles.container, { height, width }]}>
         <View style={styles.loader}>
           <ActivityIndicator size="large" color={COLORS.blue} />
-          <Text style={{ marginLeft: 30, fontSize: 16 }}>Loading...</Text>
+          <Text style={{ alignItems: "center", marginLeft: 15, fontSize: 16 }}>
+            Loading...
+          </Text>
         </View>
       </View>
     )
@@ -29,6 +31,7 @@ const styles = StyleSheet.create({
     zIndex: 10,
     backgroundColor: "rgb(0,0,0,0.5)",
     justifyContent: "center",
+    alignItems: "center",
   },
   loader: {
     height: 70,

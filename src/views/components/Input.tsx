@@ -1,18 +1,33 @@
 import { View, Text, StyleSheet, TextInput } from "react-native";
 import React, { useState } from "react";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import COLORS from "../../const/Colors";
 
-const Input = ({
+import COLORS from "../../const/Colors";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+
+interface InputProps {
+  label: string;
+  iconName: string;
+  placeholder: string;
+  error?: string;
+  password?: boolean;
+  onFocus?(): void;
+  onChangeText?(text: string): void;
+  value?: string;
+  keyboardType: string;
+  secureTextEntry?: boolean;
+}
+
+const Input: React.FC<InputProps> = ({
   label,
   iconName,
   error,
   password,
+  keyboardType,
+  secureTextEntry = false,
   onFocus = () => {},
   ...props
 }) => {
   const [isFocused, setIsFocused] = useState(false);
-  const [hidePassword, setHidePassword] = useState(password);
 
   return (
     <View style={{ marginBottom: 10 }}>
@@ -25,7 +40,7 @@ const Input = ({
               ? COLORS.red
               : isFocused
               ? COLORS.darkBlue
-              : COLORS.light,
+              : COLORS.blue,
           },
         ]}
       >
@@ -34,7 +49,7 @@ const Input = ({
           style={{ fontSize: 22, color: COLORS.darkBlue, marginRight: 10 }}
         />
         <TextInput
-          secureTextEntry={hidePassword}
+          secureTextEntry={secureTextEntry}
           autoCorrect={false}
           onFocus={() => {
             onFocus();
@@ -46,13 +61,6 @@ const Input = ({
           {...props}
           style={{ color: COLORS.darkBlue, flex: 1 }}
         />
-        {password && (
-          <Icon
-            onPress={() => setHidePassword(!hidePassword)}
-            style={{ fontSize: 22, color: COLORS.darkBlue }}
-            name={hidePassword ? "eye-outline" : "eye-off-outline"}
-          />
-        )}
       </View>
       {error && (
         <Text style={{ color: COLORS.red, fontSize: 12, marginTop: 4 }}>

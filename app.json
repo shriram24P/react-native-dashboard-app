@@ -7,7 +7,7 @@
     "icon": "./assets/bg1.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/bg1.png",
+      "image": "",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,7 +19,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/bg1.png",
+        "foregroundImage": "",
         "backgroundColor": "#ffffff"
       }
       
