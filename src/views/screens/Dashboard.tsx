@@ -37,27 +37,94 @@ const Dashboard = ({ navigation }: DashboardScreenProp) => {
     { id: "8", label: t("abtUs"), iconName: "info" },
   ];
 
-  const renderItem = ({ item }: { item: ButtonItem }) => (
-    <TouchableOpacity style={styles.button}>
-      <Icon
-        name={item.iconName}
-        size={30}
-        color="white"
-        style={{ marginRight: 10 }}
-      />
-      <Text style={styles.buttonText}>{item.label}</Text>
-    </TouchableOpacity>
-  );
   return (
     <>
       <View style={styles.container}>
-        <FlatList
-          data={buttons}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-          numColumns={2}
-          contentContainerStyle={styles.buttonContainer}
-        />
+        <ScrollView>
+          <View
+            style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
+          >
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                navigation.navigate("SearchScreen");
+              }}
+            >
+              <Icon
+                name="search"
+                size={30}
+                color="white"
+                style={{ marginRight: 10 }}
+              />
+              <Text style={styles.buttonText}>{t("search")}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={() => {}}>
+              <Icon
+                name="list"
+                size={30}
+                color="white"
+                style={{ marginRight: 10 }}
+              />
+              <Text style={styles.buttonText}>{t("vList")}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={() => {}}>
+              <Icon
+                name="file"
+                size={30}
+                color="white"
+                style={{ marginRight: 5, marginLeft: 5 }}
+              />
+              <Text style={{ fontSize: 14, color: "white" }}>
+                {t("nVoters")}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={() => {}}>
+              <Icon
+                name="group"
+                size={20}
+                color="white"
+                style={{ marginRight: 10, marginLeft: 5 }}
+              />
+              <Text style={{ fontSize: 13, color: "white" }}>{t("bMgt")}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={() => {}}>
+              <Icon
+                name="clipboard"
+                size={30}
+                color="white"
+                style={{ marginRight: 10 }}
+              />
+              <Text style={styles.buttonText}>{t("survey")}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={() => {}}>
+              <Icon
+                name="gear"
+                size={30}
+                color="white"
+                style={{ marginRight: 10 }}
+              />
+              <Text style={styles.buttonText}>{t("settings")}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={() => {}}>
+              <Icon
+                name="spinner"
+                size={30}
+                color="white"
+                style={{ marginRight: 10 }}
+              />
+              <Text style={styles.buttonText}>{t("sync")}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={() => {}}>
+              <Icon
+                name="info"
+                size={30}
+                color="white"
+                style={{ marginRight: 10 }}
+              />
+              <Text style={styles.buttonText}>{t("abtUs")}</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
         <Image
           source={require("../../../assets/vote.jpg")}
           style={styles.image}
@@ -77,7 +144,6 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: COLORS.darkBlue,
-    flex: 1,
     margin: 20,
     padding: 10,
     borderRadius: 5,
@@ -85,6 +151,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     height: 200,
+    marginLeft: 35,
+    width: 130,
   },
   buttonText: {
     color: "white",

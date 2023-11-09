@@ -6,11 +6,13 @@ import Register from "./src/views/screens/Register";
 import Loader from "./src/views/components/Loader";
 import Dashboard from "./src/views/screens/Dashboard";
 import COLORS from "./src/const/Colors";
+import SearchScreen from "./src/views/screens/search/SearchScreen";
 
 export type RootDrawerParamList = {
   Home: undefined;
   Register: undefined;
   Dashboard: undefined;
+  SearchScreen: undefined;
 };
 
 const Drawer = createDrawerNavigator<RootDrawerParamList>();
@@ -49,6 +51,7 @@ const App: React.FC = () => {
           <Drawer.Screen name="Home" component={Home} />
           <Drawer.Screen name="Register" component={Register} />
           <Drawer.Screen name="Dashboard" component={Dashboard} />
+          <Drawer.Screen name="SearchScreen" component={SearchScreen} />
         </Drawer.Navigator>
       </>
     </NavigationContainer>
