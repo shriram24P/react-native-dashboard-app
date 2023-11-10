@@ -2,26 +2,22 @@ import {
   View,
   Text,
   StyleSheet,
-  FlatList,
   TextInput,
-  Button,
   TouchableOpacity,
-  Image,
-  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import { RootDrawerParamList } from "../../../../App";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import COLORS from "../../../const/Colors";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-
 import { RadioButton } from "react-native-paper";
+import UserTable from "../../components/UserTable";
 
 interface SearchScreenProp {
   navigation: DrawerNavigationProp<RootDrawerParamList, "SearchScreen">;
 }
 
-interface UserData {
+export interface UserData {
   id: number;
   name: string;
   phone: number;
@@ -95,10 +91,6 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
       image: require("../../../../assets/vote.jpg"),
     },
   ];
-
-  const keyExtractor = (item: UserData) => item.id.toString();
-
-  //   const renderItem =
 
   const handleSearch = (text: string) => {
     const filteredResults = data.filter(
@@ -248,44 +240,17 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
           <Text style={styles.headerTopBarText}>Users</Text>
         </View>
         <View style={styles.header}>
-          <Text style={styles.heading}>Photo</Text>
+          <Text style={[styles.heading, { width: 90 }]}>Photo</Text>
           <Text style={[styles.heading, { width: 90 }]}>Name</Text>
-          <Text style={[styles.heading, { width: 100 }]}>Phone</Text>
+          <Text style={[styles.heading, { width: 110 }]}>Phone</Text>
         </View>
-        <FlatList
-          data={searchResults}
-          keyExtractor={keyExtractor}
-          renderItem={({ item }: { item: UserData }) => {
-            return (
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  padding: 5,
-                  marginLeft: 7,
-                }}
-              >
-                {typeof item.image === "number" ? (
-                  <Image
-                    source={item.image}
-                    style={{ width: 50, height: 50 }}
-                  />
-                ) : (
-                  <Image
-                    source={{ uri: item.image }}
-                    style={{ width: 50, height: 50 }}
-                  />
-                )}
-                <Text style={{ width: 90 }}>{item.name}</Text>
-                <Text style={{ width: 100 }}>{item.phone}</Text>
-              </View>
-            );
-          }}
-        />
+        <UserTable data={searchResults} />
       </View>
     </>
   );
 };
+
+// nameWiseList
 
 const styles = StyleSheet.create({
   container1: {
@@ -298,7 +263,7 @@ const styles = StyleSheet.create({
   },
   tableContainer: {
     backgroundColor: "#fff",
-    paddingHorizontal: 30,
+    paddingHorizontal: 20,
     flex: 1,
   },
   headerTopBar: {
@@ -319,7 +284,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 15,
-    marginLeft: 10,
+    marginLeft: 15,
   },
   searchBar: {
     backgroundColor: COLORS.white,
