@@ -4,174 +4,218 @@ import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { RootDrawerParamList } from "../../../../App";
 import ListButtons from "../../components/ListButtons";
 import COLORS from "../../../const/Colors";
+import { useTranslation } from "react-i18next";
 
 interface VoterListScreenProp {
   navigation: DrawerNavigationProp<RootDrawerParamList, "VoterList">;
 }
 
 const VoterList = ({ navigation }: VoterListScreenProp) => {
+  const { t } = useTranslation();
   return (
     <ScrollView>
-      <View style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          justifyContent: "space-around",
+          marginRight: 10,
+        }}
+      >
         <ListButtons
           iconName=""
-          buttonText="Namewise List"
+          buttonText={t("NamewiseList")}
           onPress={() => {
             navigation.navigate("SearchScreen");
           }}
-          buttonWidth={140}
+          buttonWidth={170}
           buttonHeight={80}
           bgColor={COLORS.purple}
         />
         <ListButtons
           iconName=""
-          buttonText="Birthdaywise List"
-          onPress={() => {}}
-          buttonWidth={140}
+          buttonText={t("bDaywise")}
+          onPress={() => {
+            navigation.navigate("BirthdayList");
+          }}
+          buttonWidth={170}
           buttonHeight={80}
           bgColor={COLORS.purple}
         />
         <ListButtons
           iconName=""
-          buttonText="Boothwise List"
-          onPress={() => {}}
-          buttonWidth={140}
+          buttonText={t("boothwise")}
+          onPress={() => {
+            navigation.navigate("BoothList");
+          }}
+          buttonWidth={170}
           buttonHeight={80}
           bgColor={COLORS.purple}
         />
         <ListButtons
           iconName=""
-          buttonText="Agewise List"
-          onPress={() => {}}
-          buttonWidth={140}
+          buttonText={t("agewise")}
+          onPress={() => {
+            navigation.navigate("SearchScreen");
+          }}
+          buttonWidth={170}
           buttonHeight={80}
           bgColor={COLORS.purple}
         />
         <ListButtons
           iconName=""
-          buttonText="Mobile No. List"
-          onPress={() => {}}
-          buttonWidth={140}
+          buttonText={t("mobilewise")}
+          onPress={() => {
+            navigation.navigate("SearchScreen");
+          }}
+          buttonWidth={170}
           buttonHeight={80}
           bgColor={COLORS.purple}
         />
         <ListButtons
           iconName=""
-          buttonText="Alphabetical List"
-          onPress={() => {}}
-          buttonWidth={140}
+          buttonText={t("alphabetical")}
+          onPress={() => {
+            navigation.navigate("SearchScreen");
+          }}
+          buttonWidth={170}
           buttonHeight={80}
           bgColor={COLORS.purple}
         />
         <ListButtons
           iconName=""
-          buttonText="Last Namewise List"
-          onPress={() => {}}
-          buttonWidth={140}
+          buttonText={t("lNamewise")}
+          onPress={() => {
+            navigation.navigate("LastNameList");
+          }}
+          buttonWidth={170}
           buttonHeight={80}
           bgColor={COLORS.purple}
         />
         <ListButtons
           iconName=""
-          buttonText="Addresswise List"
-          onPress={() => {}}
-          buttonWidth={140}
+          buttonText={t("addresswise")}
+          onPress={() => {
+            navigation.navigate("AddressList");
+          }}
+          buttonWidth={170}
           buttonHeight={80}
           bgColor={COLORS.purple}
         />
         <ListButtons
           iconName=""
-          buttonText="Duplicate Voters"
-          onPress={() => {}}
-          buttonWidth={140}
+          buttonText={t("duplicate")}
+          onPress={() => {
+            navigation.navigate("SearchScreen");
+          }}
+          buttonWidth={170}
           buttonHeight={80}
           bgColor={COLORS.purple}
         />
         <ListButtons
           iconName=""
-          buttonText="Problemwise List"
-          onPress={() => {}}
-          buttonWidth={140}
+          buttonText={t("problemwise")}
+          onPress={() => {
+            navigation.navigate("ProblemWiseList");
+          }}
+          buttonWidth={170}
           buttonHeight={80}
           bgColor={COLORS.purple}
         />
         <ListButtons
           iconName=""
-          buttonText="Castewise List"
-          onPress={() => {}}
-          buttonWidth={140}
+          buttonText={t("castewise")}
+          onPress={() => {
+            navigation.navigate("CasteList");
+          }}
+          buttonWidth={170}
           buttonHeight={80}
           bgColor={COLORS.purple}
         />
         <ListButtons
           iconName=""
-          buttonText="Favourwise List"
-          onPress={() => {}}
-          buttonWidth={140}
+          buttonText={t("favourwise")}
+          onPress={() => {
+            navigation.navigate("FavourWiseList");
+          }}
+          buttonWidth={170}
           buttonHeight={80}
           bgColor={COLORS.purple}
         />
         <ListButtons
           iconName=""
-          buttonText="Nagarwise List"
-          onPress={() => {}}
-          buttonWidth={140}
+          buttonText={t("nagarwise")}
+          onPress={() => {
+            navigation.navigate("NagarWiseList");
+          }}
+          buttonWidth={170}
           buttonHeight={80}
           bgColor={COLORS.purple}
         />
         <ListButtons
           iconName=""
-          buttonText="Societywise List"
-          onPress={() => {}}
-          buttonWidth={140}
+          buttonText={t("societywise")}
+          onPress={() => {
+            navigation.navigate("SocietyWiseList");
+          }}
+          buttonWidth={170}
           buttonHeight={80}
           bgColor={COLORS.purple}
         />
         <ListButtons
           iconName=""
-          buttonText="Postwise List"
-          onPress={() => {}}
-          buttonWidth={140}
+          buttonText={t("postwise")}
+          onPress={() => {
+            navigation.navigate("PostWiseList");
+          }}
+          buttonWidth={170}
           buttonHeight={80}
           bgColor={COLORS.purple}
         />
         <ListButtons
           iconName=""
-          buttonText="Karyakartawise List"
-          onPress={() => {}}
-          buttonWidth={140}
+          buttonText={t("karyakartawise")}
+          onPress={() => {
+            navigation.navigate("PartyWorkerList");
+          }}
+          buttonWidth={170}
           buttonHeight={80}
           bgColor={COLORS.purple}
         />
         <ListButtons
           iconName=""
-          buttonText="Service Code Wise List"
-          onPress={() => {}}
-          buttonWidth={140}
+          buttonText={t("servicecode")}
+          onPress={() => {
+            navigation.navigate("ServiceCodeList");
+          }}
+          buttonWidth={170}
           buttonHeight={80}
           bgColor={COLORS.purple}
         />
         <ListButtons
           iconName=""
-          buttonText="Beneficiary List"
+          buttonText={t("beneficiary")}
           onPress={() => {}}
-          buttonWidth={140}
+          buttonWidth={170}
           buttonHeight={80}
           bgColor={COLORS.purple}
         />
         <ListButtons
           iconName=""
-          buttonText="Migrated List"
+          buttonText={t("migrated")}
           onPress={() => {}}
-          buttonWidth={140}
+          buttonWidth={170}
           buttonHeight={80}
           bgColor={COLORS.purple}
         />
         <ListButtons
           iconName=""
-          buttonText="Dead Voter List"
-          onPress={() => {}}
-          buttonWidth={140}
+          buttonText={t("deadvoterlist")}
+          onPress={() => {
+            navigation.navigate("SearchScreen");
+          }}
+          buttonWidth={170}
           buttonHeight={80}
           bgColor={COLORS.purple}
         />

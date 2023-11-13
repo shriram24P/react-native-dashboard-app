@@ -12,6 +12,7 @@ import COLORS from "../../../const/Colors";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { RadioButton } from "react-native-paper";
 import UserTable from "../../components/UserTable";
+import { useTranslation } from "react-i18next";
 
 interface SearchScreenProp {
   navigation: DrawerNavigationProp<RootDrawerParamList, "SearchScreen">;
@@ -28,6 +29,8 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
   const [searchText, setSearchText] = useState<string>("");
   const [searchResults, setSearchResults] = useState<UserData[]>([]);
   const [checked, setChecked] = React.useState("first");
+
+  const { t } = useTranslation();
 
   const data: UserData[] = [
     {
@@ -108,7 +111,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
           <View style={[styles.searchBar, { marginLeft: 20, marginRight: 20 }]}>
             <TextInput
               style={styles.input}
-              placeholder="Full Name (Wild Search)"
+              placeholder={t("pFullName")}
               value={searchText}
               onChangeText={(text) => {
                 setSearchText(text);
@@ -125,7 +128,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
             <View style={[styles.searchBar, { width: 110, marginLeft: 20 }]}>
               <TextInput
                 style={styles.input}
-                placeholder="Last Name"
+                placeholder={t("lName")}
                 value={searchText}
                 onChangeText={(text) => {
                   setSearchText(text);
@@ -136,7 +139,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
             <View style={[styles.searchBar, { width: 90 }]}>
               <TextInput
                 style={styles.input}
-                placeholder="Name"
+                placeholder={t("name")}
                 value={searchText}
                 onChangeText={(text) => {
                   setSearchText(text);
@@ -147,7 +150,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
             <View style={[styles.searchBar, { width: 130 }]}>
               <TextInput
                 style={styles.input}
-                placeholder="Middle Name"
+                placeholder={t("pMiddleName")}
                 value={searchText}
                 onChangeText={(text) => {
                   setSearchText(text);
@@ -170,7 +173,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
             >
               <TextInput
                 style={styles.input}
-                placeholder="Card No."
+                placeholder={t("pCard")}
                 value={searchText}
                 onChangeText={(text) => {
                   setSearchText(text);
@@ -181,7 +184,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
             <View style={[styles.searchBar, { width: 180 }]}>
               <TextInput
                 style={styles.input}
-                placeholder="Booth No."
+                placeholder={t("pBooth")}
                 value={searchText}
                 onChangeText={(text) => {
                   setSearchText(text);
@@ -193,11 +196,11 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
           <View style={styles.buttonContainer1}>
             <TouchableOpacity style={styles.button}>
               <Icon name="text-search" size={15} color="white" />
-              <Text style={styles.searchBtn}>Search</Text>
+              <Text style={styles.searchBtn}>{t("search")}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button}>
               <Icon name="rotate-left" size={15} color="white" />
-              <Text style={styles.searchBtn}>Reset</Text>
+              <Text style={styles.searchBtn}>{t("reset")}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button}>
               <Icon name="file-document-outline" size={15} color="white" />
@@ -237,7 +240,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
       </View>
       <View style={styles.tableContainer}>
         <View style={styles.headerTopBar}>
-          <Text style={styles.headerTopBarText}>Users</Text>
+          <Text style={styles.headerTopBarText}>{t("users")}</Text>
         </View>
         <View style={styles.header}>
           <Text style={[styles.heading, { width: 90 }]}>Photo</Text>
@@ -265,6 +268,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     paddingHorizontal: 20,
     flex: 1,
+    marginTop: 10,
   },
   headerTopBar: {
     backgroundColor: COLORS.darkBlue,

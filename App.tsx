@@ -8,6 +8,18 @@ import Dashboard from "./src/views/screens/Dashboard";
 import COLORS from "./src/const/Colors";
 import SearchScreen from "./src/views/screens/search/SearchScreen";
 import VoterList from "./src/views/screens/VoterList/VoterList";
+import BirthdayList from "./src/views/screens/search/searchsubcomponents/BirthdayList";
+import BoothList from "./src/views/screens/search/searchsubcomponents/BoothList";
+import LastNameList from "./src/views/screens/search/searchsubcomponents/LastNameList";
+import AddressList from "./src/views/screens/search/searchsubcomponents/AddressList";
+import ProblemWiseList from "./src/views/screens/search/searchsubcomponents/ProblemWiseList";
+import CasteList from "./src/views/screens/search/searchsubcomponents/CasteList";
+import FavourWiseList from "./src/views/screens/search/searchsubcomponents/FavourWiseList";
+import NagarWiseList from "./src/views/screens/search/searchsubcomponents/NagarWiseList";
+import SocietyWiseList from "./src/views/screens/search/searchsubcomponents/SocietyWiseList";
+import PostWiseList from "./src/views/screens/search/searchsubcomponents/PostWiseList";
+import PartyWorkerList from "./src/views/screens/search/searchsubcomponents/PartyWorker";
+import ServiceCodeList from "./src/views/screens/search/searchsubcomponents/ServiceCodeList";
 
 export type RootDrawerParamList = {
   Home: undefined;
@@ -15,6 +27,18 @@ export type RootDrawerParamList = {
   Dashboard: undefined;
   SearchScreen: undefined;
   VoterList: undefined;
+  BirthdayList: undefined;
+  BoothList: undefined;
+  LastNameList: undefined;
+  AddressList: undefined;
+  ProblemWiseList: undefined;
+  CasteList: undefined;
+  FavourWiseList: undefined;
+  NagarWiseList: undefined;
+  SocietyWiseList: undefined;
+  PostWiseList: undefined;
+  PartyWorkerList: undefined;
+  ServiceCodeList: undefined;
 };
 
 const Drawer = createDrawerNavigator<RootDrawerParamList>();
@@ -55,6 +79,18 @@ const App: React.FC = () => {
           <Drawer.Screen name="Dashboard" component={Dashboard} />
           <Drawer.Screen name="SearchScreen" component={SearchScreen} />
           <Drawer.Screen name="VoterList" component={VoterList} />
+          <Drawer.Screen name="BirthdayList" component={BirthdayList} />
+          <Drawer.Screen name="BoothList" component={BoothList} />
+          <Drawer.Screen name="LastNameList" component={LastNameList} />
+          <Drawer.Screen name="AddressList" component={AddressList} />
+          <Drawer.Screen name="ProblemWiseList" component={ProblemWiseList} />
+          <Drawer.Screen name="CasteList" component={CasteList} />
+          <Drawer.Screen name="FavourWiseList" component={FavourWiseList} />
+          <Drawer.Screen name="NagarWiseList" component={NagarWiseList} />
+          <Drawer.Screen name="SocietyWiseList" component={SocietyWiseList} />
+          <Drawer.Screen name="PostWiseList" component={PostWiseList} />
+          <Drawer.Screen name="PartyWorkerList" component={PartyWorkerList} />
+          <Drawer.Screen name="ServiceCodeList" component={ServiceCodeList} />
         </Drawer.Navigator>
       </>
     </NavigationContainer>
