@@ -58,7 +58,12 @@ const Dashboard = ({ navigation }: DashboardScreenProp) => {
               />
               <Text style={styles.buttonText}>{t("search")}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={() => {}}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                navigation.navigate("VoterList");
+              }}
+            >
               <Icon
                 name="list"
                 size={30}
@@ -67,7 +72,12 @@ const Dashboard = ({ navigation }: DashboardScreenProp) => {
               />
               <Text style={styles.buttonText}>{t("vList")}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={() => {}}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                navigation.navigate("NonVoters");
+              }}
+            >
               <Icon
                 name="file"
                 size={30}
@@ -78,7 +88,12 @@ const Dashboard = ({ navigation }: DashboardScreenProp) => {
                 {t("nVoters")}
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={() => {}}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                navigation.navigate("BoothManagement");
+              }}
+            >
               <Icon
                 name="group"
                 size={20}
@@ -87,7 +102,12 @@ const Dashboard = ({ navigation }: DashboardScreenProp) => {
               />
               <Text style={{ fontSize: 13, color: "white" }}>{t("bMgt")}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={() => {}}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                navigation.navigate("SurveyScreen");
+              }}
+            >
               <Icon
                 name="clipboard"
                 size={30}
@@ -105,7 +125,12 @@ const Dashboard = ({ navigation }: DashboardScreenProp) => {
               />
               <Text style={styles.buttonText}>{t("settings")}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={() => {}}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                navigation.navigate("Sync");
+              }}
+            >
               <Icon
                 name="spinner"
                 size={30}
@@ -114,7 +139,12 @@ const Dashboard = ({ navigation }: DashboardScreenProp) => {
               />
               <Text style={styles.buttonText}>{t("sync")}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={() => {}}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                navigation.navigate("AboutUs");
+              }}
+            >
               <Icon
                 name="info"
                 size={30}
@@ -126,7 +156,7 @@ const Dashboard = ({ navigation }: DashboardScreenProp) => {
           </View>
         </ScrollView>
         <Image
-          source={require("../../../assets/vote.jpg")}
+          source={require("../../../assets/homewb.jpg")}
           style={styles.image}
         />
       </View>
@@ -159,8 +189,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   image: {
-    width: 400,
-    height: 250,
+    width: 390,
+    height: 230,
   },
 });
 export default Dashboard;

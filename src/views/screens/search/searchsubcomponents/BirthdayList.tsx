@@ -155,6 +155,8 @@ const BirthdayList = ({ navigation }: BirthdayListScreenProp) => {
                 width: "80%",
                 alignSelf: "center",
                 marginTop: 10,
+                elevation: 5,
+                borderRadius: 10,
               }}
             />
           </View>

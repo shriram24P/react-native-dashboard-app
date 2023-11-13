@@ -12,6 +12,8 @@ interface ListButtonsProps {
   bgColor?: any;
   borderRadi?: number;
   marginH?: number;
+  iconSize?: number;
+  fontsize?: number;
 }
 
 const ListButtons: React.FC<ListButtonsProps> = ({
@@ -23,6 +25,8 @@ const ListButtons: React.FC<ListButtonsProps> = ({
   bgColor = COLORS.darkBlue,
   borderRadi,
   marginH,
+  iconSize = 30,
+  fontsize = 15,
 }) => {
   return (
     <TouchableOpacity
@@ -38,8 +42,10 @@ const ListButtons: React.FC<ListButtonsProps> = ({
       ]}
       onPress={onPress}
     >
-      <Icon name={iconName} size={30} color="white" />
-      <Text style={styles.buttonText}>{buttonText}</Text>
+      <Icon name={iconName} size={iconSize} color="white" />
+      <Text style={[styles.buttonText, { fontSize: fontsize }]}>
+        {buttonText}
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -55,8 +61,9 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "white",
-    fontSize: 14,
+
     textAlign: "center",
+    padding: 10,
   },
 });
 export default ListButtons;

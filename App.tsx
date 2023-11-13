@@ -20,6 +20,14 @@ import SocietyWiseList from "./src/views/screens/search/searchsubcomponents/Soci
 import PostWiseList from "./src/views/screens/search/searchsubcomponents/PostWiseList";
 import PartyWorkerList from "./src/views/screens/search/searchsubcomponents/PartyWorker";
 import ServiceCodeList from "./src/views/screens/search/searchsubcomponents/ServiceCodeList";
+import BeneficiaryList from "./src/views/screens/search/searchsubcomponents/BeneficiaryList";
+import MigratedList from "./src/views/screens/search/searchsubcomponents/MigratedList";
+import SurveyScreen from "./src/views/screens/survey/SurveyScreen";
+import SurveyDateWiseList from "./src/views/screens/survey/SurveyDateWiseList";
+import BoothManagement from "./src/views/screens/boothmanagement/BoothManagement";
+import AboutUs from "./src/views/screens/AboutUs";
+import Sync from "./src/views/screens/Sync";
+import NonVoters from "./src/views/screens/NonVoters";
 
 export type RootDrawerParamList = {
   Home: undefined;
@@ -39,6 +47,14 @@ export type RootDrawerParamList = {
   PostWiseList: undefined;
   PartyWorkerList: undefined;
   ServiceCodeList: undefined;
+  BeneficiaryList: undefined;
+  MigratedList: undefined;
+  SurveyScreen: undefined;
+  SurveyDateWiseList: undefined;
+  BoothManagement: undefined;
+  AboutUs: undefined;
+  Sync: undefined;
+  NonVoters: undefined;
 };
 
 const Drawer = createDrawerNavigator<RootDrawerParamList>();
@@ -91,6 +107,17 @@ const App: React.FC = () => {
           <Drawer.Screen name="PostWiseList" component={PostWiseList} />
           <Drawer.Screen name="PartyWorkerList" component={PartyWorkerList} />
           <Drawer.Screen name="ServiceCodeList" component={ServiceCodeList} />
+          <Drawer.Screen name="BeneficiaryList" component={BeneficiaryList} />
+          <Drawer.Screen name="MigratedList" component={MigratedList} />
+          <Drawer.Screen name="SurveyScreen" component={SurveyScreen} />
+          <Drawer.Screen name="BoothManagement" component={BoothManagement} />
+          <Drawer.Screen name="AboutUs" component={AboutUs} />
+          <Drawer.Screen name="Sync" component={Sync} />
+          <Drawer.Screen
+            name="SurveyDateWiseList"
+            component={SurveyDateWiseList}
+          />
+          <Drawer.Screen name="NonVoters" component={NonVoters} />
         </Drawer.Navigator>
       </>
     </NavigationContainer>

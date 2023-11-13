@@ -196,7 +196,9 @@ const VoterList = ({ navigation }: VoterListScreenProp) => {
         <ListButtons
           iconName=""
           buttonText={t("beneficiary")}
-          onPress={() => {}}
+          onPress={() => {
+            navigation.navigate("BeneficiaryList");
+          }}
           buttonWidth={170}
           buttonHeight={80}
           bgColor={COLORS.purple}
@@ -204,7 +206,9 @@ const VoterList = ({ navigation }: VoterListScreenProp) => {
         <ListButtons
           iconName=""
           buttonText={t("migrated")}
-          onPress={() => {}}
+          onPress={() => {
+            navigation.navigate("MigratedList");
+          }}
           buttonWidth={170}
           buttonHeight={80}
           bgColor={COLORS.purple}
