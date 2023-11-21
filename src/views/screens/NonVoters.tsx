@@ -22,7 +22,9 @@ const NonVoters = ({ navigation }: NonVotersScreenProp) => {
       <ListButtons
         buttonText="Non Voters Entry"
         iconName=""
-        onPress={() => {}}
+        onPress={() => {
+          navigation.navigate("NonVotersEntry");
+        }}
         borderRadi={20}
         buttonWidth={200}
         buttonHeight={100}

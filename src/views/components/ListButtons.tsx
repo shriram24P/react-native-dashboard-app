@@ -42,7 +42,12 @@ const ListButtons: React.FC<ListButtonsProps> = ({
       ]}
       onPress={onPress}
     >
-      <Icon name={iconName} size={iconSize} color="white" />
+      <Icon
+        name={iconName}
+        size={iconSize}
+        color="white"
+        style={{ marginLeft: 5 }}
+      />
       <Text style={[styles.buttonText, { fontSize: fontsize }]}>
         {buttonText}
       </Text>
@@ -63,7 +68,7 @@ const styles = StyleSheet.create({
     color: "white",
 
     textAlign: "center",
-    padding: 10,
+    padding: 5,
   },
 });
 export default ListButtons;
