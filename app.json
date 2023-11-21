@@ -18,11 +18,11 @@
       "supportsTablet": true
     },
     "android": {
+      "softwareKeyboardLayoutMode": "pan",
       "adaptiveIcon": {
         "foregroundImage": "",
         "backgroundColor": "#ffffff"
-      }
-      
+      } 
     },
     "web": {
       "favicon": "./assets/favicon.png"

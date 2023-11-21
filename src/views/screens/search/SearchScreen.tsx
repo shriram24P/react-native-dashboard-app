@@ -10,6 +10,8 @@ import {
   Linking,
   ScrollView,
   ImageSourcePropType,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import React, { useState, useEffect, memo } from "react";
 import { RootDrawerParamList } from "../../../../App";
@@ -22,7 +24,7 @@ import { useTranslation } from "react-i18next";
 import ListButtons from "../../components/ListButtons";
 import * as ImagePicker from "expo-image-picker";
 import * as DocumentPicker from "expo-document-picker";
-import { Platform } from "react-native";
+
 import * as Contacts from "expo-contacts";
 import { RadioButton } from "react-native-paper";
 import * as SMS from "expo-sms";
@@ -30,6 +32,8 @@ import COLORS from "./../../../const/Colors";
 import { CheckBox } from "@rneui/themed";
 import { Dropdown } from "react-native-element-dropdown";
 import DropDownPicker from "react-native-dropdown-picker";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { SelectCountry } from "react-native-element-dropdown";
 
 interface SearchScreenProp {
   navigation: DrawerNavigationProp<RootDrawerParamList, "SearchScreen">;
@@ -53,7 +57,8 @@ interface ColorIconProps {
 interface Option {
   label: string;
   value: string;
-  imageSource: number;
+  image: any;
+  onSelect: () => void;
 }
 
 const myData = [
@@ -68,24 +73,6 @@ const myData = [
   {
     label: "abcde",
     value: "xyzwx",
-  },
-];
-
-const options: Option[] = [
-  {
-    label: "Option 1",
-    value: "option1",
-    imageSource: require("../../../../assets/call.png"),
-  },
-  {
-    label: "Option 2",
-    value: "option2",
-    imageSource: require("../../../../assets/call.png"),
-  },
-  {
-    label: "Option 3",
-    value: "option3",
-    imageSource: require("../../../../assets/call.png"),
   },
 ];
 
@@ -115,7 +102,11 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
   const [check2, setCheck2] = React.useState(false);
   const [check3, setCheck3] = React.useState(false);
 
-  const [selectedValue, setSelectedValue] = useState(options[0].value);
+  const [clicked, setClicked] = useState(false);
+
+  const [selectedData, setSelectedData] = useState("");
+
+  const [option, setOption] = useState("");
 
   const { t } = useTranslation();
 
@@ -125,27 +116,27 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
       name: "Apple",
       phone: 1234567890,
       image: require("../../../../assets/user.png"),
-      phone2: 12342,
-      phone3: 12342,
-      phone4: 12342,
+      phone2: 1234567890,
+      phone3: 1234567890,
+      phone4: 1234567890,
     },
     {
       id: 2,
       name: "Banana",
       phone: 1234567890,
       image: require("../../../../assets/user.png"),
-      phone2: 12342,
-      phone3: 12342,
-      phone4: 12342,
+      phone2: 1234567890,
+      phone3: 1234567890,
+      phone4: 1234567890,
     },
     {
       id: 3,
       name: "Cherry",
       phone: 1234567890,
       image: require("../../../../assets/user.png"),
-      phone2: 12342,
-      phone3: 12342,
-      phone4: 12342,
+      phone2: 1234567890,
+      phone3: 1234567890,
+      phone4: 1234567890,
     },
     {
       id: 4,
@@ -343,14 +334,46 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
     //   setFamilyModalVisible(false);
     // };
 
-    const handleOnPress = (value: string) => {
-      setSelectedOption(value);
-      console.log("Selected option:", value);
+    const options: Option[] = [
+      {
+        label: "sms",
+        value: "sms",
+        image: require("../../../../assets/sms.png"),
+        onSelect: () => handleOption1(),
+      },
+      {
+        label: "text",
+        value: "text",
+        image: require("../../../../assets/wp.png"),
+        onSelect: () => handleOption2(),
+      },
+      {
+        label: "img",
+        value: "image",
+        image: require("../../../../assets/wp.png"),
+        onSelect: () => handleOption3(),
+      },
+      {
+        label: "call",
+        value: "call",
+        image: require("../../../../assets/call.png"),
+        onSelect: () => handleOption4(),
+      },
+    ];
+
+    const handleOption1 = () => {
+      sendSMS();
     };
 
-    const renderItemImage = (item: Option) => (
-      <Image source={item.imageSource} />
-    );
+    const handleOption2 = () => {
+      sendWhatsAppMessage();
+    };
+    const handleOption3 = () => {
+      sendWhatsAppMessage();
+    };
+    const handleOption4 = () => {
+      makePhoneCall();
+    };
 
     return (
       <Modal visible={modalVisible} animationType="slide">
@@ -738,10 +761,10 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                       paddingVertical: 7,
                     }}
                   >
-                    <Text style={{ fontSize: 18, marginLeft: 20 }}>
+                    <Text style={{ fontSize: 14, marginLeft: 20 }}>
                       Sr.No. :
                     </Text>
-                    <Text style={{ marginRight: 50, fontSize: 18 }}>
+                    <Text style={{ marginRight: 50, fontSize: 14 }}>
                       {selectedUser.id}
                     </Text>
                   </View>
@@ -753,8 +776,8 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                       paddingVertical: 7,
                     }}
                   >
-                    <Text style={{ fontSize: 18, marginLeft: 23 }}>Name :</Text>
-                    <Text style={{ marginRight: 50, fontSize: 18 }}>
+                    <Text style={{ fontSize: 14, marginLeft: 20 }}>Name :</Text>
+                    <Text style={{ marginRight: 50, fontSize: 14 }}>
                       {selectedUser.name}
                     </Text>
                   </View>
@@ -766,8 +789,8 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                       paddingVertical: 7,
                     }}
                   >
-                    <Text style={{ fontSize: 18, marginLeft: 19 }}>Age :</Text>
-                    <Text style={{ marginRight: 50, fontSize: 18 }}>27</Text>
+                    <Text style={{ fontSize: 14, marginLeft: 19 }}>Age :</Text>
+                    <Text style={{ marginRight: 50, fontSize: 14 }}>27</Text>
                   </View>
                   <View
                     style={{
@@ -777,10 +800,10 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                       paddingVertical: 7,
                     }}
                   >
-                    <Text style={{ fontSize: 18, marginLeft: 19 }}>
+                    <Text style={{ fontSize: 14, marginLeft: 19 }}>
                       Phone :
                     </Text>
-                    <Text style={{ marginLeft: 100, fontSize: 18 }}>
+                    <Text style={{ marginLeft: 100, fontSize: 14 }}>
                       {selectedUser.phone}
                     </Text>
                     <TouchableOpacity
@@ -801,308 +824,108 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                   <View
                     style={{
                       display: "flex",
-                      justifyContent: "space-around",
                       flexDirection: "row",
+                      justifyContent: "space-between",
+                      alignItems: "center",
                       paddingVertical: 7,
                     }}
                   >
-                    <Text style={{ fontSize: 18, marginLeft: 20 }}>
+                    <Text style={{ fontSize: 14, marginLeft: 20 }}>
                       Mobile No. 2 :
                     </Text>
-                    <Text style={{ marginLeft: 90, fontSize: 18 }}>
+                    <Text style={{ fontSize: 14, marginLeft: 20 }}>
                       {selectedUser.phone2}
                     </Text>
+                    <SelectCountry
+                      style={styles.dropdown2}
+                      selectedTextStyle={styles.selectedTextStyle}
+                      placeholderStyle={styles.placeholderStyle}
+                      inputSearchStyle={styles.inputSearchStyle}
+                      iconStyle={styles.iconStyle}
+                      maxHeight={200}
+                      value={value}
+                      data={options}
+                      valueField="value"
+                      labelField="label"
+                      imageField="image"
+                      placeholder="Op"
+                      onChange={(e: Option) => {
+                        setOption(e.value);
+                        e.onSelect && e.onSelect();
+                      }}
+                    />
                   </View>
 
                   <View
                     style={{
                       display: "flex",
                       flexDirection: "row",
-                      justifyContent: "flex-end",
-                      marginRight: 20,
-                    }}
-                  >
-                    <TouchableOpacity
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        borderRadius: 10,
-                        padding: 5,
-                        margin: 3,
-                      }}
-                      onPress={sendSMS}
-                    >
-                      <Image
-                        source={require("../../../../assets/sms.png")}
-                        style={{ width: 25, height: 20 }}
-                      />
-                      <Text style={{ fontSize: 10 }}>sms</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        borderRadius: 10,
-                        padding: 5,
-                        margin: 3,
-                      }}
-                      onPress={sendWhatsAppMessage}
-                    >
-                      <Image
-                        source={require("../../../../assets/wp.png")}
-                        style={{ width: 25, height: 20 }}
-                      />
-                      <Text style={{ fontSize: 10 }}>text</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        borderRadius: 10,
-                        padding: 5,
-                        margin: 3,
-                      }}
-                      onPress={sendWhatsAppMessage}
-                    >
-                      <Image
-                        source={require("../../../../assets/wp.png")}
-                        style={{ width: 25, height: 20 }}
-                      />
-                      <Text style={{ fontSize: 10 }}>image</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        borderRadius: 10,
-                        padding: 5,
-                        margin: 3,
-                      }}
-                      onPress={makePhoneCall}
-                    >
-                      <Image
-                        source={require("../../../../assets/call.png")}
-                        style={{ width: 25, height: 20 }}
-                      />
-                      <Text style={{ fontSize: 10 }}>call</Text>
-                    </TouchableOpacity>
-                  </View>
-                  <View
-                    style={{
-                      display: "flex",
                       justifyContent: "space-between",
-                      flexDirection: "row",
+                      alignItems: "center",
                       paddingVertical: 7,
                     }}
                   >
-                    <Text style={{ fontSize: 18, marginLeft: 20 }}>
+                    <Text style={{ fontSize: 14, marginLeft: 20 }}>
                       Mobile No. 3 :
                     </Text>
-                    <Text style={{ marginLeft: 90, fontSize: 18 }}>
+                    <Text style={{ fontSize: 14, marginLeft: 20 }}>
                       {selectedUser.phone2}
                     </Text>
-                    <TouchableOpacity
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        marginRight: 30,
+                    <SelectCountry
+                      style={styles.dropdown2}
+                      selectedTextStyle={styles.selectedTextStyle}
+                      placeholderStyle={styles.placeholderStyle}
+                      inputSearchStyle={styles.inputSearchStyle}
+                      iconStyle={styles.iconStyle}
+                      maxHeight={200}
+                      value={value}
+                      data={options}
+                      valueField="value"
+                      labelField="label"
+                      imageField="image"
+                      placeholder="Op"
+                      onChange={(e: Option) => {
+                        setOption(e.value);
+                        e.onSelect && e.onSelect();
                       }}
-                      onPress={makePhoneCall}
-                    >
-                      <Image
-                        source={require("../../../../assets/contact.png")}
-                        style={{ width: 25, height: 20 }}
-                      />
-                    </TouchableOpacity>
+                    />
                   </View>
+
                   <View
                     style={{
                       display: "flex",
                       flexDirection: "row",
-                      justifyContent: "flex-end",
-                      marginRight: 20,
-                    }}
-                  >
-                    <TouchableOpacity
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        borderRadius: 10,
-                        padding: 5,
-                        margin: 3,
-                      }}
-                      onPress={sendSMS}
-                    >
-                      <Image
-                        source={require("../../../../assets/sms.png")}
-                        style={{ width: 25, height: 20 }}
-                      />
-                      <Text style={{ fontSize: 10 }}>sms</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        borderRadius: 10,
-                        padding: 5,
-                        margin: 3,
-                      }}
-                      onPress={sendWhatsAppMessage}
-                    >
-                      <Image
-                        source={require("../../../../assets/wp.png")}
-                        style={{ width: 25, height: 20 }}
-                      />
-                      <Text style={{ fontSize: 10 }}>text</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        borderRadius: 10,
-                        padding: 5,
-                        margin: 3,
-                      }}
-                      onPress={sendWhatsAppMessage}
-                    >
-                      <Image
-                        source={require("../../../../assets/wp.png")}
-                        style={{ width: 25, height: 20 }}
-                      />
-                      <Text style={{ fontSize: 10 }}>image</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        borderRadius: 10,
-                        padding: 5,
-                        margin: 3,
-                      }}
-                      onPress={makePhoneCall}
-                    >
-                      <Image
-                        source={require("../../../../assets/call.png")}
-                        style={{ width: 25, height: 20 }}
-                      />
-                      <Text style={{ fontSize: 10 }}>call</Text>
-                    </TouchableOpacity>
-                  </View>
-                  <View
-                    style={{
-                      display: "flex",
                       justifyContent: "space-between",
-                      flexDirection: "row",
+                      alignItems: "center",
                       paddingVertical: 7,
                     }}
                   >
-                    <Text style={{ fontSize: 18, marginLeft: 20 }}>
+                    <Text style={{ fontSize: 14, marginLeft: 20 }}>
                       Mobile No. 4 :
                     </Text>
-                    <Text style={{ marginLeft: 90, fontSize: 18 }}>
+                    <Text style={{ fontSize: 14, marginLeft: 20 }}>
                       {selectedUser.phone2}
                     </Text>
-                    <TouchableOpacity
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        marginRight: 30,
+                    <SelectCountry
+                      style={styles.dropdown2}
+                      selectedTextStyle={styles.selectedTextStyle}
+                      placeholderStyle={styles.placeholderStyle}
+                      inputSearchStyle={styles.inputSearchStyle}
+                      iconStyle={styles.iconStyle}
+                      maxHeight={200}
+                      value={value}
+                      data={options}
+                      valueField="value"
+                      labelField="label"
+                      imageField="image"
+                      placeholder="Op"
+                      onChange={(e: Option) => {
+                        setOption(e.value);
+                        e.onSelect && e.onSelect();
                       }}
-                      onPress={makePhoneCall}
-                    >
-                      <Image
-                        source={require("../../../../assets/contact.png")}
-                        style={{ width: 25, height: 20 }}
-                      />
-                    </TouchableOpacity>
+                    />
                   </View>
-                  {/* <View
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      justifyContent: "flex-end",
-                      marginRight: 20,
-                    }}
-                  >
-                    <TouchableOpacity
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        borderRadius: 10,
-                        padding: 5,
-                        margin: 3,
-                      }}
-                      onPress={sendSMS}
-                    >
-                      <Image
-                        source={require("../../../../assets/sms.png")}
-                        style={{ width: 25, height: 20 }}
-                      />
-                      <Text style={{ fontSize: 10 }}>sms</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        borderRadius: 10,
-                        padding: 5,
-                        margin: 3,
-                      }}
-                      onPress={sendWhatsAppMessage}
-                    >
-                      <Image
-                        source={require("../../../../assets/wp.png")}
-                        style={{ width: 25, height: 20 }}
-                      />
-                      <Text style={{ fontSize: 10 }}>text</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        borderRadius: 10,
-                        padding: 5,
-                        margin: 3,
-                      }}
-                      onPress={sendWhatsAppMessage}
-                    >
-                      <Image
-                        source={require("../../../../assets/wp.png")}
-                        style={{ width: 25, height: 20 }}
-                      />
-                      <Text style={{ fontSize: 10 }}>image</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        borderRadius: 10,
-                        padding: 5,
-                        margin: 3,
-                      }}
-                      onPress={makePhoneCall}
-                    >
-                      <Image
-                        source={require("../../../../assets/call.png")}
-                        style={{ width: 25, height: 20 }}
-                      />
-                      <Text style={{ fontSize: 10 }}>call</Text>
-                    </TouchableOpacity>
-                  </View> */}
+
                   <View
                     style={{
                       display: "flex",
@@ -1111,10 +934,10 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                       paddingVertical: 7,
                     }}
                   >
-                    <Text style={{ fontSize: 18, marginLeft: 20 }}>
+                    <Text style={{ fontSize: 14, marginLeft: 20 }}>
                       Booth No. :
                     </Text>
-                    <Text style={{ marginRight: 50, fontSize: 18 }}>
+                    <Text style={{ marginRight: 50, fontSize: 14 }}>
                       1/ Laxmi Chowk
                     </Text>
                   </View>
@@ -1126,10 +949,10 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                       paddingVertical: 7,
                     }}
                   >
-                    <Text style={{ fontSize: 18, marginLeft: 20 }}>
+                    <Text style={{ fontSize: 14, marginLeft: 20 }}>
                       House No. :
                     </Text>
-                    <Text style={{ marginRight: 50, fontSize: 18 }}>
+                    <Text style={{ marginRight: 50, fontSize: 14 }}>
                       1/ Laxmi Chowk
                     </Text>
                   </View>
@@ -1141,10 +964,10 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                       paddingVertical: 7,
                     }}
                   >
-                    <Text style={{ fontSize: 18, marginLeft: 20 }}>
+                    <Text style={{ fontSize: 14, marginLeft: 20 }}>
                       Address :
                     </Text>
-                    <Text style={{ marginRight: 50, fontSize: 18 }}>
+                    <Text style={{ marginRight: 50, fontSize: 14 }}>
                       1/ Laxmi Chowk
                     </Text>
                   </View>
@@ -1158,7 +981,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     }}
                   >
                     <Text
-                      style={{ marginLeft: 20, marginRight: 10, fontSize: 18 }}
+                      style={{ marginLeft: 20, marginRight: 10, fontSize: 14 }}
                     >
                       Vibhag :
                     </Text>
@@ -1185,7 +1008,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     }}
                   >
                     <Text
-                      style={{ marginLeft: 20, marginRight: 10, fontSize: 18 }}
+                      style={{ marginLeft: 20, marginRight: 10, fontSize: 14 }}
                     >
                       House No. :
                     </Text>
@@ -1212,7 +1035,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     }}
                   >
                     <Text
-                      style={{ marginLeft: 20, marginRight: 10, fontSize: 18 }}
+                      style={{ marginLeft: 20, marginRight: 10, fontSize: 14 }}
                     >
                       Society :
                     </Text>
@@ -1239,7 +1062,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     }}
                   >
                     <Text
-                      style={{ marginLeft: 20, marginRight: 10, fontSize: 18 }}
+                      style={{ marginLeft: 20, marginRight: 10, fontSize: 14 }}
                     >
                       Post :
                     </Text>
@@ -1266,7 +1089,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     }}
                   >
                     <Text
-                      style={{ marginLeft: 20, marginRight: 10, fontSize: 18 }}
+                      style={{ marginLeft: 20, marginRight: 10, fontSize: 14 }}
                     >
                       Caste :
                     </Text>
@@ -1293,7 +1116,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     }}
                   >
                     <Text
-                      style={{ marginLeft: 20, marginRight: 10, fontSize: 18 }}
+                      style={{ marginLeft: 20, marginRight: 10, fontSize: 14 }}
                     >
                       Party Worker :
                     </Text>
@@ -1320,7 +1143,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     }}
                   >
                     <Text
-                      style={{ marginLeft: 20, marginRight: 10, fontSize: 15 }}
+                      style={{ marginLeft: 20, marginRight: 10, fontSize: 14 }}
                     >
                       PartyWorker Mobile :
                     </Text>
@@ -1381,7 +1204,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     }}
                   >
                     <Text
-                      style={{ marginLeft: 20, marginRight: 10, fontSize: 18 }}
+                      style={{ marginLeft: 20, marginRight: 10, fontSize: 14 }}
                     >
                       Location :
                     </Text>
@@ -1408,7 +1231,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     }}
                   >
                     <Text
-                      style={{ marginLeft: 20, marginRight: 10, fontSize: 18 }}
+                      style={{ marginLeft: 20, marginRight: 10, fontSize: 14 }}
                     >
                       Location Address :
                     </Text>
@@ -1841,7 +1664,11 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     }}
                   >
                     <Text
-                      style={{ marginLeft: 20, marginRight: 10, fontSize: 18 }}
+                      style={{
+                        marginLeft: 20,
+                        marginRight: 10,
+                        fontSize: 18,
+                      }}
                     >
                       Migrated to :
                     </Text>
@@ -2266,6 +2093,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
           </View>
         </View>
       </View>
+
       <View style={styles.tableContainer}>
         <View style={styles.headerTopBar}>
           <Text style={styles.headerTopBarText}>{t("users")}</Text>
@@ -2275,6 +2103,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
           <Text style={[styles.heading, { width: 90 }]}>Name</Text>
           <Text style={[styles.heading, { width: 110 }]}>Phone</Text>
         </View>
+
         <UserTable data={searchResults} onEdit={handleEditUser} />
         <EditUserModal />
       </View>
@@ -2297,7 +2126,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     paddingHorizontal: 20,
     flex: 1,
-    marginTop: 10,
+    marginTop: 20,
   },
   headerTopBar: {
     backgroundColor: COLORS.darkBlue,
@@ -2378,8 +2207,16 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderRadius: 5,
     paddingHorizontal: 8,
-    width: "50%",
-    marginLeft: 35,
+    width: 100,
+  },
+  dropdown2: {
+    height: 30,
+    borderColor: "gray",
+    borderWidth: 0.5,
+    borderRadius: 5,
+    paddingHorizontal: 5,
+    width: "18%",
+    marginRight: 25,
   },
   icon: {
     marginRight: 5,
@@ -2395,6 +2232,14 @@ const styles = StyleSheet.create({
   inputSearchStyle: {
     height: 30,
     fontSize: 14,
+  },
+  imageStyle: {
+    width: 24,
+    height: 24,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
   },
 });
 

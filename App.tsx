@@ -29,7 +29,6 @@ import AboutUs from "./src/views/screens/AboutUs";
 import Sync from "./src/views/screens/Sync";
 import NonVoters from "./src/views/screens/NonVoters";
 import NonVotersEntry from "./src/views/screens/NonVoters/NonVotersEntry";
-import FamilyScreen from "./src/views/screens/search/FamilyScreen";
 
 export type RootDrawerParamList = {
   Home: undefined;
@@ -58,7 +57,6 @@ export type RootDrawerParamList = {
   Sync: undefined;
   NonVoters: undefined;
   NonVotersEntry: undefined;
-  FamilyScreen: undefined;
 };
 
 const Drawer = createDrawerNavigator<RootDrawerParamList>();
@@ -123,7 +121,6 @@ const App: React.FC = () => {
           />
           <Drawer.Screen name="NonVoters" component={NonVoters} />
           <Drawer.Screen name="NonVotersEntry" component={NonVotersEntry} />
-          <Drawer.Screen name="FamilyScreen" component={FamilyScreen} />
         </Drawer.Navigator>
       </>
     </NavigationContainer>

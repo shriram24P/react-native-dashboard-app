@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
+    "@expo/webpack-config": "^19.0.0",
     "@react-native-async-storage/async-storage": "^1.18.2",
     "@react-native-picker/picker": "2.4.10",
     "@react-navigation/bottom-tabs": "^6.5.11",
@@ -44,6 +45,7 @@
     "react-native-dropdown-picker": "^5.4.6",
     "react-native-element-dropdown": "^2.10.0",
     "react-native-gesture-handler": "~2.12.0",
+    "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-modal": "^13.0.1",
     "react-native-paper": "^5.11.0",
     "react-native-picker-select": "^9.0.0",
@@ -58,10 +60,9 @@
     "react-native-toast-message": "^2.1.6",
     "react-native-toast-notifications": "^3.4.0",
     "react-native-vector-icons": "^10.0.1",
-    "react-navigation": "^5.0.0",
-    "react-toggle-dark-mode": "^1.1.1",
     "react-native-web": "~0.19.6",
-    "@expo/webpack-config": "^19.0.0"
+    "react-navigation": "^5.0.0",
+    "react-toggle-dark-mode": "^1.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
