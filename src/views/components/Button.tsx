@@ -18,6 +18,16 @@ const Button: React.FC<ButtonProps> = ({ title, onPress = () => {} }) => {
         justifyContent: "center",
         alignItems: "center",
         marginVertical: 10,
+        borderRadius: 10,
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 4,
+        },
+        shadowOpacity: 0.46,
+        shadowRadius: 8.14,
+
+        elevation: 7,
       }}
     >
       <Text style={{ color: COLORS.white, fontWeight: "bold", fontSize: 18 }}>

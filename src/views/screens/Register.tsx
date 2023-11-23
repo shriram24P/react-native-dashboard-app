@@ -1,4 +1,11 @@
-import { View, Text, ScrollView, Keyboard, Alert } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  Keyboard,
+  Alert,
+  StyleSheet,
+} from "react-native";
 import React, { useState } from "react";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { RootDrawerParamList } from "../../../App";
@@ -7,6 +14,7 @@ import COLORS from "../../const/Colors";
 import Button from "../components/Button";
 import Input from "../components/Input";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "../../customTheme/ThemeContext";
 
 interface RegisterScreenProp {
   navigation: DrawerNavigationProp<RootDrawerParamList, "Register">;
@@ -73,9 +81,15 @@ const Register = ({ navigation }: RegisterScreenProp) => {
     setErrors((prevState) => ({ ...prevState, [input]: errorMessage }));
   };
 
+  const { isDarkMode } = useTheme();
+  const containerStyle = isDarkMode
+    ? styles.darkContainer
+    : styles.lightContainer;
+  const textStyle = isDarkMode ? styles.darkText : styles.lightText;
+
   const { t } = useTranslation();
   return (
-    <SafeAreaView style={{ height: "100%" }}>
+    <SafeAreaView style={[containerStyle, { height: "100%" }]}>
       <ScrollView
         contentContainerStyle={{
           paddingHorizontal: 30,
@@ -84,12 +98,15 @@ const Register = ({ navigation }: RegisterScreenProp) => {
         }}
       >
         <Text
-          style={{
-            fontSize: 40,
-            fontWeight: "bold",
-            marginBottom: 10,
-            marginTop: 30,
-          }}
+          style={[
+            textStyle,
+            {
+              fontSize: 40,
+              fontWeight: "bold",
+              marginBottom: 10,
+              marginTop: 30,
+            },
+          ]}
         >
           {t("register")}
         </Text>
@@ -142,12 +159,31 @@ const Register = ({ navigation }: RegisterScreenProp) => {
             }}
             onChangeText={(text) => handleOnChange(text, "password")}
           />
-
-          <Button title={t("activate")} onPress={validate} />
+          <View style={{ marginTop: 20 }}>
+            <Button title={t("activate")} onPress={validate} />
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  lightContainer: {
+    backgroundColor: "white",
+  },
+  darkContainer: {
+    backgroundColor: "#14213d",
+  },
+  text: {
+    fontSize: 24,
+  },
+  lightText: {
+    color: "#38385b",
+  },
+  darkText: {
+    color: "white",
+  },
+});
 
 export default Register;

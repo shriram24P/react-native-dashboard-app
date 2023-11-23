@@ -29,6 +29,9 @@ import AboutUs from "./src/views/screens/AboutUs";
 import Sync from "./src/views/screens/Sync";
 import NonVoters from "./src/views/screens/NonVoters";
 import NonVotersEntry from "./src/views/screens/NonVoters/NonVotersEntry";
+import CustomDrawer from "./src/views/components/CustomDrawer";
+import { ThemeProvider, useTheme } from "./src/customTheme/ThemeContext";
+import { StyleSheet } from "react-native";
 
 export type RootDrawerParamList = {
   Home: undefined;
@@ -77,62 +80,207 @@ const App: React.FC = () => {
   // });
 
   return (
-    <NavigationContainer>
-      <>
-        <Drawer.Navigator
-          initialRouteName={"Home"}
-          screenOptions={{
-            drawerStyle: { backgroundColor: COLORS.darkBlue },
-            headerStyle: {
-              backgroundColor: COLORS.darkBlue,
-            },
-            headerTintColor: "#fff",
-            drawerLabelStyle: {
-              color: "white",
-            },
-          }}
-        >
-          <Drawer.Screen name="Home" component={Home} />
-          <Drawer.Screen name="Register" component={Register} />
-          <Drawer.Screen name="Dashboard" component={Dashboard} />
-          <Drawer.Screen name="SearchScreen" component={SearchScreen} />
-          <Drawer.Screen name="VoterList" component={VoterList} />
-          <Drawer.Screen name="BirthdayList" component={BirthdayList} />
-          <Drawer.Screen name="BoothList" component={BoothList} />
-          <Drawer.Screen name="LastNameList" component={LastNameList} />
-          <Drawer.Screen name="AddressList" component={AddressList} />
-          <Drawer.Screen name="ProblemWiseList" component={ProblemWiseList} />
-          <Drawer.Screen name="CasteList" component={CasteList} />
-          <Drawer.Screen name="FavourWiseList" component={FavourWiseList} />
-          <Drawer.Screen name="NagarWiseList" component={NagarWiseList} />
-          <Drawer.Screen name="SocietyWiseList" component={SocietyWiseList} />
-          <Drawer.Screen name="PostWiseList" component={PostWiseList} />
-          <Drawer.Screen name="PartyWorkerList" component={PartyWorkerList} />
-          <Drawer.Screen name="ServiceCodeList" component={ServiceCodeList} />
-          <Drawer.Screen name="BeneficiaryList" component={BeneficiaryList} />
-          <Drawer.Screen name="MigratedList" component={MigratedList} />
-          <Drawer.Screen name="SurveyScreen" component={SurveyScreen} />
-          <Drawer.Screen name="BoothManagement" component={BoothManagement} />
-          <Drawer.Screen name="AboutUs" component={AboutUs} />
-          <Drawer.Screen name="Sync" component={Sync} />
-          <Drawer.Screen
-            name="SurveyDateWiseList"
-            component={SurveyDateWiseList}
-          />
-          <Drawer.Screen name="NonVoters" component={NonVoters} />
-          <Drawer.Screen name="NonVotersEntry" component={NonVotersEntry} />
-        </Drawer.Navigator>
-      </>
-    </NavigationContainer>
+    <ThemeProvider>
+      <NavigationContainer>
+        <>
+          <Drawer.Navigator
+            initialRouteName={"Home"}
+            screenOptions={{
+              drawerStyle: { backgroundColor: "#0095b2" },
+              headerStyle: {
+                backgroundColor: "#0095b2",
+              },
+              headerTintColor: "#fff",
+              drawerLabelStyle: {
+                color: "white",
+              },
+            }}
+            drawerContent={(props) => <CustomDrawer {...props} />}
+          >
+            <Drawer.Screen name="Home" component={Home} />
+            <Drawer.Screen name="Register" component={Register} />
+            <Drawer.Screen name="Dashboard" component={Dashboard} />
+            <Drawer.Screen name="AboutUs" component={AboutUs} />
+            <Drawer.Screen
+              name="SearchScreen"
+              component={SearchScreen}
+              options={() => ({
+                drawerItemStyle: { height: 0 },
+              })}
+            />
+            <Drawer.Screen
+              name="VoterList"
+              component={VoterList}
+              options={() => ({
+                drawerItemStyle: { height: 0 },
+              })}
+            />
+            <Drawer.Screen
+              name="BirthdayList"
+              component={BirthdayList}
+              options={() => ({
+                drawerItemStyle: { height: 0 },
+              })}
+            />
+            <Drawer.Screen
+              name="BoothList"
+              component={BoothList}
+              options={() => ({
+                drawerItemStyle: { height: 0 },
+              })}
+            />
+            <Drawer.Screen
+              name="LastNameList"
+              component={LastNameList}
+              options={() => ({
+                drawerItemStyle: { height: 0 },
+              })}
+            />
+            <Drawer.Screen
+              name="AddressList"
+              component={AddressList}
+              options={() => ({
+                drawerItemStyle: { height: 0 },
+              })}
+            />
+            <Drawer.Screen
+              name="ProblemWiseList"
+              component={ProblemWiseList}
+              options={() => ({
+                drawerItemStyle: { height: 0 },
+              })}
+            />
+            <Drawer.Screen
+              name="CasteList"
+              component={CasteList}
+              options={() => ({
+                drawerItemStyle: { height: 0 },
+              })}
+            />
+            <Drawer.Screen
+              name="FavourWiseList"
+              component={FavourWiseList}
+              options={() => ({
+                drawerItemStyle: { height: 0 },
+              })}
+            />
+            <Drawer.Screen
+              name="NagarWiseList"
+              component={NagarWiseList}
+              options={() => ({
+                drawerItemStyle: { height: 0 },
+              })}
+            />
+            <Drawer.Screen
+              name="SocietyWiseList"
+              component={SocietyWiseList}
+              options={() => ({
+                drawerItemStyle: { height: 0 },
+              })}
+            />
+            <Drawer.Screen
+              name="PostWiseList"
+              component={PostWiseList}
+              options={() => ({
+                drawerItemStyle: { height: 0 },
+              })}
+            />
+            <Drawer.Screen
+              name="PartyWorkerList"
+              component={PartyWorkerList}
+              options={() => ({
+                drawerItemStyle: { height: 0 },
+              })}
+            />
+            <Drawer.Screen
+              name="ServiceCodeList"
+              component={ServiceCodeList}
+              options={() => ({
+                drawerItemStyle: { height: 0 },
+              })}
+            />
+            <Drawer.Screen
+              name="BeneficiaryList"
+              component={BeneficiaryList}
+              options={() => ({
+                drawerItemStyle: { height: 0 },
+              })}
+            />
+            <Drawer.Screen
+              name="MigratedList"
+              component={MigratedList}
+              options={() => ({
+                drawerItemStyle: { height: 0 },
+              })}
+            />
+            <Drawer.Screen
+              name="SurveyScreen"
+              component={SurveyScreen}
+              options={() => ({
+                drawerItemStyle: { height: 0 },
+              })}
+            />
+            <Drawer.Screen
+              name="BoothManagement"
+              component={BoothManagement}
+              options={() => ({
+                drawerItemStyle: { height: 0 },
+              })}
+            />
+
+            <Drawer.Screen
+              name="Sync"
+              component={Sync}
+              options={() => ({
+                drawerItemStyle: { height: 0 },
+              })}
+            />
+            <Drawer.Screen
+              name="SurveyDateWiseList"
+              component={SurveyDateWiseList}
+              options={() => ({
+                drawerItemStyle: { height: 0 },
+              })}
+            />
+            <Drawer.Screen
+              name="NonVoters"
+              component={NonVoters}
+              options={() => ({
+                drawerItemStyle: { height: 0 },
+              })}
+            />
+            <Drawer.Screen
+              name="NonVotersEntry"
+              component={NonVotersEntry}
+              options={() => ({
+                drawerItemStyle: { height: 0 },
+              })}
+            />
+          </Drawer.Navigator>
+        </>
+      </NavigationContainer>
+    </ThemeProvider>
   );
 };
 
+const styles = StyleSheet.create({
+  lightContainer: {
+    backgroundColor: "white",
+  },
+  darkContainer: {
+    backgroundColor: "#1d3557",
+  },
+  text: {
+    fontSize: 24,
+  },
+  lightText: {
+    color: "#38385b",
+  },
+  darkText: {
+    color: "white",
+  },
+  footer: {
+    margin: 10,
+  },
+});
 export default App;
-
-// options={() => ({
-//   title: t("home"),
-//   headerBackVisible: false,
-//   headerTitleStyle: {
-//     color: COLORS.white,
-//   },
-// })}

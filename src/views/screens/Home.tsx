@@ -1,75 +1,98 @@
-import { View, Text, StyleSheet, TouchableOpacity, Button } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Button,
+  Image,
+  Switch,
+} from "react-native";
 import React from "react";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { RootDrawerParamList } from "../../../App";
 import * as Animatable from "react-native-animatable";
-import { initReactI18next, useTranslation } from "react-i18next";
-import i18next from "i18next";
-import { languageResources } from "../../../services/i18next";
+
 import COLORS from "./../../const/Colors";
+import { useTranslation } from "react-i18next";
+import { useTheme } from "../../customTheme/ThemeContext";
 
 interface HomeScreenProp {
   navigation: DrawerNavigationProp<RootDrawerParamList, "Home">;
 }
 
-i18next.use(initReactI18next).init({
-  compatibilityJSON: "v3",
-  lng: "en",
-  fallbackLng: "eng",
-  resources: languageResources,
-});
-
-const languages = Object.keys(languageResources);
-
 const Home = ({ navigation }: HomeScreenProp) => {
   const { t } = useTranslation();
-  const changeLng = () => {
-    const handleLanguage = i18next.language === "en" ? "ma" : "en";
-    i18next.changeLanguage(handleLanguage);
-  };
-
+  const { isDarkMode } = useTheme();
+  const containerStyle = isDarkMode
+    ? styles.darkContainer
+    : styles.lightContainer;
+  const textStyle = isDarkMode ? styles.darkText : styles.lightText;
   return (
     <>
-      <View style={{ marginTop: 10, padding: 10, width: 150 }}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={(): void => changeLng()} // Add a type annotation here
-        >
-          <Text style={styles.buttonText}>{t("lng")}</Text>
-        </TouchableOpacity>
-      </View>
-      <View
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: 200,
-        }}
-      >
-        <Text
+      <View style={[containerStyle, { height: "100%" }]}>
+        <View
           style={{
-            fontSize: 20,
-            padding: 10,
-            marginBottom: 30,
-            fontWeight: "900",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: 50,
           }}
         >
-          {t("welcome")}
-        </Text>
-        <Animatable.Text
-          animation="pulse"
-          easing="ease-out-sine"
-          iterationCount="infinite"
-          style={{
-            textAlign: "center",
-            fontSize: 15,
-            color: "#A51C30",
-            fontWeight: "800",
-          }}
-          onPress={() => navigation.navigate("Register")}
-        >
-          {t("tapRegi")}
-        </Animatable.Text>
+          <View
+            style={[
+              containerStyle,
+              {
+                width: "100%",
+                height: 300,
+                borderRadius: 10,
+              },
+            ]}
+          >
+            <Image
+              source={require("../../../assets/abt.png")}
+              style={{
+                width: 200,
+                height: 200,
+                alignSelf: "center",
+                marginTop: 40,
+              }}
+            />
+          </View>
+          <Text
+            style={[
+              textStyle,
+              {
+                fontSize: 20,
+                padding: 10,
+                marginBottom: 30,
+                fontWeight: "900",
+                marginTop: 200,
+              },
+            ]}
+          >
+            {t("welcome")}
+          </Text>
+          <Animatable.Text
+            animation="pulse"
+            easing="ease-out-sine"
+            iterationCount="infinite"
+            style={{
+              textAlign: "center",
+              fontSize: 15,
+              color: "white",
+              fontWeight: "800",
+              marginTop: 50,
+              padding: 10,
+              backgroundColor: COLORS.darkBlue,
+              borderRadius: 10,
+              width: "50%",
+            }}
+            onPress={() => navigation.navigate("Register")}
+          >
+            {t("tapRegi")}
+          </Animatable.Text>
+        </View>
       </View>
     </>
   );
@@ -87,6 +110,24 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     marginLeft: 7,
+  },
+  lightContainer: {
+    backgroundColor: "white",
+  },
+  darkContainer: {
+    backgroundColor: "#14213d",
+  },
+  text: {
+    fontSize: 24,
+  },
+  lightText: {
+    color: "#38385b",
+  },
+  darkText: {
+    color: "white",
+  },
+  footer: {
+    margin: 10,
   },
 });
 

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 
 import COLORS from "../../const/Colors";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { useTheme } from "../../customTheme/ThemeContext";
 
 interface InputProps {
   label: string;
@@ -15,6 +16,7 @@ interface InputProps {
   value?: string;
   keyboardType: string;
   secureTextEntry?: boolean;
+  placeholderTextColor?: string;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -25,16 +27,24 @@ const Input: React.FC<InputProps> = ({
   keyboardType,
   secureTextEntry = false,
   onFocus = () => {},
+  placeholderTextColor,
   ...props
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
+  const { isDarkMode } = useTheme();
+  const containerStyle = isDarkMode
+    ? styles.darkContainer
+    : styles.lightContainer;
+  const textStyle = isDarkMode ? styles.darkText : styles.lightText;
+
   return (
     <View style={{ marginBottom: 10 }}>
-      <Text style={style.label}>{label}</Text>
+      <Text style={styles.label}>{label}</Text>
       <View
         style={[
-          style.inputContainer,
+          containerStyle,
+          styles.inputContainer,
           {
             borderColor: error
               ? COLORS.red
@@ -50,6 +60,7 @@ const Input: React.FC<InputProps> = ({
         />
         <TextInput
           secureTextEntry={secureTextEntry}
+          placeholderTextColor={isDarkMode ? "white" : "black"}
           autoCorrect={false}
           onFocus={() => {
             onFocus();
@@ -59,7 +70,7 @@ const Input: React.FC<InputProps> = ({
             setIsFocused(false);
           }}
           {...props}
-          style={{ color: COLORS.darkBlue, flex: 1 }}
+          style={[textStyle, { flex: 1 }]}
         />
       </View>
       {error && (
@@ -71,7 +82,7 @@ const Input: React.FC<InputProps> = ({
   );
 };
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   label: {
     marginVertical: 5,
     fontSize: 14,
@@ -79,11 +90,25 @@ const style = StyleSheet.create({
   },
   inputContainer: {
     height: 45,
-    backgroundColor: COLORS.light,
     flexDirection: "row",
     paddingHorizontal: 15,
     borderWidth: 0.5,
     alignItems: "center",
+  },
+  lightContainer: {
+    backgroundColor: "white",
+  },
+  darkContainer: {
+    backgroundColor: "#14213d",
+  },
+  text: {
+    fontSize: 24,
+  },
+  lightText: {
+    color: "#38385b",
+  },
+  darkText: {
+    color: "white",
   },
 });
 

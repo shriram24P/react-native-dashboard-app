@@ -1,10 +1,11 @@
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, StyleSheet } from "react-native";
 import React from "react";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { RootDrawerParamList } from "../../../../App";
 import ListButtons from "../../components/ListButtons";
 import COLORS from "../../../const/Colors";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "../../../customTheme/ThemeContext";
 
 interface VoterListScreenProp {
   navigation: DrawerNavigationProp<RootDrawerParamList, "VoterList">;
@@ -12,16 +13,25 @@ interface VoterListScreenProp {
 
 const VoterList = ({ navigation }: VoterListScreenProp) => {
   const { t } = useTranslation();
+
+  const { isDarkMode } = useTheme();
+  const containerStyle = isDarkMode
+    ? styles.darkContainer
+    : styles.lightContainer;
+  const textStyle = isDarkMode ? styles.darkText : styles.lightText;
   return (
     <ScrollView>
       <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          justifyContent: "space-around",
-          marginRight: 10,
-        }}
+        style={[
+          containerStyle,
+          {
+            width: "100%",
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            justifyContent: "space-around",
+          },
+        ]}
       >
         <ListButtons
           iconName=""
@@ -31,7 +41,8 @@ const VoterList = ({ navigation }: VoterListScreenProp) => {
           }}
           buttonWidth={170}
           buttonHeight={80}
-          bgColor={COLORS.purple}
+          bgColor={COLORS.darkBlue}
+          borderRadi={10}
         />
         <ListButtons
           iconName=""
@@ -41,7 +52,8 @@ const VoterList = ({ navigation }: VoterListScreenProp) => {
           }}
           buttonWidth={170}
           buttonHeight={80}
-          bgColor={COLORS.purple}
+          bgColor={COLORS.darkBlue}
+          borderRadi={10}
         />
         <ListButtons
           iconName=""
@@ -51,7 +63,8 @@ const VoterList = ({ navigation }: VoterListScreenProp) => {
           }}
           buttonWidth={170}
           buttonHeight={80}
-          bgColor={COLORS.purple}
+          bgColor={COLORS.darkBlue}
+          borderRadi={10}
         />
         <ListButtons
           iconName=""
@@ -61,7 +74,8 @@ const VoterList = ({ navigation }: VoterListScreenProp) => {
           }}
           buttonWidth={170}
           buttonHeight={80}
-          bgColor={COLORS.purple}
+          bgColor={COLORS.darkBlue}
+          borderRadi={10}
         />
         <ListButtons
           iconName=""
@@ -71,7 +85,8 @@ const VoterList = ({ navigation }: VoterListScreenProp) => {
           }}
           buttonWidth={170}
           buttonHeight={80}
-          bgColor={COLORS.purple}
+          bgColor={COLORS.darkBlue}
+          borderRadi={10}
         />
         <ListButtons
           iconName=""
@@ -81,7 +96,8 @@ const VoterList = ({ navigation }: VoterListScreenProp) => {
           }}
           buttonWidth={170}
           buttonHeight={80}
-          bgColor={COLORS.purple}
+          bgColor={COLORS.darkBlue}
+          borderRadi={10}
         />
         <ListButtons
           iconName=""
@@ -91,7 +107,8 @@ const VoterList = ({ navigation }: VoterListScreenProp) => {
           }}
           buttonWidth={170}
           buttonHeight={80}
-          bgColor={COLORS.purple}
+          bgColor={COLORS.darkBlue}
+          borderRadi={10}
         />
         <ListButtons
           iconName=""
@@ -101,7 +118,8 @@ const VoterList = ({ navigation }: VoterListScreenProp) => {
           }}
           buttonWidth={170}
           buttonHeight={80}
-          bgColor={COLORS.purple}
+          bgColor={COLORS.darkBlue}
+          borderRadi={10}
         />
         <ListButtons
           iconName=""
@@ -111,7 +129,8 @@ const VoterList = ({ navigation }: VoterListScreenProp) => {
           }}
           buttonWidth={170}
           buttonHeight={80}
-          bgColor={COLORS.purple}
+          bgColor={COLORS.darkBlue}
+          borderRadi={10}
         />
         <ListButtons
           iconName=""
@@ -121,7 +140,8 @@ const VoterList = ({ navigation }: VoterListScreenProp) => {
           }}
           buttonWidth={170}
           buttonHeight={80}
-          bgColor={COLORS.purple}
+          bgColor={COLORS.darkBlue}
+          borderRadi={10}
         />
         <ListButtons
           iconName=""
@@ -131,7 +151,8 @@ const VoterList = ({ navigation }: VoterListScreenProp) => {
           }}
           buttonWidth={170}
           buttonHeight={80}
-          bgColor={COLORS.purple}
+          bgColor={COLORS.darkBlue}
+          borderRadi={10}
         />
         <ListButtons
           iconName=""
@@ -141,7 +162,8 @@ const VoterList = ({ navigation }: VoterListScreenProp) => {
           }}
           buttonWidth={170}
           buttonHeight={80}
-          bgColor={COLORS.purple}
+          bgColor={COLORS.darkBlue}
+          borderRadi={10}
         />
         <ListButtons
           iconName=""
@@ -151,7 +173,8 @@ const VoterList = ({ navigation }: VoterListScreenProp) => {
           }}
           buttonWidth={170}
           buttonHeight={80}
-          bgColor={COLORS.purple}
+          bgColor={COLORS.darkBlue}
+          borderRadi={10}
         />
         <ListButtons
           iconName=""
@@ -161,7 +184,8 @@ const VoterList = ({ navigation }: VoterListScreenProp) => {
           }}
           buttonWidth={170}
           buttonHeight={80}
-          bgColor={COLORS.purple}
+          bgColor={COLORS.darkBlue}
+          borderRadi={10}
         />
         <ListButtons
           iconName=""
@@ -171,7 +195,8 @@ const VoterList = ({ navigation }: VoterListScreenProp) => {
           }}
           buttonWidth={170}
           buttonHeight={80}
-          bgColor={COLORS.purple}
+          bgColor={COLORS.darkBlue}
+          borderRadi={10}
         />
         <ListButtons
           iconName=""
@@ -181,7 +206,8 @@ const VoterList = ({ navigation }: VoterListScreenProp) => {
           }}
           buttonWidth={170}
           buttonHeight={80}
-          bgColor={COLORS.purple}
+          bgColor={COLORS.darkBlue}
+          borderRadi={10}
         />
         <ListButtons
           iconName=""
@@ -191,7 +217,8 @@ const VoterList = ({ navigation }: VoterListScreenProp) => {
           }}
           buttonWidth={170}
           buttonHeight={80}
-          bgColor={COLORS.purple}
+          bgColor={COLORS.darkBlue}
+          borderRadi={10}
         />
         <ListButtons
           iconName=""
@@ -201,7 +228,8 @@ const VoterList = ({ navigation }: VoterListScreenProp) => {
           }}
           buttonWidth={170}
           buttonHeight={80}
-          bgColor={COLORS.purple}
+          bgColor={COLORS.darkBlue}
+          borderRadi={10}
         />
         <ListButtons
           iconName=""
@@ -211,7 +239,8 @@ const VoterList = ({ navigation }: VoterListScreenProp) => {
           }}
           buttonWidth={170}
           buttonHeight={80}
-          bgColor={COLORS.purple}
+          bgColor={COLORS.darkBlue}
+          borderRadi={10}
         />
         <ListButtons
           iconName=""
@@ -221,11 +250,29 @@ const VoterList = ({ navigation }: VoterListScreenProp) => {
           }}
           buttonWidth={170}
           buttonHeight={80}
-          bgColor={COLORS.purple}
+          bgColor={COLORS.darkBlue}
+          borderRadi={10}
         />
       </View>
     </ScrollView>
   );
 };
 
+const styles = StyleSheet.create({
+  lightContainer: {
+    backgroundColor: "white",
+  },
+  darkContainer: {
+    backgroundColor: "#14213d",
+  },
+  text: {
+    fontSize: 24,
+  },
+  lightText: {
+    color: "#38385b",
+  },
+  darkText: {
+    color: "white",
+  },
+});
 export default VoterList;
