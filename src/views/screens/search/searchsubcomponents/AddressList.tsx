@@ -13,6 +13,7 @@ import { RootDrawerParamList } from "../../../../../App";
 import COLORS from "../../../../const/Colors";
 import { Calendar } from "react-native-calendars";
 import ListButtons from "../../../components/ListButtons";
+import { useTheme } from "../../../../customTheme/ThemeContext";
 
 interface AddressListScreenProp {
   navigation: DrawerNavigationProp<RootDrawerParamList, "AddressList">;
@@ -59,6 +60,11 @@ const AddressList = ({ navigation }: AddressListScreenProp) => {
       total: 123,
     },
   ];
+  const { isDarkMode } = useTheme();
+  const containerStyle = isDarkMode
+    ? styles.darkContainer
+    : styles.lightContainer;
+  const textStyle = isDarkMode ? styles.darkText : styles.lightText;
 
   const renderItem = ({ item }: { item: UserData }) => (
     <View
@@ -70,9 +76,9 @@ const AddressList = ({ navigation }: AddressListScreenProp) => {
         padding: 10,
       }}
     >
-      <Text>{item.id}</Text>
-      <Text>{item.address}</Text>
-      <Text>{item.total}</Text>
+      <Text style={[textStyle, { paddingVertical: 10 }]}>{item.id}</Text>
+      <Text style={[textStyle, { paddingVertical: 10 }]}>{item.address}</Text>
+      <Text style={[textStyle, { paddingVertical: 10 }]}>{item.total}</Text>
     </View>
   );
 
@@ -87,11 +93,18 @@ const AddressList = ({ navigation }: AddressListScreenProp) => {
   return (
     <>
       <View>
-        <View style={{ height: "25%" }}>
+        <View style={[containerStyle, { height: "30%" }]}>
           <View
             style={[
+              containerStyle,
               styles.searchBar,
-              { marginTop: 20, height: 40, width: "92%" },
+              {
+                marginTop: 20,
+                height: 40,
+                width: "92%",
+                borderWidth: 0.5,
+                borderColor: COLORS.darkBlue,
+              },
             ]}
           >
             <TextInput
@@ -102,14 +115,21 @@ const AddressList = ({ navigation }: AddressListScreenProp) => {
                 setSearchText(text);
                 handleSearch(text);
               }}
+              placeholderTextColor={isDarkMode ? "white" : "black"}
             />
           </View>
           <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-evenly",
-              marginRight: 5,
-            }}
+            style={[
+              containerStyle,
+              {
+                flexDirection: "row",
+                justifyContent: "space-evenly",
+                marginRight: 5,
+                width: "100%",
+                marginTop: 10,
+                height: 150,
+              },
+            ]}
           >
             <ListButtons
               iconName="clipboard-search-outline"
@@ -141,14 +161,18 @@ const AddressList = ({ navigation }: AddressListScreenProp) => {
           </View>
         </View>
       </View>
-      <View style={styles.tableContainer}>
+      <View style={[containerStyle, styles.tableContainer]}>
         <View style={styles.headerTopBar}>
-          <Text style={styles.headerTopBarText}>Booth Details</Text>
+          <Text style={[textStyle, styles.headerTopBarText]}>
+            Booth Details
+          </Text>
         </View>
         <View style={styles.header}>
-          <Text style={[styles.heading]}>Sr.No.</Text>
-          <Text style={[styles.heading, { marginRight: 15 }]}>Address</Text>
-          <Text style={[styles.heading, {}]}>Total</Text>
+          <Text style={[textStyle, styles.heading]}>Sr.No.</Text>
+          <Text style={[textStyle, styles.heading, { marginRight: 15 }]}>
+            Address
+          </Text>
+          <Text style={[textStyle, styles.heading, {}]}>Total</Text>
         </View>
         <FlatList
           data={searchResults}
@@ -162,18 +186,16 @@ const AddressList = ({ navigation }: AddressListScreenProp) => {
 
 const styles = StyleSheet.create({
   searchBar: {
-    backgroundColor: COLORS.white,
     borderRadius: 5,
     padding: 7,
     marginTop: 15,
     marginRight: 10,
     width: "50%",
     marginLeft: 15,
-    marginBottom: 10,
+    marginBottom: -5,
   },
   input: {
     fontSize: 16,
-    borderColor: "red",
   },
   calendarButton: {
     fontSize: 16,
@@ -184,9 +206,9 @@ const styles = StyleSheet.create({
   },
 
   tableContainer: {
-    backgroundColor: "#fff",
     paddingHorizontal: 20,
     flex: 1,
+    marginTop: -20,
   },
   headerTopBar: {
     backgroundColor: COLORS.darkBlue,
@@ -206,6 +228,21 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 15,
+  },
+  lightContainer: {
+    backgroundColor: "white",
+  },
+  darkContainer: {
+    backgroundColor: "#14213d",
+  },
+  text: {
+    fontSize: 24,
+  },
+  lightText: {
+    color: "#38385b",
+  },
+  darkText: {
+    color: "white",
   },
 });
 

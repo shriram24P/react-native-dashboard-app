@@ -1,23 +1,32 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { RootDrawerParamList } from "../../../../App";
 import ListButtons from "../../components/ListButtons";
+import { useTheme } from "../../../customTheme/ThemeContext";
 
 interface SurveyScreenProp {
   navigation: DrawerNavigationProp<RootDrawerParamList, "SurveyScreen">;
 }
 
 const SurveyScreen = ({ navigation }: SurveyScreenProp) => {
+  const { isDarkMode } = useTheme();
+  const containerStyle = isDarkMode
+    ? styles.darkContainer
+    : styles.lightContainer;
+  const textStyle = isDarkMode ? styles.darkText : styles.lightText;
   return (
     <View
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        marginVertical: 180,
-      }}
+      style={[
+        containerStyle,
+        {
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100%",
+        },
+      ]}
     >
       <ListButtons
         buttonText="View Voter Survey"
@@ -42,5 +51,23 @@ const SurveyScreen = ({ navigation }: SurveyScreenProp) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  lightContainer: {
+    backgroundColor: "white",
+  },
+  darkContainer: {
+    backgroundColor: "#14213d",
+  },
+  text: {
+    fontSize: 24,
+  },
+  lightText: {
+    color: "#38385b",
+  },
+  darkText: {
+    color: "white",
+  },
+});
 
 export default SurveyScreen;

@@ -12,6 +12,7 @@ import { DrawerNavigationProp } from "@react-navigation/drawer";
 import ListButtons from "../../components/ListButtons";
 import COLORS from "../../../const/Colors";
 import { RootDrawerParamList } from "../../../../App";
+import { useTheme } from "../../../customTheme/ThemeContext";
 
 interface SurveyDateWiseListScreenProp {
   navigation: DrawerNavigationProp<RootDrawerParamList, "SurveyDateWiseList">;
@@ -54,6 +55,12 @@ const SurveyDateWiseList = ({ navigation }: SurveyDateWiseListScreenProp) => {
     },
   ];
 
+  const { isDarkMode } = useTheme();
+  const containerStyle = isDarkMode
+    ? styles.darkContainer
+    : styles.lightContainer;
+  const textStyle = isDarkMode ? styles.darkText : styles.lightText;
+
   const renderItem = ({ item }: { item: UserData }) => (
     <View
       style={{
@@ -63,9 +70,11 @@ const SurveyDateWiseList = ({ navigation }: SurveyDateWiseListScreenProp) => {
         marginHorizontal: 10,
       }}
     >
-      <Text>{item.id}</Text>
-      <Text>{item.surveyDate}</Text>
-      <Text>{item.total}</Text>
+      <Text style={[textStyle, { paddingVertical: 10 }]}>{item.id}</Text>
+      <Text style={[textStyle, { paddingVertical: 10 }]}>
+        {item.surveyDate}
+      </Text>
+      <Text style={[textStyle, { paddingVertical: 10 }]}>{item.total}</Text>
     </View>
   );
 
@@ -80,8 +89,19 @@ const SurveyDateWiseList = ({ navigation }: SurveyDateWiseListScreenProp) => {
   );
   return (
     <>
-      <View style={{ height: 70, marginTop: 10 }}>
-        <View style={[styles.searchBar, { width: "90%", marginLeft: 20 }]}>
+      <View style={[containerStyle, { height: 70 }]}>
+        <View
+          style={[
+            containerStyle,
+            styles.searchBar,
+            {
+              width: "90%",
+              marginLeft: 20,
+              borderWidth: 0.5,
+              borderColor: COLORS.darkBlue,
+            },
+          ]}
+        >
           <TextInput
             style={styles.input}
             placeholder="Survey Date"
@@ -89,17 +109,19 @@ const SurveyDateWiseList = ({ navigation }: SurveyDateWiseListScreenProp) => {
             onChangeText={(text) => {
               setSearchText(text);
             }}
+            placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
           />
         </View>
       </View>
 
       <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-evenly",
-          marginHorizontal: 10,
-          marginBottom: 10,
-        }}
+        style={[
+          containerStyle,
+          {
+            flexDirection: "row",
+            justifyContent: "space-evenly",
+          },
+        ]}
       >
         <ListButtons
           iconName="clipboard-search-outline"
@@ -133,14 +155,14 @@ const SurveyDateWiseList = ({ navigation }: SurveyDateWiseListScreenProp) => {
         />
       </View>
 
-      <View style={styles.tableContainer}>
+      <View style={[containerStyle, styles.tableContainer]}>
         <View style={styles.headerTopBar}>
-          <Text style={styles.headerTopBarText}>Users</Text>
+          <Text style={[textStyle, styles.headerTopBarText]}>Users</Text>
         </View>
         <View style={styles.header}>
-          <Text style={[styles.heading]}>Sr.No.</Text>
-          <Text style={[styles.heading]}>Survey Date</Text>
-          <Text style={[styles.heading]}>Total</Text>
+          <Text style={[textStyle, styles.heading]}>Sr.No.</Text>
+          <Text style={[textStyle, styles.heading]}>Survey Date</Text>
+          <Text style={[textStyle, styles.heading]}>Total</Text>
         </View>
         <FlatList
           data={filteredData}
@@ -154,7 +176,6 @@ const SurveyDateWiseList = ({ navigation }: SurveyDateWiseListScreenProp) => {
 
 const styles = StyleSheet.create({
   searchBar: {
-    backgroundColor: COLORS.white,
     borderRadius: 5,
     padding: 7,
     marginTop: 15,
@@ -176,7 +197,6 @@ const styles = StyleSheet.create({
   },
 
   tableContainer: {
-    backgroundColor: "#fff",
     paddingHorizontal: 20,
     flex: 1,
     width: "100%",
@@ -196,6 +216,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     padding: 5,
+    marginTop: 10,
   },
   heading: {
     fontSize: 15,
@@ -208,6 +229,21 @@ const styles = StyleSheet.create({
     zIndex: 1,
     marginTop: 60,
     marginRight: 20,
+  },
+  lightContainer: {
+    backgroundColor: "white",
+  },
+  darkContainer: {
+    backgroundColor: "#14213d",
+  },
+  text: {
+    fontSize: 24,
+  },
+  lightText: {
+    color: "#38385b",
+  },
+  darkText: {
+    color: "white",
   },
 });
 

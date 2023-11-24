@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { UserData } from "../screens/search/SearchScreen"; // Assuming UserData interface is in the same file
+import { useTheme } from "../../customTheme/ThemeContext";
 
 interface UserTableProps {
   data: UserData[];
@@ -16,6 +17,11 @@ interface UserTableProps {
 }
 
 const UserTable: React.FC<UserTableProps> = ({ data, onEdit }) => {
+  const { isDarkMode } = useTheme();
+  const containerStyle = isDarkMode
+    ? styles.darkContainer
+    : styles.lightContainer;
+  const textStyle = isDarkMode ? styles.darkText : styles.lightText;
   const keyExtractor = (item: UserData) => item.id.toString();
 
   const renderItem = ({ item }: { item: UserData }) => (
@@ -39,8 +45,8 @@ const UserTable: React.FC<UserTableProps> = ({ data, onEdit }) => {
             style={{ width: 50, height: 50, marginRight: 40 }}
           />
         )}
-        <Text style={{ width: 90 }}>{item.name}</Text>
-        <Text style={{ width: 110 }}>{item.phone}</Text>
+        <Text style={[textStyle, { width: 90 }]}>{item.name}</Text>
+        <Text style={[textStyle, { width: 110 }]}>{item.phone}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -50,4 +56,21 @@ const UserTable: React.FC<UserTableProps> = ({ data, onEdit }) => {
   );
 };
 
+const styles = StyleSheet.create({
+  lightContainer: {
+    backgroundColor: "white",
+  },
+  darkContainer: {
+    backgroundColor: "#14213d",
+  },
+  text: {
+    fontSize: 24,
+  },
+  lightText: {
+    color: "#38385b",
+  },
+  darkText: {
+    color: "white",
+  },
+});
 export default UserTable;

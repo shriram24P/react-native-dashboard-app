@@ -4,6 +4,7 @@ import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { RootDrawerParamList } from "../../../../../App";
 import COLORS from "../../../../const/Colors";
 import ListButtons from "../../../components/ListButtons";
+import { useTheme } from "../../../../customTheme/ThemeContext";
 
 interface BeneficiaryListScreenProp {
   navigation: DrawerNavigationProp<RootDrawerParamList, "BeneficiaryList">;
@@ -51,6 +52,12 @@ const BeneficiaryList = ({ navigation }: BeneficiaryListScreenProp) => {
     },
   ];
 
+  const { isDarkMode } = useTheme();
+  const containerStyle = isDarkMode
+    ? styles.darkContainer
+    : styles.lightContainer;
+  const textStyle = isDarkMode ? styles.darkText : styles.lightText;
+
   const renderItem = ({ item }: { item: UserData }) => (
     <View
       style={{
@@ -61,9 +68,11 @@ const BeneficiaryList = ({ navigation }: BeneficiaryListScreenProp) => {
         padding: 10,
       }}
     >
-      <Text>{item.id}</Text>
-      <Text>{item.beneficiary}</Text>
-      <Text>{item.total}</Text>
+      <Text style={[textStyle, { paddingVertical: 10 }]}>{item.id}</Text>
+      <Text style={[textStyle, { paddingVertical: 10 }]}>
+        {item.beneficiary}
+      </Text>
+      <Text style={[textStyle, { paddingVertical: 10 }]}>{item.total}</Text>
     </View>
   );
 
@@ -77,12 +86,18 @@ const BeneficiaryList = ({ navigation }: BeneficiaryListScreenProp) => {
   };
   return (
     <>
-      <View>
+      <View style={[containerStyle]}>
         <View style={{ height: "25%" }}>
           <View
             style={[
               styles.searchBar,
-              { marginTop: 20, height: 40, width: "92%" },
+              {
+                marginTop: 20,
+                height: 40,
+                width: "92%",
+                borderWidth: 0.5,
+                borderColor: COLORS.darkBlue,
+              },
             ]}
           >
             <TextInput
@@ -93,6 +108,7 @@ const BeneficiaryList = ({ navigation }: BeneficiaryListScreenProp) => {
                 setSearchText(text);
                 handleSearch(text);
               }}
+              placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
             />
           </View>
           <View
@@ -132,14 +148,16 @@ const BeneficiaryList = ({ navigation }: BeneficiaryListScreenProp) => {
           </View>
         </View>
       </View>
-      <View style={styles.tableContainer}>
+      <View style={[containerStyle, styles.tableContainer]}>
         <View style={styles.headerTopBar}>
           <Text style={styles.headerTopBarText}>Details</Text>
         </View>
         <View style={styles.header}>
-          <Text style={[styles.heading]}>Sr.No.</Text>
-          <Text style={[styles.heading, { marginRight: 15 }]}>Beneficiary</Text>
-          <Text style={[styles.heading, {}]}>Total</Text>
+          <Text style={[textStyle, styles.heading]}>Sr.No.</Text>
+          <Text style={[textStyle, styles.heading, { marginRight: 15 }]}>
+            Beneficiary
+          </Text>
+          <Text style={[textStyle, styles.heading, {}]}>Total</Text>
         </View>
         <FlatList
           data={searchResults}
@@ -153,7 +171,6 @@ const BeneficiaryList = ({ navigation }: BeneficiaryListScreenProp) => {
 
 const styles = StyleSheet.create({
   searchBar: {
-    backgroundColor: COLORS.white,
     borderRadius: 5,
     padding: 7,
     marginTop: 15,
@@ -175,7 +192,6 @@ const styles = StyleSheet.create({
   },
 
   tableContainer: {
-    backgroundColor: "#fff",
     paddingHorizontal: 20,
     flex: 1,
   },
@@ -198,6 +214,21 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 15,
     marginHorizontal: 10,
+  },
+  lightContainer: {
+    backgroundColor: "white",
+  },
+  darkContainer: {
+    backgroundColor: "#14213d",
+  },
+  text: {
+    fontSize: 24,
+  },
+  lightText: {
+    color: "#38385b",
+  },
+  darkText: {
+    color: "white",
   },
 });
 

@@ -13,6 +13,7 @@ import { RootDrawerParamList } from "../../../../../App";
 import COLORS from "../../../../const/Colors";
 import { Calendar } from "react-native-calendars";
 import ListButtons from "../../../components/ListButtons";
+import { useTheme } from "../../../../customTheme/ThemeContext";
 
 interface BirthdayListScreenProp {
   navigation: DrawerNavigationProp<RootDrawerParamList, "BirthdayList">;
@@ -59,6 +60,12 @@ const BirthdayList = ({ navigation }: BirthdayListScreenProp) => {
     },
   ];
 
+  const { isDarkMode } = useTheme();
+  const containerStyle = isDarkMode
+    ? styles.darkContainer
+    : styles.lightContainer;
+  const textStyle = isDarkMode ? styles.darkText : styles.lightText;
+
   const onDayPress = (day: any) => {
     // Format the selected date to "MM-DD" format
     const formattedDate = `${day.month}-${day.day}`;
@@ -78,9 +85,9 @@ const BirthdayList = ({ navigation }: BirthdayListScreenProp) => {
         marginHorizontal: 10,
       }}
     >
-      <Text>{item.id}</Text>
-      <Text>{item.birthday}</Text>
-      <Text>{item.total}</Text>
+      <Text style={[textStyle, { paddingVertical: 10 }]}>{item.id}</Text>
+      <Text style={[textStyle, { paddingVertical: 10 }]}>{item.birthday}</Text>
+      <Text style={[textStyle, { paddingVertical: 10 }]}>{item.total}</Text>
     </View>
   );
 
@@ -104,7 +111,7 @@ const BirthdayList = ({ navigation }: BirthdayListScreenProp) => {
   );
   return (
     <>
-      <View>
+      <View style={containerStyle}>
         <View style={{ height: 70, marginTop: 10 }}>
           <View
             style={{
@@ -114,14 +121,21 @@ const BirthdayList = ({ navigation }: BirthdayListScreenProp) => {
               height: 70,
             }}
           >
-            <View style={[styles.searchBar, {}]}>
+            <View
+              style={[
+                containerStyle,
+                styles.searchBar,
+                { borderWidth: 0.5, borderColor: COLORS.darkBlue },
+              ]}
+            >
               <TextInput
-                style={styles.input}
+                style={[textStyle, styles.input]}
                 placeholder="Birthday"
                 value={searchText}
                 onChangeText={(text) => {
                   setSearchText(text);
                 }}
+                placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
               />
             </View>
 
@@ -144,24 +158,14 @@ const BirthdayList = ({ navigation }: BirthdayListScreenProp) => {
             />
           </View>
         </View>
-        {isCalendarVisible && (
-          <View style={styles.calendarOverlay}>
-            <Calendar
-              onDayPress={onDayPress}
-              markedDates={
-                selectedDate ? { [selectedDate]: { selected: true } } : {}
-              }
-              style={{
-                width: "80%",
-                alignSelf: "center",
-                marginTop: 10,
-                elevation: 5,
-                borderRadius: 10,
-              }}
-            />
-          </View>
-        )}
-        <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
+
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-evenly",
+            marginBottom: 20,
+          }}
+        >
           <ListButtons
             iconName="clipboard-search-outline"
             buttonText="Search"
@@ -191,14 +195,32 @@ const BirthdayList = ({ navigation }: BirthdayListScreenProp) => {
           />
         </View>
       </View>
-      <View style={styles.tableContainer}>
+      {isCalendarVisible && (
+        <View style={styles.calendarOverlay}>
+          <Calendar
+            onDayPress={onDayPress}
+            markedDates={
+              selectedDate ? { [selectedDate]: { selected: true } } : {}
+            }
+            style={{
+              width: "80%",
+              alignSelf: "center",
+              marginTop: 10,
+              elevation: 5,
+
+              borderRadius: 10,
+            }}
+          />
+        </View>
+      )}
+      <View style={[containerStyle, styles.tableContainer]}>
         <View style={styles.headerTopBar}>
-          <Text style={styles.headerTopBarText}>Users</Text>
+          <Text style={[textStyle, styles.headerTopBarText]}>Users</Text>
         </View>
         <View style={styles.header}>
-          <Text style={[styles.heading]}>Sr.No.</Text>
-          <Text style={[styles.heading]}>Birthday</Text>
-          <Text style={[styles.heading]}>Total</Text>
+          <Text style={[textStyle, styles.heading]}>Sr.No.</Text>
+          <Text style={[textStyle, styles.heading]}>Birthday</Text>
+          <Text style={[textStyle, styles.heading]}>Total</Text>
         </View>
         <FlatList
           data={filteredData}
@@ -212,7 +234,6 @@ const BirthdayList = ({ navigation }: BirthdayListScreenProp) => {
 
 const styles = StyleSheet.create({
   searchBar: {
-    backgroundColor: COLORS.white,
     borderRadius: 5,
     padding: 7,
     marginTop: 15,
@@ -223,7 +244,6 @@ const styles = StyleSheet.create({
   },
   input: {
     fontSize: 16,
-    borderColor: "red",
   },
   calendarButton: {
     fontSize: 16,
@@ -234,7 +254,6 @@ const styles = StyleSheet.create({
   },
 
   tableContainer: {
-    backgroundColor: "#fff",
     paddingHorizontal: 20,
     flex: 1,
     width: "100%",
@@ -263,9 +282,26 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     justifyContent: "flex-start",
     alignItems: "flex-end",
-    zIndex: 1,
+
     marginTop: 60,
     marginRight: 20,
+    zIndex: 1,
+  },
+
+  lightContainer: {
+    backgroundColor: "white",
+  },
+  darkContainer: {
+    backgroundColor: "#14213d",
+  },
+  text: {
+    fontSize: 24,
+  },
+  lightText: {
+    color: "#38385b",
+  },
+  darkText: {
+    color: "white",
   },
 });
 

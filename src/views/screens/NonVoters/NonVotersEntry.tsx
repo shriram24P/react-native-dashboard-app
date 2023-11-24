@@ -14,6 +14,7 @@ import { RadioButton } from "react-native-paper";
 import { CheckBox, Icon } from "@rneui/themed";
 import COLORS from "../../../const/Colors";
 import { Dropdown } from "react-native-element-dropdown";
+import { useTheme } from "../../../customTheme/ThemeContext";
 
 interface NonVotersEntryScreenProp {
   navigation: DrawerNavigationProp<RootDrawerParamList, "NonVotersEntry">;
@@ -114,8 +115,14 @@ const NonVotersEntry = ({ navigation }: NonVotersEntryScreenProp) => {
 
     Alert.alert("Success", "Data successfully saved!");
   };
+
+  const { isDarkMode } = useTheme();
+  const containerStyle = isDarkMode
+    ? styles.darkContainer
+    : styles.lightContainer;
+  const textStyle = isDarkMode ? styles.darkText : styles.lightText;
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: COLORS.white }}>
+    <ScrollView style={[containerStyle, { flex: 1 }]}>
       <View
         style={{
           display: "flex",
@@ -125,7 +132,7 @@ const NonVotersEntry = ({ navigation }: NonVotersEntryScreenProp) => {
           marginHorizontal: 20,
         }}
       >
-        <Text style={{ fontSize: 24 }}>New Entry...</Text>
+        <Text style={[textStyle, { fontSize: 24 }]}>New Entry...</Text>
         <ListButtons
           buttonText="Save"
           iconName="content-save-all"
@@ -150,14 +157,24 @@ const NonVotersEntry = ({ navigation }: NonVotersEntryScreenProp) => {
               marginHorizontal: 10,
             }}
           >
-            <RadioButton.Item label="New Voter" value="first" />
-            <RadioButton.Item label="Closed" value="second" />
+            <RadioButton.Item
+              label="New Voter"
+              value="first"
+              labelStyle={[textStyle, { fontSize: 14 }]}
+              color={isDarkMode ? "white" : COLORS.darkBlue}
+            />
+            <RadioButton.Item
+              label="Closed"
+              value="second"
+              labelStyle={[textStyle, { fontSize: 14 }]}
+              color={isDarkMode ? "white" : COLORS.darkBlue}
+            />
             <CheckBox
               title="Rental"
               checked={check1}
               onPress={() => setCheck1(!check1)}
               checkedColor={COLORS.darkBlue}
-              containerStyle={{ backgroundColor: "#fff" }}
+              containerStyle={[containerStyle]}
             />
           </View>
         </RadioButton.Group>
@@ -178,17 +195,23 @@ const NonVotersEntry = ({ navigation }: NonVotersEntryScreenProp) => {
           alignItems: "center",
         }}
       >
-        <Text style={{ marginLeft: 40, marginRight: 10 }}>Last Name</Text>
+        <Text style={[textStyle, { marginLeft: 40, marginRight: 10 }]}>
+          Last Name
+        </Text>
         <TextInput
-          style={{
-            borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-            height: 30,
-            backgroundColor: COLORS.light,
-            borderWidth: 0.5,
-            width: "63%",
-            paddingHorizontal: 10,
-          }}
+          style={[
+            containerStyle,
+            {
+              borderColor: COLORS.darkBlue,
+              height: 30,
+
+              borderWidth: 0.5,
+              width: "63%",
+              paddingHorizontal: 10,
+            },
+          ]}
           placeholder="Last Name"
+          placeholderTextColor={isDarkMode ? "white" : "black"}
         />
       </View>
 
@@ -200,17 +223,23 @@ const NonVotersEntry = ({ navigation }: NonVotersEntryScreenProp) => {
           alignItems: "center",
         }}
       >
-        <Text style={{ marginLeft: 70, marginRight: 12 }}>Name</Text>
+        <Text style={[textStyle, { marginLeft: 70, marginRight: 12 }]}>
+          Name
+        </Text>
         <TextInput
-          style={{
-            borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-            height: 30,
-            backgroundColor: COLORS.light,
-            borderWidth: 0.5,
-            width: "63%",
-            paddingHorizontal: 10,
-          }}
+          style={[
+            containerStyle,
+            {
+              borderColor: COLORS.darkBlue,
+              height: 30,
+
+              borderWidth: 0.5,
+              width: "63%",
+              paddingHorizontal: 10,
+            },
+          ]}
           placeholder="Name"
+          placeholderTextColor={isDarkMode ? "white" : "black"}
         />
       </View>
       <View
@@ -221,17 +250,23 @@ const NonVotersEntry = ({ navigation }: NonVotersEntryScreenProp) => {
           alignItems: "center",
         }}
       >
-        <Text style={{ marginLeft: 20, marginRight: 12 }}>Middle Name</Text>
+        <Text style={[textStyle, { marginLeft: 20, marginRight: 12 }]}>
+          Middle Name
+        </Text>
         <TextInput
-          style={{
-            borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-            height: 30,
-            backgroundColor: COLORS.light,
-            borderWidth: 0.5,
-            width: "63%",
-            paddingHorizontal: 10,
-          }}
+          style={[
+            containerStyle,
+            {
+              borderColor: COLORS.darkBlue,
+              height: 30,
+
+              borderWidth: 0.5,
+              width: "63%",
+              paddingHorizontal: 10,
+            },
+          ]}
           placeholder="Middle Name"
+          placeholderTextColor={isDarkMode ? "white" : "black"}
         />
       </View>
       <View
@@ -242,17 +277,23 @@ const NonVotersEntry = ({ navigation }: NonVotersEntryScreenProp) => {
           alignItems: "center",
         }}
       >
-        <Text style={{ marginLeft: 84, marginRight: 12 }}>Age</Text>
+        <Text style={[textStyle, { marginLeft: 84, marginRight: 12 }]}>
+          Age
+        </Text>
         <TextInput
-          style={{
-            borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-            height: 30,
-            backgroundColor: COLORS.light,
-            borderWidth: 0.5,
-            width: "63%",
-            paddingHorizontal: 10,
-          }}
+          style={[
+            containerStyle,
+            {
+              borderColor: COLORS.darkBlue,
+              height: 30,
+
+              borderWidth: 0.5,
+              width: "63%",
+              paddingHorizontal: 10,
+            },
+          ]}
           placeholder="Age"
+          placeholderTextColor={isDarkMode ? "white" : "black"}
         />
       </View>
       <View>
@@ -270,20 +311,33 @@ const NonVotersEntry = ({ navigation }: NonVotersEntryScreenProp) => {
               marginLeft: 45,
             }}
           >
-            <Text>Sex</Text>
-            <RadioButton.Item label="Male" value="first" />
-            <RadioButton.Item label="Female" value="second" />
+            <Text style={[textStyle]}>Sex</Text>
+            <RadioButton.Item
+              label="Male"
+              value="first"
+              labelStyle={[textStyle, { fontSize: 14 }]}
+              color={isDarkMode ? "white" : COLORS.darkBlue}
+            />
+            <RadioButton.Item
+              label="Female"
+              value="second"
+              labelStyle={[textStyle, { fontSize: 14 }]}
+              color={isDarkMode ? "white" : COLORS.darkBlue}
+            />
           </View>
         </RadioButton.Group>
       </View>
-      <View style={styles.container}>
-        <Text style={{ marginRight: 10, marginLeft: 40 }}>Relation</Text>
+      <View style={[containerStyle, styles.container]}>
+        <Text style={[textStyle, { marginRight: 10, marginLeft: 40 }]}>
+          Relation
+        </Text>
         <Dropdown
           style={[
+            containerStyle,
             styles.dropdown,
-            { borderColor: COLORS.darkBlue, backgroundColor: COLORS.light },
+            { borderColor: COLORS.darkBlue },
           ]}
-          placeholderStyle={styles.placeholderStyle}
+          placeholderStyle={[textStyle, styles.placeholderStyle]}
           selectedTextStyle={styles.selectedTextStyle}
           inputSearchStyle={styles.inputSearchStyle}
           data={data}
@@ -310,17 +364,23 @@ const NonVotersEntry = ({ navigation }: NonVotersEntryScreenProp) => {
           alignItems: "center",
         }}
       >
-        <Text style={{ marginLeft: 65, marginRight: 12 }}>Mobile</Text>
+        <Text style={[textStyle, { marginLeft: 65, marginRight: 12 }]}>
+          Mobile
+        </Text>
         <TextInput
-          style={{
-            borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-            height: 30,
-            backgroundColor: COLORS.light,
-            borderWidth: 0.5,
-            width: "63%",
-            paddingHorizontal: 10,
-          }}
+          style={[
+            containerStyle,
+            {
+              borderColor: COLORS.darkBlue,
+              height: 30,
+
+              borderWidth: 0.5,
+              width: "63%",
+              paddingHorizontal: 10,
+            },
+          ]}
           placeholder="Mobile"
+          placeholderTextColor={isDarkMode ? "white" : "black"}
         />
       </View>
       <View
@@ -331,41 +391,51 @@ const NonVotersEntry = ({ navigation }: NonVotersEntryScreenProp) => {
           alignItems: "center",
         }}
       >
-        <Text style={{ marginLeft: 45, marginRight: 12 }}>Birth Date</Text>
+        <Text style={[textStyle, { marginLeft: 45, marginRight: 12 }]}>
+          Birth Date
+        </Text>
         <TextInput
-          style={{
-            borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-            height: 30,
-            backgroundColor: COLORS.light,
-            borderWidth: 0.5,
-            width: "63%",
-            paddingHorizontal: 10,
-          }}
+          style={[
+            containerStyle,
+            {
+              borderColor: COLORS.darkBlue,
+              height: 30,
+
+              borderWidth: 0.5,
+              width: "63%",
+              paddingHorizontal: 10,
+            },
+          ]}
           placeholder="DD-MM-YY"
+          placeholderTextColor={isDarkMode ? "white" : "black"}
         />
       </View>
       <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-around",
-          marginHorizontal: 10,
-          marginLeft: 20,
-        }}
+        style={[
+          containerStyle,
+          {
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-around",
+            marginHorizontal: 10,
+            marginLeft: 20,
+          },
+        ]}
       >
         <CheckBox
           title="Form 6A Submitted"
           checked={check1}
           onPress={() => setCheck1(!check1)}
           checkedColor={COLORS.darkBlue}
-          containerStyle={{ backgroundColor: "#fff" }}
+          containerStyle={[containerStyle]}
+          textStyle={[textStyle]}
         />
         <CheckBox
           title="Added to Voterlist"
           checked={check1}
           onPress={() => setCheck1(!check1)}
-          checkedColor={COLORS.darkBlue}
-          containerStyle={{ backgroundColor: "#fff" }}
+          containerStyle={[containerStyle]}
+          textStyle={[textStyle]}
         />
       </View>
       <View
@@ -376,17 +446,23 @@ const NonVotersEntry = ({ navigation }: NonVotersEntryScreenProp) => {
           alignItems: "center",
         }}
       >
-        <Text style={{ marginLeft: 65, marginRight: 12 }}>Vibhag</Text>
+        <Text style={[textStyle, { marginLeft: 65, marginRight: 12 }]}>
+          Vibhag
+        </Text>
         <TextInput
-          style={{
-            borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-            height: 30,
-            backgroundColor: COLORS.light,
-            borderWidth: 0.5,
-            width: "63%",
-            paddingHorizontal: 10,
-          }}
+          style={[
+            containerStyle,
+            {
+              borderColor: COLORS.darkBlue,
+              height: 30,
+
+              borderWidth: 0.5,
+              width: "63%",
+              paddingHorizontal: 10,
+            },
+          ]}
           placeholder="Vibhag"
+          placeholderTextColor={isDarkMode ? "white" : "black"}
         />
       </View>
       <View
@@ -397,17 +473,23 @@ const NonVotersEntry = ({ navigation }: NonVotersEntryScreenProp) => {
           alignItems: "center",
         }}
       >
-        <Text style={{ marginLeft: 40, marginRight: 12 }}>House No.</Text>
+        <Text style={[textStyle, { marginLeft: 40, marginRight: 12 }]}>
+          House No.
+        </Text>
         <TextInput
-          style={{
-            borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-            height: 30,
-            backgroundColor: COLORS.light,
-            borderWidth: 0.5,
-            width: "63%",
-            paddingHorizontal: 10,
-          }}
+          style={[
+            containerStyle,
+            {
+              borderColor: COLORS.darkBlue,
+              height: 30,
+
+              borderWidth: 0.5,
+              width: "63%",
+              paddingHorizontal: 10,
+            },
+          ]}
           placeholder="House No."
+          placeholderTextColor={isDarkMode ? "white" : "black"}
         />
       </View>
       <View
@@ -418,17 +500,23 @@ const NonVotersEntry = ({ navigation }: NonVotersEntryScreenProp) => {
           alignItems: "center",
         }}
       >
-        <Text style={{ marginLeft: 61, marginRight: 12 }}>Society</Text>
+        <Text style={[textStyle, { marginLeft: 61, marginRight: 12 }]}>
+          Society
+        </Text>
         <TextInput
-          style={{
-            borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-            height: 30,
-            backgroundColor: COLORS.light,
-            borderWidth: 0.5,
-            width: "63%",
-            paddingHorizontal: 10,
-          }}
+          style={[
+            containerStyle,
+            {
+              borderColor: COLORS.darkBlue,
+              height: 30,
+
+              borderWidth: 0.5,
+              width: "63%",
+              paddingHorizontal: 10,
+            },
+          ]}
           placeholder="Society"
+          placeholderTextColor={isDarkMode ? "white" : "black"}
         />
       </View>
       <View
@@ -439,17 +527,23 @@ const NonVotersEntry = ({ navigation }: NonVotersEntryScreenProp) => {
           alignItems: "center",
         }}
       >
-        <Text style={{ marginLeft: 48, marginRight: 10 }}>Old Town</Text>
+        <Text style={[textStyle, { marginLeft: 48, marginRight: 10 }]}>
+          Old Town
+        </Text>
         <TextInput
-          style={{
-            borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-            height: 30,
-            backgroundColor: COLORS.light,
-            borderWidth: 0.5,
-            width: "63%",
-            paddingHorizontal: 10,
-          }}
+          style={[
+            containerStyle,
+            {
+              borderColor: COLORS.darkBlue,
+              height: 30,
+
+              borderWidth: 0.5,
+              width: "63%",
+              paddingHorizontal: 10,
+            },
+          ]}
           placeholder="Old Town"
+          placeholderTextColor={isDarkMode ? "white" : "black"}
         />
       </View>
       <View
@@ -460,17 +554,23 @@ const NonVotersEntry = ({ navigation }: NonVotersEntryScreenProp) => {
           alignItems: "center",
         }}
       >
-        <Text style={{ marginLeft: 28, marginRight: 12 }}>Migrated To</Text>
+        <Text style={[textStyle, { marginLeft: 28, marginRight: 12 }]}>
+          Migrated To
+        </Text>
         <TextInput
-          style={{
-            borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-            height: 30,
-            backgroundColor: COLORS.light,
-            borderWidth: 0.5,
-            width: "63%",
-            paddingHorizontal: 10,
-          }}
+          style={[
+            containerStyle,
+            {
+              borderColor: COLORS.darkBlue,
+              height: 30,
+
+              borderWidth: 0.5,
+              width: "63%",
+              paddingHorizontal: 10,
+            },
+          ]}
           placeholder="Migrated To"
+          placeholderTextColor={isDarkMode ? "white" : "black"}
         />
       </View>
       <View
@@ -481,17 +581,23 @@ const NonVotersEntry = ({ navigation }: NonVotersEntryScreenProp) => {
           alignItems: "center",
         }}
       >
-        <Text style={{ marginLeft: 43, marginRight: 12 }}>Serial No.</Text>
+        <Text style={[textStyle, { marginLeft: 43, marginRight: 12 }]}>
+          Serial No.
+        </Text>
         <TextInput
-          style={{
-            borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-            height: 30,
-            backgroundColor: COLORS.light,
-            borderWidth: 0.5,
-            width: "63%",
-            paddingHorizontal: 10,
-          }}
+          style={[
+            containerStyle,
+            {
+              borderColor: COLORS.darkBlue,
+              height: 30,
+
+              borderWidth: 0.5,
+              width: "63%",
+              paddingHorizontal: 10,
+            },
+          ]}
           placeholder="Serial No."
+          placeholderTextColor={isDarkMode ? "white" : "black"}
         />
       </View>
       <View
@@ -503,27 +609,36 @@ const NonVotersEntry = ({ navigation }: NonVotersEntryScreenProp) => {
           marginBottom: 15,
         }}
       >
-        <Text style={{ marginLeft: 70, marginRight: 12 }}>Caste</Text>
+        <Text style={[textStyle, { marginLeft: 70, marginRight: 12 }]}>
+          Caste
+        </Text>
         <TextInput
-          style={{
-            borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-            height: 30,
-            backgroundColor: COLORS.light,
-            borderWidth: 0.5,
-            width: "63%",
-            paddingHorizontal: 10,
-          }}
+          style={[
+            containerStyle,
+            {
+              borderColor: COLORS.darkBlue,
+              height: 30,
+
+              borderWidth: 0.5,
+              width: "63%",
+              paddingHorizontal: 10,
+            },
+          ]}
           placeholder="Caste"
+          placeholderTextColor={isDarkMode ? "white" : "black"}
         />
       </View>
       <View style={[styles.container, { marginBottom: 15 }]}>
-        <Text style={{ marginRight: 10, marginLeft: 25 }}>Education</Text>
+        <Text style={[textStyle, { marginRight: 10, marginLeft: 25 }]}>
+          Education
+        </Text>
         <Dropdown
           style={[
+            containerStyle,
             styles.dropdown,
-            { borderColor: COLORS.darkBlue, backgroundColor: COLORS.light },
+            { borderColor: COLORS.darkBlue },
           ]}
-          placeholderStyle={styles.placeholderStyle}
+          placeholderStyle={[textStyle, styles.placeholderStyle]}
           selectedTextStyle={styles.selectedTextStyle}
           inputSearchStyle={styles.inputSearchStyle}
           data={data}
@@ -542,14 +657,17 @@ const NonVotersEntry = ({ navigation }: NonVotersEntryScreenProp) => {
           }}
         />
       </View>
-      <View style={[styles.container, {}]}>
-        <Text style={{ marginRight: 10, marginLeft: 15 }}>Occupation</Text>
+      <View style={[styles.container]}>
+        <Text style={[textStyle, { marginRight: 10, marginLeft: 15 }]}>
+          Occupation
+        </Text>
         <Dropdown
           style={[
+            containerStyle,
             styles.dropdown,
-            { borderColor: COLORS.darkBlue, backgroundColor: COLORS.light },
+            { borderColor: COLORS.darkBlue },
           ]}
-          placeholderStyle={styles.placeholderStyle}
+          placeholderStyle={[textStyle, styles.placeholderStyle]}
           selectedTextStyle={styles.selectedTextStyle}
           inputSearchStyle={styles.inputSearchStyle}
           data={data}
@@ -576,17 +694,23 @@ const NonVotersEntry = ({ navigation }: NonVotersEntryScreenProp) => {
           alignItems: "center",
         }}
       >
-        <Text style={{ marginLeft: 20, marginRight: 12 }}>Party Worker</Text>
+        <Text style={[textStyle, { marginLeft: 20, marginRight: 12 }]}>
+          Party Worker
+        </Text>
         <TextInput
-          style={{
-            borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-            height: 30,
-            backgroundColor: COLORS.light,
-            borderWidth: 0.5,
-            width: "63%",
-            paddingHorizontal: 10,
-          }}
+          style={[
+            containerStyle,
+            {
+              borderColor: COLORS.darkBlue,
+              height: 30,
+
+              borderWidth: 0.5,
+              width: "63%",
+              paddingHorizontal: 10,
+            },
+          ]}
           placeholder="Party Worker"
+          placeholderTextColor={isDarkMode ? "white" : "black"}
         />
       </View>
       <View
@@ -597,19 +721,22 @@ const NonVotersEntry = ({ navigation }: NonVotersEntryScreenProp) => {
           alignItems: "center",
         }}
       >
-        <Text style={{ marginLeft: 10, marginRight: 15 }}>
+        <Text style={[textStyle, { marginLeft: 10, marginRight: 15 }]}>
           PartyWorker Mob.
         </Text>
         <TextInput
-          style={{
-            borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-            height: 30,
-            backgroundColor: COLORS.light,
-            borderWidth: 0.5,
-            width: "56%",
-            paddingHorizontal: 10,
-          }}
+          style={[
+            containerStyle,
+            {
+              borderColor: COLORS.darkBlue,
+              height: 30,
+              borderWidth: 0.5,
+              width: "56%",
+              paddingHorizontal: 10,
+            },
+          ]}
           placeholder="PartyWorker Mob."
+          placeholderTextColor={isDarkMode ? "white" : "black"}
         />
       </View>
       <View
@@ -621,17 +748,23 @@ const NonVotersEntry = ({ navigation }: NonVotersEntryScreenProp) => {
           marginBottom: 15,
         }}
       >
-        <Text style={{ marginLeft: 45, marginRight: 12 }}>Problems</Text>
+        <Text style={[textStyle, { marginLeft: 45, marginRight: 12 }]}>
+          Problems
+        </Text>
         <TextInput
-          style={{
-            borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-            height: 30,
-            backgroundColor: COLORS.light,
-            borderWidth: 0.5,
-            width: "63%",
-            paddingHorizontal: 10,
-          }}
+          style={[
+            containerStyle,
+            {
+              borderColor: COLORS.darkBlue,
+              height: 30,
+
+              borderWidth: 0.5,
+              width: "63%",
+              paddingHorizontal: 10,
+            },
+          ]}
           placeholder="Problems"
+          placeholderTextColor={isDarkMode ? "white" : "black"}
         />
       </View>
       <View style={{ alignItems: "center" }}>
@@ -652,7 +785,6 @@ const NonVotersEntry = ({ navigation }: NonVotersEntryScreenProp) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "white",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
@@ -680,6 +812,21 @@ const styles = StyleSheet.create({
   inputSearchStyle: {
     height: 30,
     fontSize: 14,
+  },
+  lightContainer: {
+    backgroundColor: "white",
+  },
+  darkContainer: {
+    backgroundColor: "#14213d",
+  },
+  text: {
+    fontSize: 24,
+  },
+  lightText: {
+    color: "#38385b",
+  },
+  darkText: {
+    color: "white",
   },
 });
 

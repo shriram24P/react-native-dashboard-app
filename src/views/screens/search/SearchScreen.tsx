@@ -34,6 +34,7 @@ import { Dropdown } from "react-native-element-dropdown";
 import DropDownPicker from "react-native-dropdown-picker";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { SelectCountry } from "react-native-element-dropdown";
+import { useTheme } from "../../../customTheme/ThemeContext";
 
 interface SearchScreenProp {
   navigation: DrawerNavigationProp<RootDrawerParamList, "SearchScreen">;
@@ -109,6 +110,11 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
   const [option, setOption] = useState("");
 
   const { t } = useTranslation();
+  const { isDarkMode } = useTheme();
+  const containerStyle = isDarkMode
+    ? styles.darkContainer
+    : styles.lightContainer;
+  const textStyle = isDarkMode ? styles.darkText : styles.lightText;
 
   const data: UserData[] = [
     {
@@ -377,7 +383,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
 
     return (
       <Modal visible={modalVisible} animationType="slide">
-        <View style={styles.modalContainer}>
+        <View style={containerStyle}>
           {/* Add TextInput components for editing user data */}
           {/* <TextInput
             style={styles.input}
@@ -390,7 +396,14 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
               }))
             }
           /> */}
-          <View style={{ display: "flex", flexDirection: "row" }}>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              marginTop: 10,
+            }}
+          >
             <TouchableOpacity
               style={{
                 backgroundColor: COLORS.darkBlue,
@@ -571,12 +584,14 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                 <RadioButton.Item
                   label="Normal Whatsapp"
                   value="first"
-                  labelStyle={{ fontSize: 14 }}
+                  labelStyle={[textStyle, { fontSize: 14 }]}
+                  color={isDarkMode ? "white" : COLORS.darkBlue}
                 />
                 <RadioButton.Item
                   label="Bussiness Whatsapp"
                   value="second"
-                  labelStyle={{ fontSize: 14 }}
+                  labelStyle={[textStyle, { fontSize: 14 }]}
+                  color={isDarkMode ? "white" : COLORS.darkBlue}
                 />
               </View>
             </RadioButton.Group>
@@ -685,7 +700,13 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
               marginBottom: 10,
             }}
           ></View>
-          <View style={{ display: "flex", flexDirection: "row" }}>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+            }}
+          >
             <ColorIcon
               source={require("../../../../assets/nocolor.png")}
               onPress={() =>
@@ -761,10 +782,12 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                       paddingVertical: 7,
                     }}
                   >
-                    <Text style={{ fontSize: 14, marginLeft: 20 }}>
+                    <Text style={[textStyle, { fontSize: 14, marginLeft: 20 }]}>
                       Sr.No. :
                     </Text>
-                    <Text style={{ marginRight: 50, fontSize: 14 }}>
+                    <Text
+                      style={[textStyle, { marginRight: 50, fontSize: 14 }]}
+                    >
                       {selectedUser.id}
                     </Text>
                   </View>
@@ -776,8 +799,12 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                       paddingVertical: 7,
                     }}
                   >
-                    <Text style={{ fontSize: 14, marginLeft: 20 }}>Name :</Text>
-                    <Text style={{ marginRight: 50, fontSize: 14 }}>
+                    <Text style={[textStyle, { fontSize: 14, marginLeft: 20 }]}>
+                      Name :
+                    </Text>
+                    <Text
+                      style={[textStyle, { marginRight: 50, fontSize: 14 }]}
+                    >
                       {selectedUser.name}
                     </Text>
                   </View>
@@ -789,8 +816,14 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                       paddingVertical: 7,
                     }}
                   >
-                    <Text style={{ fontSize: 14, marginLeft: 19 }}>Age :</Text>
-                    <Text style={{ marginRight: 50, fontSize: 14 }}>27</Text>
+                    <Text style={[textStyle, { fontSize: 14, marginLeft: 19 }]}>
+                      Age :
+                    </Text>
+                    <Text
+                      style={[textStyle, { marginRight: 50, fontSize: 14 }]}
+                    >
+                      27
+                    </Text>
                   </View>
                   <View
                     style={{
@@ -800,10 +833,12 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                       paddingVertical: 7,
                     }}
                   >
-                    <Text style={{ fontSize: 14, marginLeft: 19 }}>
+                    <Text style={[textStyle, { fontSize: 14, marginLeft: 19 }]}>
                       Phone :
                     </Text>
-                    <Text style={{ marginLeft: 100, fontSize: 14 }}>
+                    <Text
+                      style={[textStyle, { marginLeft: 100, fontSize: 14 }]}
+                    >
                       {selectedUser.phone}
                     </Text>
                     <TouchableOpacity
@@ -830,16 +865,16 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                       paddingVertical: 7,
                     }}
                   >
-                    <Text style={{ fontSize: 14, marginLeft: 20 }}>
+                    <Text style={[textStyle, { fontSize: 14, marginLeft: 20 }]}>
                       Mobile No. 2 :
                     </Text>
-                    <Text style={{ fontSize: 14, marginLeft: 20 }}>
+                    <Text style={[textStyle, { fontSize: 14, marginLeft: 20 }]}>
                       {selectedUser.phone2}
                     </Text>
                     <SelectCountry
-                      style={styles.dropdown2}
+                      style={[styles.dropdown2]}
                       selectedTextStyle={styles.selectedTextStyle}
-                      placeholderStyle={styles.placeholderStyle}
+                      placeholderStyle={[textStyle, styles.placeholderStyle]}
                       inputSearchStyle={styles.inputSearchStyle}
                       iconStyle={styles.iconStyle}
                       maxHeight={200}
@@ -865,16 +900,16 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                       paddingVertical: 7,
                     }}
                   >
-                    <Text style={{ fontSize: 14, marginLeft: 20 }}>
+                    <Text style={[textStyle, { fontSize: 14, marginLeft: 20 }]}>
                       Mobile No. 3 :
                     </Text>
-                    <Text style={{ fontSize: 14, marginLeft: 20 }}>
+                    <Text style={[textStyle, { fontSize: 14, marginLeft: 20 }]}>
                       {selectedUser.phone2}
                     </Text>
                     <SelectCountry
                       style={styles.dropdown2}
                       selectedTextStyle={styles.selectedTextStyle}
-                      placeholderStyle={styles.placeholderStyle}
+                      placeholderStyle={[textStyle, styles.placeholderStyle]}
                       inputSearchStyle={styles.inputSearchStyle}
                       iconStyle={styles.iconStyle}
                       maxHeight={200}
@@ -900,16 +935,16 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                       paddingVertical: 7,
                     }}
                   >
-                    <Text style={{ fontSize: 14, marginLeft: 20 }}>
+                    <Text style={[textStyle, { fontSize: 14, marginLeft: 20 }]}>
                       Mobile No. 4 :
                     </Text>
-                    <Text style={{ fontSize: 14, marginLeft: 20 }}>
+                    <Text style={[textStyle, { fontSize: 14, marginLeft: 20 }]}>
                       {selectedUser.phone2}
                     </Text>
                     <SelectCountry
                       style={styles.dropdown2}
                       selectedTextStyle={styles.selectedTextStyle}
-                      placeholderStyle={styles.placeholderStyle}
+                      placeholderStyle={[textStyle, styles.placeholderStyle]}
                       inputSearchStyle={styles.inputSearchStyle}
                       iconStyle={styles.iconStyle}
                       maxHeight={200}
@@ -934,10 +969,12 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                       paddingVertical: 7,
                     }}
                   >
-                    <Text style={{ fontSize: 14, marginLeft: 20 }}>
+                    <Text style={[textStyle, { fontSize: 14, marginLeft: 20 }]}>
                       Booth No. :
                     </Text>
-                    <Text style={{ marginRight: 50, fontSize: 14 }}>
+                    <Text
+                      style={[textStyle, { marginRight: 50, fontSize: 14 }]}
+                    >
                       1/ Laxmi Chowk
                     </Text>
                   </View>
@@ -949,10 +986,12 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                       paddingVertical: 7,
                     }}
                   >
-                    <Text style={{ fontSize: 14, marginLeft: 20 }}>
+                    <Text style={[textStyle, { fontSize: 14, marginLeft: 20 }]}>
                       House No. :
                     </Text>
-                    <Text style={{ marginRight: 50, fontSize: 14 }}>
+                    <Text
+                      style={[textStyle, { marginRight: 50, fontSize: 14 }]}
+                    >
                       1/ Laxmi Chowk
                     </Text>
                   </View>
@@ -964,10 +1003,12 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                       paddingVertical: 7,
                     }}
                   >
-                    <Text style={{ fontSize: 14, marginLeft: 20 }}>
+                    <Text style={[textStyle, { fontSize: 14, marginLeft: 20 }]}>
                       Address :
                     </Text>
-                    <Text style={{ marginRight: 50, fontSize: 14 }}>
+                    <Text
+                      style={[textStyle, { marginRight: 50, fontSize: 14 }]}
+                    >
                       1/ Laxmi Chowk
                     </Text>
                   </View>
@@ -981,21 +1022,27 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     }}
                   >
                     <Text
-                      style={{ marginLeft: 20, marginRight: 10, fontSize: 14 }}
+                      style={[
+                        textStyle,
+                        { marginLeft: 20, marginRight: 10, fontSize: 14 },
+                      ]}
                     >
                       Vibhag :
                     </Text>
                     <TextInput
-                      style={{
-                        borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-                        height: 30,
-                        backgroundColor: COLORS.light,
-                        borderWidth: 0.5,
-                        width: "50%",
-                        paddingHorizontal: 10,
-                        marginRight: 15,
-                      }}
+                      style={[
+                        containerStyle,
+                        {
+                          borderColor: COLORS.darkBlue,
+                          height: 30,
+                          borderWidth: 0.5,
+                          width: "50%",
+                          paddingHorizontal: 10,
+                          marginRight: 15,
+                        },
+                      ]}
                       placeholder="Vibhag"
+                      placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                     />
                   </View>
                   <View
@@ -1008,21 +1055,28 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     }}
                   >
                     <Text
-                      style={{ marginLeft: 20, marginRight: 10, fontSize: 14 }}
+                      style={[
+                        textStyle,
+                        { marginLeft: 20, marginRight: 10, fontSize: 14 },
+                      ]}
                     >
                       House No. :
                     </Text>
                     <TextInput
-                      style={{
-                        borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-                        height: 30,
-                        backgroundColor: COLORS.light,
-                        borderWidth: 0.5,
-                        width: "50%",
-                        paddingHorizontal: 10,
-                        marginRight: 15,
-                      }}
+                      style={[
+                        containerStyle,
+                        {
+                          borderColor: COLORS.darkBlue,
+                          height: 30,
+
+                          borderWidth: 0.5,
+                          width: "50%",
+                          paddingHorizontal: 10,
+                          marginRight: 15,
+                        },
+                      ]}
                       placeholder="House No."
+                      placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                     />
                   </View>
                   <View
@@ -1035,21 +1089,28 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     }}
                   >
                     <Text
-                      style={{ marginLeft: 20, marginRight: 10, fontSize: 14 }}
+                      style={[
+                        textStyle,
+                        { marginLeft: 20, marginRight: 10, fontSize: 14 },
+                      ]}
                     >
                       Society :
                     </Text>
                     <TextInput
-                      style={{
-                        borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-                        height: 30,
-                        backgroundColor: COLORS.light,
-                        borderWidth: 0.5,
-                        width: "50%",
-                        paddingHorizontal: 10,
-                        marginRight: 15,
-                      }}
+                      style={[
+                        containerStyle,
+                        {
+                          borderColor: COLORS.darkBlue,
+                          height: 30,
+
+                          borderWidth: 0.5,
+                          width: "50%",
+                          paddingHorizontal: 10,
+                          marginRight: 15,
+                        },
+                      ]}
                       placeholder="Society"
+                      placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                     />
                   </View>
                   <View
@@ -1062,21 +1123,28 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     }}
                   >
                     <Text
-                      style={{ marginLeft: 20, marginRight: 10, fontSize: 14 }}
+                      style={[
+                        textStyle,
+                        { marginLeft: 20, marginRight: 10, fontSize: 14 },
+                      ]}
                     >
                       Post :
                     </Text>
                     <TextInput
-                      style={{
-                        borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-                        height: 30,
-                        backgroundColor: COLORS.light,
-                        borderWidth: 0.5,
-                        width: "50%",
-                        paddingHorizontal: 10,
-                        marginRight: 15,
-                      }}
+                      style={[
+                        containerStyle,
+                        {
+                          borderColor: COLORS.darkBlue,
+                          height: 30,
+
+                          borderWidth: 0.5,
+                          width: "50%",
+                          paddingHorizontal: 10,
+                          marginRight: 15,
+                        },
+                      ]}
                       placeholder="Post"
+                      placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                     />
                   </View>
                   <View
@@ -1089,21 +1157,28 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     }}
                   >
                     <Text
-                      style={{ marginLeft: 20, marginRight: 10, fontSize: 14 }}
+                      style={[
+                        textStyle,
+                        { marginLeft: 20, marginRight: 10, fontSize: 14 },
+                      ]}
                     >
                       Caste :
                     </Text>
                     <TextInput
-                      style={{
-                        borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-                        height: 30,
-                        backgroundColor: COLORS.light,
-                        borderWidth: 0.5,
-                        width: "50%",
-                        paddingHorizontal: 10,
-                        marginRight: 15,
-                      }}
+                      style={[
+                        containerStyle,
+                        {
+                          borderColor: COLORS.darkBlue,
+                          height: 30,
+
+                          borderWidth: 0.5,
+                          width: "50%",
+                          paddingHorizontal: 10,
+                          marginRight: 15,
+                        },
+                      ]}
                       placeholder="Caste"
+                      placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                     />
                   </View>
                   <View
@@ -1116,21 +1191,28 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     }}
                   >
                     <Text
-                      style={{ marginLeft: 20, marginRight: 10, fontSize: 14 }}
+                      style={[
+                        textStyle,
+                        { marginLeft: 20, marginRight: 10, fontSize: 14 },
+                      ]}
                     >
                       Party Worker :
                     </Text>
                     <TextInput
-                      style={{
-                        borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-                        height: 30,
-                        backgroundColor: COLORS.light,
-                        borderWidth: 0.5,
-                        width: "50%",
-                        paddingHorizontal: 10,
-                        marginRight: 15,
-                      }}
+                      style={[
+                        containerStyle,
+                        {
+                          borderColor: COLORS.darkBlue,
+                          height: 30,
+
+                          borderWidth: 0.5,
+                          width: "50%",
+                          paddingHorizontal: 10,
+                          marginRight: 15,
+                        },
+                      ]}
                       placeholder="Party Worker"
+                      placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                     />
                   </View>
                   <View
@@ -1143,21 +1225,28 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     }}
                   >
                     <Text
-                      style={{ marginLeft: 20, marginRight: 10, fontSize: 14 }}
+                      style={[
+                        textStyle,
+                        { marginLeft: 20, marginRight: 10, fontSize: 14 },
+                      ]}
                     >
                       PartyWorker Mobile :
                     </Text>
                     <TextInput
-                      style={{
-                        borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-                        height: 30,
-                        backgroundColor: COLORS.light,
-                        borderWidth: 0.5,
-                        width: "45%",
-                        paddingHorizontal: 10,
-                        marginRight: 37,
-                      }}
+                      style={[
+                        containerStyle,
+                        {
+                          borderColor: COLORS.darkBlue,
+                          height: 30,
+
+                          borderWidth: 0.5,
+                          width: "45%",
+                          paddingHorizontal: 10,
+                          marginRight: 37,
+                        },
+                      ]}
                       placeholder="PartyWorker Mobile"
+                      placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                     />
                   </View>
                   <View
@@ -1180,7 +1269,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                           marginLeft: 20,
                         }}
                       >
-                        <Text>Dead? :</Text>
+                        <Text style={[textStyle]}>Dead? :</Text>
                         <View
                           style={{
                             marginLeft: 70,
@@ -1188,8 +1277,18 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                             flexDirection: "row",
                           }}
                         >
-                          <RadioButton.Item label="No" value="first" />
-                          <RadioButton.Item label="Yes" value="second" />
+                          <RadioButton.Item
+                            label="No"
+                            value="first"
+                            labelStyle={[textStyle, { fontSize: 14 }]}
+                            color={isDarkMode ? "white" : COLORS.darkBlue}
+                          />
+                          <RadioButton.Item
+                            label="Yes"
+                            value="second"
+                            labelStyle={[textStyle, { fontSize: 14 }]}
+                            color={isDarkMode ? "white" : COLORS.darkBlue}
+                          />
                         </View>
                       </View>
                     </RadioButton.Group>
@@ -1204,21 +1303,28 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     }}
                   >
                     <Text
-                      style={{ marginLeft: 20, marginRight: 10, fontSize: 14 }}
+                      style={[
+                        textStyle,
+                        { marginLeft: 20, marginRight: 10, fontSize: 14 },
+                      ]}
                     >
                       Location :
                     </Text>
                     <TextInput
-                      style={{
-                        borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-                        height: 30,
-                        backgroundColor: COLORS.light,
-                        borderWidth: 0.5,
-                        width: "50%",
-                        paddingHorizontal: 10,
-                        marginRight: 15,
-                      }}
+                      style={[
+                        containerStyle,
+                        {
+                          borderColor: COLORS.darkBlue,
+                          height: 30,
+
+                          borderWidth: 0.5,
+                          width: "50%",
+                          paddingHorizontal: 10,
+                          marginRight: 15,
+                        },
+                      ]}
                       placeholder="Location"
+                      placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                     />
                   </View>
                   <View
@@ -1231,22 +1337,28 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     }}
                   >
                     <Text
-                      style={{ marginLeft: 20, marginRight: 10, fontSize: 14 }}
+                      style={[
+                        textStyle,
+                        { marginLeft: 20, marginRight: 10, fontSize: 14 },
+                      ]}
                     >
                       Location Address :
                     </Text>
                     <TextInput
-                      style={{
-                        borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
+                      style={[
+                        containerStyle,
+                        {
+                          borderColor: COLORS.darkBlue,
 
-                        backgroundColor: COLORS.light,
-                        borderWidth: 0.5,
-                        width: "40%",
-                        paddingHorizontal: 10,
-                        marginRight: 15,
-                        height: 60,
-                      }}
+                          borderWidth: 0.5,
+                          width: "40%",
+                          paddingHorizontal: 10,
+                          marginRight: 15,
+                          height: 60,
+                        },
+                      ]}
                       placeholder="Post"
+                      placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                     />
                   </View>
                   <View
@@ -1325,11 +1437,11 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
 
   return (
     <>
-      <View>
+      <View style={[containerStyle]}>
         <Modal visible={familyModalVisible} animationType="slide">
           {selectedUser && (
-            <View style={styles.modalContainer}>
-              <Text style={{ alignSelf: "center" }}>
+            <View style={[containerStyle]}>
+              <Text style={[textStyle, { alignSelf: "center", marginTop: 10 }]}>
                 {selectedUser.name} Family
               </Text>
               <View
@@ -1337,6 +1449,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                   display: "flex",
                   flexDirection: "row",
                   justifyContent: "space-between",
+                  marginHorizontal: 10,
                 }}
               >
                 <ListButtons
@@ -1415,7 +1528,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
               <View
                 style={{
                   marginTop: -20,
-                  marginLeft: 50,
+                  alignSelf: "center",
                 }}
               >
                 <ListButtons
@@ -1445,21 +1558,28 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                   }}
                 >
                   <Text
-                    style={{ marginLeft: 20, marginRight: 10, fontSize: 18 }}
+                    style={[
+                      textStyle,
+                      { marginLeft: 20, marginRight: 10, fontSize: 18 },
+                    ]}
                   >
                     Mobile :
                   </Text>
                   <TextInput
-                    style={{
-                      borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-                      height: 30,
-                      backgroundColor: COLORS.light,
-                      borderWidth: 0.5,
-                      width: "50%",
-                      paddingHorizontal: 10,
-                      marginRight: 15,
-                    }}
+                    style={[
+                      containerStyle,
+                      {
+                        borderColor: COLORS.darkBlue,
+                        height: 30,
+
+                        borderWidth: 0.5,
+                        width: "50%",
+                        paddingHorizontal: 10,
+                        marginRight: 15,
+                      },
+                    ]}
                     placeholder="Mobile"
+                    placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                   />
                 </View>
                 <View
@@ -1472,21 +1592,28 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                   }}
                 >
                   <Text
-                    style={{ marginLeft: 20, marginRight: 10, fontSize: 18 }}
+                    style={[
+                      textStyle,
+                      { marginLeft: 20, marginRight: 10, fontSize: 18 },
+                    ]}
                   >
                     Mobile 2 :
                   </Text>
                   <TextInput
-                    style={{
-                      borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-                      height: 30,
-                      backgroundColor: COLORS.light,
-                      borderWidth: 0.5,
-                      width: "50%",
-                      paddingHorizontal: 10,
-                      marginRight: 15,
-                    }}
+                    style={[
+                      containerStyle,
+                      {
+                        borderColor: COLORS.darkBlue,
+                        height: 30,
+
+                        borderWidth: 0.5,
+                        width: "50%",
+                        paddingHorizontal: 10,
+                        marginRight: 15,
+                      },
+                    ]}
                     placeholder="Mobile 2"
+                    placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                   />
                 </View>
                 <View
@@ -1499,21 +1626,28 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                   }}
                 >
                   <Text
-                    style={{ marginLeft: 20, marginRight: 10, fontSize: 18 }}
+                    style={[
+                      textStyle,
+                      { marginLeft: 20, marginRight: 10, fontSize: 18 },
+                    ]}
                   >
                     Mobile 3 :
                   </Text>
                   <TextInput
-                    style={{
-                      borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-                      height: 30,
-                      backgroundColor: COLORS.light,
-                      borderWidth: 0.5,
-                      width: "50%",
-                      paddingHorizontal: 10,
-                      marginRight: 15,
-                    }}
+                    style={[
+                      containerStyle,
+                      {
+                        borderColor: COLORS.darkBlue,
+                        height: 30,
+
+                        borderWidth: 0.5,
+                        width: "50%",
+                        paddingHorizontal: 10,
+                        marginRight: 15,
+                      },
+                    ]}
                     placeholder="Mobile 3"
+                    placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                   />
                 </View>
                 <View
@@ -1526,21 +1660,28 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                   }}
                 >
                   <Text
-                    style={{ marginLeft: 20, marginRight: 10, fontSize: 18 }}
+                    style={[
+                      textStyle,
+                      { marginLeft: 20, marginRight: 10, fontSize: 18 },
+                    ]}
                   >
                     Mobile 4 :
                   </Text>
                   <TextInput
-                    style={{
-                      borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-                      height: 30,
-                      backgroundColor: COLORS.light,
-                      borderWidth: 0.5,
-                      width: "50%",
-                      paddingHorizontal: 10,
-                      marginRight: 15,
-                    }}
+                    style={[
+                      containerStyle,
+                      {
+                        borderColor: COLORS.darkBlue,
+                        height: 30,
+
+                        borderWidth: 0.5,
+                        width: "50%",
+                        paddingHorizontal: 10,
+                        marginRight: 15,
+                      },
+                    ]}
                     placeholder="Mobile 4"
+                    placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                   />
                 </View>
                 <View
@@ -1553,21 +1694,28 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                   }}
                 >
                   <Text
-                    style={{ marginLeft: 20, marginRight: 10, fontSize: 18 }}
+                    style={[
+                      textStyle,
+                      { marginLeft: 20, marginRight: 10, fontSize: 18 },
+                    ]}
                   >
                     House No. :
                   </Text>
                   <TextInput
-                    style={{
-                      borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-                      height: 30,
-                      backgroundColor: COLORS.light,
-                      borderWidth: 0.5,
-                      width: "50%",
-                      paddingHorizontal: 10,
-                      marginRight: 15,
-                    }}
+                    style={[
+                      containerStyle,
+                      {
+                        borderColor: COLORS.darkBlue,
+                        height: 30,
+
+                        borderWidth: 0.5,
+                        width: "50%",
+                        paddingHorizontal: 10,
+                        marginRight: 15,
+                      },
+                    ]}
                     placeholder="House No."
+                    placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                   />
                 </View>
                 <View
@@ -1580,21 +1728,28 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                   }}
                 >
                   <Text
-                    style={{ marginLeft: 20, marginRight: 10, fontSize: 18 }}
+                    style={[
+                      textStyle,
+                      { marginLeft: 20, marginRight: 10, fontSize: 18 },
+                    ]}
                   >
                     Society :
                   </Text>
                   <TextInput
-                    style={{
-                      borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-                      height: 30,
-                      backgroundColor: COLORS.light,
-                      borderWidth: 0.5,
-                      width: "50%",
-                      paddingHorizontal: 10,
-                      marginRight: 15,
-                    }}
+                    style={[
+                      containerStyle,
+                      {
+                        borderColor: COLORS.darkBlue,
+                        height: 30,
+
+                        borderWidth: 0.5,
+                        width: "50%",
+                        paddingHorizontal: 10,
+                        marginRight: 15,
+                      },
+                    ]}
                     placeholder="Society"
+                    placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                   />
                 </View>
                 <View
@@ -1607,50 +1762,60 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                   }}
                 >
                   <Text
-                    style={{ marginLeft: 20, marginRight: 10, fontSize: 18 }}
+                    style={[
+                      textStyle,
+                      { marginLeft: 20, marginRight: 10, fontSize: 18 },
+                    ]}
                   >
                     Vibhag :
                   </Text>
                   <TextInput
-                    style={{
-                      borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-                      height: 30,
-                      backgroundColor: COLORS.light,
-                      borderWidth: 0.5,
-                      width: "50%",
-                      paddingHorizontal: 10,
-                      marginRight: 15,
-                    }}
+                    style={[
+                      containerStyle,
+                      {
+                        borderColor: COLORS.darkBlue,
+                        height: 30,
+
+                        borderWidth: 0.5,
+                        width: "50%",
+                        paddingHorizontal: 10,
+                        marginRight: 15,
+                      },
+                    ]}
                     placeholder="Vibhag"
+                    placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                   />
                 </View>
                 <View
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-around",
-                  }}
+                  style={[
+                    containerStyle,
+                    {
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-around",
+                    },
+                  ]}
                 >
                   <CheckBox
                     title="Rental"
                     checked={check1}
                     onPress={() => setCheck1(!check1)}
                     checkedColor={COLORS.darkBlue}
-                    containerStyle={{ backgroundColor: "#fff" }}
+                    containerStyle={[containerStyle]}
                   />
                   <CheckBox
                     title="Migrated"
                     checked={check2}
                     onPress={() => setCheck2(!check2)}
                     checkedColor={COLORS.darkBlue}
-                    containerStyle={{ backgroundColor: "#fff" }}
+                    containerStyle={[containerStyle]}
                   />
                   <CheckBox
                     title="Closed"
                     checked={check3}
                     onPress={() => setCheck3(!check3)}
                     checkedColor={COLORS.darkBlue}
-                    containerStyle={{ backgroundColor: "#fff" }}
+                    containerStyle={[containerStyle]}
                   />
                 </View>
                 {check2 && (
@@ -1664,25 +1829,32 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     }}
                   >
                     <Text
-                      style={{
-                        marginLeft: 20,
-                        marginRight: 10,
-                        fontSize: 18,
-                      }}
+                      style={[
+                        textStyle,
+                        {
+                          marginLeft: 20,
+                          marginRight: 10,
+                          fontSize: 18,
+                        },
+                      ]}
                     >
                       Migrated to :
                     </Text>
                     <TextInput
-                      style={{
-                        borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-                        height: 30,
-                        backgroundColor: COLORS.light,
-                        borderWidth: 0.5,
-                        width: "50%",
-                        paddingHorizontal: 10,
-                        marginRight: 15,
-                      }}
+                      style={[
+                        containerStyle,
+                        {
+                          borderColor: COLORS.darkBlue,
+                          height: 30,
+
+                          borderWidth: 0.5,
+                          width: "50%",
+                          paddingHorizontal: 10,
+                          marginRight: 15,
+                        },
+                      ]}
                       placeholder="Migrated to"
+                      placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                     />
                   </View>
                 )}
@@ -1696,21 +1868,27 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                   }}
                 >
                   <Text
-                    style={{ marginLeft: 20, marginRight: 10, fontSize: 18 }}
+                    style={[
+                      textStyle,
+                      { marginLeft: 20, marginRight: 10, fontSize: 18 },
+                    ]}
                   >
                     Old Town :
                   </Text>
                   <TextInput
-                    style={{
-                      borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-                      height: 30,
-                      backgroundColor: COLORS.light,
-                      borderWidth: 0.5,
-                      width: "50%",
-                      paddingHorizontal: 10,
-                      marginRight: 15,
-                    }}
+                    style={[
+                      containerStyle,
+                      {
+                        borderColor: COLORS.darkBlue,
+                        height: 30,
+                        borderWidth: 0.5,
+                        width: "50%",
+                        paddingHorizontal: 10,
+                        marginRight: 15,
+                      },
+                    ]}
                     placeholder="Old Town"
+                    placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                   />
                 </View>
                 <View
@@ -1723,21 +1901,28 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                   }}
                 >
                   <Text
-                    style={{ marginLeft: 20, marginRight: 10, fontSize: 18 }}
+                    style={[
+                      textStyle,
+                      { marginLeft: 20, marginRight: 10, fontSize: 18 },
+                    ]}
                   >
                     Caste :
                   </Text>
                   <TextInput
-                    style={{
-                      borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-                      height: 30,
-                      backgroundColor: COLORS.light,
-                      borderWidth: 0.5,
-                      width: "50%",
-                      paddingHorizontal: 10,
-                      marginRight: 15,
-                    }}
+                    style={[
+                      containerStyle,
+                      {
+                        borderColor: COLORS.darkBlue,
+                        height: 30,
+
+                        borderWidth: 0.5,
+                        width: "50%",
+                        paddingHorizontal: 10,
+                        marginRight: 15,
+                      },
+                    ]}
                     placeholder="Caste"
+                    placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                   />
                 </View>
                 <View
@@ -1750,21 +1935,28 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                   }}
                 >
                   <Text
-                    style={{ marginLeft: 20, marginRight: 10, fontSize: 18 }}
+                    style={[
+                      textStyle,
+                      { marginLeft: 20, marginRight: 10, fontSize: 18 },
+                    ]}
                   >
                     PartyWorker :
                   </Text>
                   <TextInput
-                    style={{
-                      borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-                      height: 30,
-                      backgroundColor: COLORS.light,
-                      borderWidth: 0.5,
-                      width: "50%",
-                      paddingHorizontal: 10,
-                      marginRight: 15,
-                    }}
+                    style={[
+                      containerStyle,
+                      {
+                        borderColor: COLORS.darkBlue,
+                        height: 30,
+
+                        borderWidth: 0.5,
+                        width: "50%",
+                        paddingHorizontal: 10,
+                        marginRight: 15,
+                      },
+                    ]}
                     placeholder="PartyWorker"
+                    placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                   />
                 </View>
                 <View
@@ -1777,38 +1969,50 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                   }}
                 >
                   <Text
-                    style={{ marginLeft: 20, marginRight: 10, fontSize: 14 }}
+                    style={[
+                      textStyle,
+                      { marginLeft: 20, marginRight: 10, fontSize: 14 },
+                    ]}
                   >
                     PartyWorker Mobile :
                   </Text>
                   <TextInput
-                    style={{
-                      borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-                      height: 30,
-                      backgroundColor: COLORS.light,
-                      borderWidth: 0.5,
-                      width: "45%",
-                      paddingHorizontal: 10,
-                      marginRight: 15,
-                    }}
+                    style={[
+                      containerStyle,
+                      {
+                        borderColor: COLORS.darkBlue,
+                        height: 30,
+
+                        borderWidth: 0.5,
+                        width: "45%",
+                        paddingHorizontal: 10,
+                        marginRight: 15,
+                      },
+                    ]}
                     placeholder="PartyWorker Mobile"
+                    placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                   />
                 </View>
-                <View style={[styles.container, { marginTop: 15 }]}>
+                <View
+                  style={[containerStyle, styles.container, { marginTop: 15 }]}
+                >
                   <Text
-                    style={{ marginRight: 10, marginLeft: 40, fontSize: 18 }}
+                    style={[
+                      textStyle,
+                      { marginRight: 10, marginLeft: 20, fontSize: 18 },
+                    ]}
                   >
                     Relation
                   </Text>
                   <Dropdown
                     style={[
+                      containerStyle,
                       styles.dropdown,
                       {
                         borderColor: COLORS.darkBlue,
-                        backgroundColor: COLORS.light,
                       },
                     ]}
-                    placeholderStyle={styles.placeholderStyle}
+                    placeholderStyle={[textStyle, styles.placeholderStyle]}
                     selectedTextStyle={styles.selectedTextStyle}
                     inputSearchStyle={styles.inputSearchStyle}
                     data={myData}
@@ -1837,21 +2041,28 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                   }}
                 >
                   <Text
-                    style={{ marginLeft: 20, marginRight: 10, fontSize: 18 }}
+                    style={[
+                      textStyle,
+                      { marginLeft: 20, marginRight: 10, fontSize: 18 },
+                    ]}
                   >
                     Location :
                   </Text>
                   <TextInput
-                    style={{
-                      borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-                      height: 30,
-                      backgroundColor: COLORS.light,
-                      borderWidth: 0.5,
-                      width: "50%",
-                      paddingHorizontal: 10,
-                      marginRight: 15,
-                    }}
+                    style={[
+                      containerStyle,
+                      {
+                        borderColor: COLORS.darkBlue,
+                        height: 30,
+
+                        borderWidth: 0.5,
+                        width: "50%",
+                        paddingHorizontal: 10,
+                        marginRight: 15,
+                      },
+                    ]}
                     placeholder="Location"
+                    placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                   />
                 </View>
                 <View
@@ -1864,21 +2075,28 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                   }}
                 >
                   <Text
-                    style={{ marginLeft: 20, marginRight: 10, fontSize: 14 }}
+                    style={[
+                      textStyle,
+                      { marginLeft: 20, marginRight: 10, fontSize: 14 },
+                    ]}
                   >
                     Location Address :
                   </Text>
                   <TextInput
-                    style={{
-                      borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-                      height: 70,
-                      backgroundColor: COLORS.light,
-                      borderWidth: 0.5,
-                      width: "50%",
-                      paddingHorizontal: 10,
-                      marginRight: 15,
-                    }}
+                    style={[
+                      containerStyle,
+                      {
+                        borderColor: COLORS.darkBlue,
+                        height: 70,
+
+                        borderWidth: 0.5,
+                        width: "50%",
+                        paddingHorizontal: 10,
+                        marginRight: 15,
+                      },
+                    ]}
                     placeholder="Location Address"
+                    placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                   />
                 </View>
                 <View
@@ -1911,42 +2129,57 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     marginTop: 15,
                     alignItems: "center",
                     justifyContent: "space-between",
+                    marginBottom: 15,
                   }}
                 >
                   <Text
-                    style={{ marginLeft: 20, marginRight: 10, fontSize: 14 }}
+                    style={[
+                      textStyle,
+                      { marginLeft: 20, marginRight: 10, fontSize: 14 },
+                    ]}
                   >
                     Problems :
                   </Text>
                   <TextInput
-                    style={{
-                      borderColor: isFocused ? COLORS.darkBlue : COLORS.blue,
-                      height: 30,
-                      backgroundColor: COLORS.light,
-                      borderWidth: 0.5,
-                      width: "50%",
-                      paddingHorizontal: 10,
-                      marginRight: 15,
-                    }}
+                    style={[
+                      containerStyle,
+                      {
+                        borderColor: COLORS.darkBlue,
+                        height: 30,
+
+                        borderWidth: 0.5,
+                        width: "50%",
+                        paddingHorizontal: 10,
+                        marginRight: 15,
+                      },
+                    ]}
                     placeholder="Problems"
+                    placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                   />
                 </View>
               </ScrollView>
               {viewUserData && (
                 <View
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    height: "20%",
-                    width: "100%",
-                    backgroundColor: COLORS.light,
-                  }}
+                  style={[
+                    containerStyle,
+                    {
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      height: "20%",
+                      width: "100%",
+                      elevation: 7,
+                      borderWidth: 0.5,
+                      borderColor: COLORS.darkBlue,
+                    },
+                  ]}
                 >
-                  <Text style={{ marginLeft: 10, marginTop: 10 }}>
+                  <Text style={[textStyle, { marginLeft: 10, marginTop: 10 }]}>
                     {selectedUser.id}
                   </Text>
-                  <Text style={{ marginTop: 10 }}>{selectedUser.name}</Text>
+                  <Text style={[textStyle, { marginTop: 10 }]}>
+                    {selectedUser.name}
+                  </Text>
                   <View style={{ marginRight: 10, marginTop: -10 }}>
                     <ListButtons
                       buttonText="Remove"
@@ -1962,11 +2195,22 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
             </View>
           )}
         </Modal>
-        <View style={styles.container1}>
-          <View style={[styles.searchBar, { marginLeft: 20, marginRight: 20 }]}>
+        <View style={[containerStyle, styles.container1]}>
+          <View
+            style={[
+              styles.searchBar,
+              {
+                marginLeft: 20,
+                marginRight: 20,
+                borderColor: isDarkMode ? "white" : COLORS.darkBlue,
+                borderRadius: 10,
+              },
+            ]}
+          >
             <TextInput
-              style={styles.input}
+              style={[textStyle, styles.input]}
               placeholder={t("pFullName")}
+              placeholderTextColor={isDarkMode ? "white" : "black"}
               value={searchText}
               onChangeText={(text) => {
                 setSearchText(text);
@@ -1980,10 +2224,21 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
               flexDirection: "row",
             }}
           >
-            <View style={[styles.searchBar, { width: 110, marginLeft: 20 }]}>
+            <View
+              style={[
+                styles.searchBar,
+                {
+                  width: 110,
+                  marginLeft: 20,
+                  borderColor: isDarkMode ? "white" : COLORS.darkBlue,
+                  borderRadius: 10,
+                },
+              ]}
+            >
               <TextInput
-                style={styles.input}
+                style={[containerStyle, styles.input]}
                 placeholder={t("lName")}
+                placeholderTextColor={isDarkMode ? "white" : "black"}
                 value={searchText}
                 onChangeText={(text) => {
                   setSearchText(text);
@@ -1991,10 +2246,21 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                 }}
               />
             </View>
-            <View style={[styles.searchBar, { width: 90 }]}>
+            <View
+              style={[
+                containerStyle,
+                styles.searchBar,
+                {
+                  width: 80,
+                  borderColor: isDarkMode ? "white" : COLORS.darkBlue,
+                  borderRadius: 10,
+                },
+              ]}
+            >
               <TextInput
                 style={styles.input}
                 placeholder={t("name")}
+                placeholderTextColor={isDarkMode ? "white" : "black"}
                 value={searchText}
                 onChangeText={(text) => {
                   setSearchText(text);
@@ -2002,10 +2268,21 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                 }}
               />
             </View>
-            <View style={[styles.searchBar, { width: 130 }]}>
+            <View
+              style={[
+                styles.searchBar,
+                {
+                  width: 120,
+                  marginRight: 10,
+                  borderColor: isDarkMode ? "white" : COLORS.darkBlue,
+                  borderRadius: 10,
+                },
+              ]}
+            >
               <TextInput
                 style={styles.input}
                 placeholder={t("pMiddleName")}
+                placeholderTextColor={isDarkMode ? "white" : "black"}
                 value={searchText}
                 onChangeText={(text) => {
                   setSearchText(text);
@@ -2023,12 +2300,19 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
             <View
               style={[
                 styles.searchBar,
-                { width: 160, marginLeft: 20, marginRight: 10 },
+                {
+                  width: 160,
+                  marginLeft: 20,
+                  marginRight: 10,
+                  borderColor: isDarkMode ? "white" : COLORS.darkBlue,
+                  borderRadius: 10,
+                },
               ]}
             >
               <TextInput
                 style={styles.input}
                 placeholder={t("pCard")}
+                placeholderTextColor={isDarkMode ? "white" : "black"}
                 value={searchText}
                 onChangeText={(text) => {
                   setSearchText(text);
@@ -2036,10 +2320,20 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                 }}
               />
             </View>
-            <View style={[styles.searchBar, { width: 180 }]}>
+            <View
+              style={[
+                styles.searchBar,
+                {
+                  width: 180,
+                  borderColor: isDarkMode ? "white" : COLORS.darkBlue,
+                  borderRadius: 10,
+                },
+              ]}
+            >
               <TextInput
                 style={styles.input}
                 placeholder={t("pBooth")}
+                placeholderTextColor={isDarkMode ? "white" : "black"}
                 value={searchText}
                 onChangeText={(text) => {
                   setSearchText(text);
@@ -2073,7 +2367,9 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
               <Text style={styles.searchBtn}>Voter Slip</Text>
             </TouchableOpacity>
           </View>
-          <View style={{ display: "flex", flexDirection: "row" }}>
+          <View
+            style={[containerStyle, { display: "flex", flexDirection: "row" }]}
+          >
             <RadioButton.Group
               onValueChange={(newValue) => setChecked(newValue)}
               value={checked}
@@ -2085,23 +2381,38 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                   marginLeft: 20,
                 }}
               >
-                <RadioButton.Item label="All" value="first" />
-                <RadioButton.Item label="Survey" value="second" />
-                <RadioButton.Item label="Non Survey" value="third" />
+                <RadioButton.Item
+                  label="All"
+                  value="first"
+                  labelStyle={textStyle}
+                  color={isDarkMode ? "white" : COLORS.darkBlue}
+                />
+                <RadioButton.Item
+                  label="Survey"
+                  value="second"
+                  labelStyle={textStyle}
+                  color={isDarkMode ? "white" : COLORS.darkBlue}
+                />
+                <RadioButton.Item
+                  label="Non Survey"
+                  value="third"
+                  labelStyle={textStyle}
+                  color={isDarkMode ? "white" : COLORS.darkBlue}
+                />
               </View>
             </RadioButton.Group>
           </View>
         </View>
       </View>
 
-      <View style={styles.tableContainer}>
+      <View style={[containerStyle, styles.tableContainer]}>
         <View style={styles.headerTopBar}>
           <Text style={styles.headerTopBarText}>{t("users")}</Text>
         </View>
         <View style={styles.header}>
-          <Text style={[styles.heading, { width: 90 }]}>Photo</Text>
-          <Text style={[styles.heading, { width: 90 }]}>Name</Text>
-          <Text style={[styles.heading, { width: 110 }]}>Phone</Text>
+          <Text style={[textStyle, styles.heading, { width: 90 }]}>Photo</Text>
+          <Text style={[textStyle, styles.heading, { width: 90 }]}>Name</Text>
+          <Text style={[textStyle, styles.heading, { width: 110 }]}>Phone</Text>
         </View>
 
         <UserTable data={searchResults} onEdit={handleEditUser} />
@@ -2120,13 +2431,12 @@ const styles = StyleSheet.create({
   container2: {
     flex: 1,
     padding: 16,
-    backgroundColor: "#F7F7F7",
+    paddingBottom: 10,
   },
   tableContainer: {
-    backgroundColor: "#fff",
     paddingHorizontal: 20,
     flex: 1,
-    marginTop: 20,
+    marginTop: 10,
   },
   headerTopBar: {
     backgroundColor: COLORS.darkBlue,
@@ -2149,15 +2459,16 @@ const styles = StyleSheet.create({
     marginLeft: 18,
   },
   searchBar: {
-    backgroundColor: COLORS.white,
-    borderRadius: 5,
+    flexDirection: "row",
+    paddingHorizontal: 10,
+    borderWidth: 0.5,
+    alignItems: "center",
+    marginTop: 20,
     padding: 7,
-    marginTop: 18,
-    marginRight: 10,
+    marginHorizontal: 10,
   },
   input: {
     fontSize: 16,
-    borderColor: "red",
   },
   buttonContainer1: {
     flexDirection: "row",
@@ -2191,15 +2502,12 @@ const styles = StyleSheet.create({
   resultText: {
     fontSize: 18,
   },
-  modalContainer: {
-    margin: 18,
-  },
 
   container: {
-    backgroundColor: "white",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
+    marginRight: 20,
   },
   dropdown: {
     height: 35,
@@ -2207,7 +2515,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderRadius: 5,
     paddingHorizontal: 8,
-    width: 100,
+    width: 150,
   },
   dropdown2: {
     height: 30,
@@ -2240,6 +2548,21 @@ const styles = StyleSheet.create({
   iconStyle: {
     width: 20,
     height: 20,
+  },
+  lightContainer: {
+    backgroundColor: "white",
+  },
+  darkContainer: {
+    backgroundColor: "#14213d",
+  },
+  text: {
+    fontSize: 24,
+  },
+  lightText: {
+    color: "#38385b",
+  },
+  darkText: {
+    color: "white",
   },
 });
 
