@@ -14,6 +14,7 @@ import COLORS from "../../../../const/Colors";
 import { Calendar } from "react-native-calendars";
 import ListButtons from "../../../components/ListButtons";
 import { useTheme } from "../../../../customTheme/ThemeContext";
+import { useTranslation } from "react-i18next";
 
 interface BirthdayListScreenProp {
   navigation: DrawerNavigationProp<RootDrawerParamList, "BirthdayList">;
@@ -109,6 +110,8 @@ const BirthdayList = ({ navigation }: BirthdayListScreenProp) => {
   const filteredData = data.filter((item) =>
     item.birthday.includes(searchText)
   );
+
+  const { t } = useTranslation();
   return (
     <>
       <View style={containerStyle}>
@@ -130,7 +133,7 @@ const BirthdayList = ({ navigation }: BirthdayListScreenProp) => {
             >
               <TextInput
                 style={[textStyle, styles.input]}
-                placeholder="Birthday"
+                placeholder={t("birthday")}
                 value={searchText}
                 onChangeText={(text) => {
                   setSearchText(text);
@@ -149,7 +152,7 @@ const BirthdayList = ({ navigation }: BirthdayListScreenProp) => {
               marginH={10}
             />
             <ListButtons
-              buttonText="Todays's Birthday"
+              buttonText={t("tBday")}
               iconName=""
               buttonHeight={40}
               buttonWidth={150}
@@ -168,7 +171,7 @@ const BirthdayList = ({ navigation }: BirthdayListScreenProp) => {
         >
           <ListButtons
             iconName="clipboard-search-outline"
-            buttonText="Search"
+            buttonText={t("search")}
             onPress={() => {}}
             buttonWidth={120}
             buttonHeight={60}
@@ -177,7 +180,7 @@ const BirthdayList = ({ navigation }: BirthdayListScreenProp) => {
           />
           <ListButtons
             iconName="rotate-left"
-            buttonText="Reset"
+            buttonText={t("reset")}
             onPress={() => {}}
             buttonWidth={120}
             buttonHeight={60}
@@ -218,9 +221,9 @@ const BirthdayList = ({ navigation }: BirthdayListScreenProp) => {
           <Text style={[textStyle, styles.headerTopBarText]}>Users</Text>
         </View>
         <View style={styles.header}>
-          <Text style={[textStyle, styles.heading]}>Sr.No.</Text>
-          <Text style={[textStyle, styles.heading]}>Birthday</Text>
-          <Text style={[textStyle, styles.heading]}>Total</Text>
+          <Text style={[textStyle, styles.heading]}>{t("srno")}</Text>
+          <Text style={[textStyle, styles.heading]}>{t("birthday")}</Text>
+          <Text style={[textStyle, styles.heading]}>{t("total")}</Text>
         </View>
         <FlatList
           data={filteredData}

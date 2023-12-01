@@ -5,6 +5,7 @@ import { RootDrawerParamList } from "../../../../../App";
 import COLORS from "../../../../const/Colors";
 import ListButtons from "../../../components/ListButtons";
 import { useTheme } from "../../../../customTheme/ThemeContext";
+import { useTranslation } from "react-i18next";
 
 interface PartyWorkerListScreenProp {
   navigation: DrawerNavigationProp<RootDrawerParamList, "PartyWorkerList">;
@@ -52,6 +53,7 @@ const PartyWorkerList = ({ navigation }: PartyWorkerListScreenProp) => {
     },
   ];
 
+  const { t } = useTranslation();
   const { isDarkMode } = useTheme();
   const containerStyle = isDarkMode
     ? styles.darkContainer
@@ -102,13 +104,13 @@ const PartyWorkerList = ({ navigation }: PartyWorkerListScreenProp) => {
           >
             <TextInput
               style={[textStyle, styles.input]}
-              placeholder="Partyworker"
+              placeholder={t("partyworker")}
               value={searchText}
               onChangeText={(text) => {
                 setSearchText(text);
                 handleSearch(text);
               }}
-              placeholderTextColor={isDarkMode ? "white" : "black"}
+              placeholderTextColor={isDarkMode ? "lightgrey" : "grey"}
             />
           </View>
           <View
@@ -120,7 +122,7 @@ const PartyWorkerList = ({ navigation }: PartyWorkerListScreenProp) => {
           >
             <ListButtons
               iconName="clipboard-search-outline"
-              buttonText="Search"
+              buttonText={t("search")}
               onPress={() => {}}
               buttonWidth={120}
               buttonHeight={60}
@@ -129,7 +131,7 @@ const PartyWorkerList = ({ navigation }: PartyWorkerListScreenProp) => {
             />
             <ListButtons
               iconName="rotate-left"
-              buttonText="Reset"
+              buttonText={t("reset")}
               onPress={() => {}}
               buttonWidth={120}
               buttonHeight={60}
@@ -153,11 +155,11 @@ const PartyWorkerList = ({ navigation }: PartyWorkerListScreenProp) => {
           <Text style={styles.headerTopBarText}>Details</Text>
         </View>
         <View style={styles.header}>
-          <Text style={[textStyle, styles.heading]}>Sr.No.</Text>
+          <Text style={[textStyle, styles.heading]}>{t("srno")}</Text>
           <Text style={[textStyle, styles.heading, { marginRight: 15 }]}>
-            Party Worker
+            {t("partyworker")}
           </Text>
-          <Text style={[textStyle, styles.heading, {}]}>Total</Text>
+          <Text style={[textStyle, styles.heading, {}]}>{t("total")}</Text>
         </View>
         <FlatList
           data={searchResults}

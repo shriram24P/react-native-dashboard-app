@@ -5,6 +5,7 @@ import { RootDrawerParamList } from "../../../../../App";
 import COLORS from "../../../../const/Colors";
 import ListButtons from "../../../components/ListButtons";
 import { useTheme } from "../../../../customTheme/ThemeContext";
+import { useTranslation } from "react-i18next";
 
 interface FavourWiseListScreenProp {
   navigation: DrawerNavigationProp<RootDrawerParamList, "FavourWiseList">;
@@ -58,6 +59,8 @@ const FavourWiseList = ({ navigation }: FavourWiseListScreenProp) => {
     : styles.lightContainer;
   const textStyle = isDarkMode ? styles.darkText : styles.lightText;
 
+  const { t } = useTranslation();
+
   const renderItem = ({ item }: { item: UserData }) => (
     <View
       style={{
@@ -100,13 +103,13 @@ const FavourWiseList = ({ navigation }: FavourWiseListScreenProp) => {
           >
             <TextInput
               style={[textStyle, styles.input]}
-              placeholder="Favour"
+              placeholder={t("favour")}
               value={searchText}
               onChangeText={(text) => {
                 setSearchText(text);
                 handleSearch(text);
               }}
-              placeholderTextColor={isDarkMode ? "white" : "black"}
+              placeholderTextColor={isDarkMode ? "lightgrey" : "grey"}
             />
           </View>
           <View
@@ -118,7 +121,7 @@ const FavourWiseList = ({ navigation }: FavourWiseListScreenProp) => {
           >
             <ListButtons
               iconName="clipboard-search-outline"
-              buttonText="Search"
+              buttonText={t("search")}
               onPress={() => {}}
               buttonWidth={120}
               buttonHeight={60}
@@ -127,7 +130,7 @@ const FavourWiseList = ({ navigation }: FavourWiseListScreenProp) => {
             />
             <ListButtons
               iconName="rotate-left"
-              buttonText="Reset"
+              buttonText={t("reset")}
               onPress={() => {}}
               buttonWidth={120}
               buttonHeight={60}
@@ -151,11 +154,11 @@ const FavourWiseList = ({ navigation }: FavourWiseListScreenProp) => {
           <Text style={styles.headerTopBarText}>Booth Details</Text>
         </View>
         <View style={styles.header}>
-          <Text style={[textStyle, styles.heading]}>Sr.No.</Text>
+          <Text style={[textStyle, styles.heading]}>{t("srno")}</Text>
           <Text style={[textStyle, styles.heading, { marginRight: 15 }]}>
-            Favour
+            {t("favour")}
           </Text>
-          <Text style={[textStyle, styles.heading, {}]}>Total</Text>
+          <Text style={[textStyle, styles.heading, {}]}>{t("total")}</Text>
         </View>
         <FlatList
           data={searchResults}

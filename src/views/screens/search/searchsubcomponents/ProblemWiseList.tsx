@@ -5,6 +5,7 @@ import { RootDrawerParamList } from "../../../../../App";
 import COLORS from "../../../../const/Colors";
 import ListButtons from "../../../components/ListButtons";
 import { useTheme } from "../../../../customTheme/ThemeContext";
+import { useTranslation } from "react-i18next";
 
 interface ProblemWiseListScreenProp {
   navigation: DrawerNavigationProp<RootDrawerParamList, "ProblemWiseList">;
@@ -51,6 +52,8 @@ const ProblemWiseList = ({ navigation }: ProblemWiseListScreenProp) => {
       total: 123,
     },
   ];
+
+  const { t } = useTranslation();
   const { isDarkMode } = useTheme();
   const containerStyle = isDarkMode
     ? styles.darkContainer
@@ -99,7 +102,7 @@ const ProblemWiseList = ({ navigation }: ProblemWiseListScreenProp) => {
           >
             <TextInput
               style={[textStyle, styles.input]}
-              placeholder="Problem"
+              placeholder={t("problem")}
               value={searchText}
               onChangeText={(text) => {
                 setSearchText(text);
@@ -117,7 +120,7 @@ const ProblemWiseList = ({ navigation }: ProblemWiseListScreenProp) => {
           >
             <ListButtons
               iconName="clipboard-search-outline"
-              buttonText="Search"
+              buttonText={t("search")}
               onPress={() => {}}
               buttonWidth={120}
               buttonHeight={60}
@@ -126,7 +129,7 @@ const ProblemWiseList = ({ navigation }: ProblemWiseListScreenProp) => {
             />
             <ListButtons
               iconName="rotate-left"
-              buttonText="Reset"
+              buttonText={t("reset")}
               onPress={() => {}}
               buttonWidth={120}
               buttonHeight={60}
@@ -147,14 +150,14 @@ const ProblemWiseList = ({ navigation }: ProblemWiseListScreenProp) => {
       </View>
       <View style={[containerStyle, styles.tableContainer]}>
         <View style={styles.headerTopBar}>
-          <Text style={styles.headerTopBarText}>Booth Details</Text>
+          <Text style={styles.headerTopBarText}>Details</Text>
         </View>
         <View style={styles.header}>
-          <Text style={[textStyle, styles.heading]}>Sr.No.</Text>
+          <Text style={[textStyle, styles.heading]}>{t("srno")}</Text>
           <Text style={[textStyle, styles.heading, { marginRight: 15 }]}>
-            Problem
+            {t("problem")}
           </Text>
-          <Text style={[textStyle, styles.heading, {}]}>Total</Text>
+          <Text style={[textStyle, styles.heading, {}]}>{t("total")}</Text>
         </View>
         <FlatList
           data={searchResults}

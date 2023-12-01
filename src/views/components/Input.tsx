@@ -40,7 +40,7 @@ const Input: React.FC<InputProps> = ({
 
   return (
     <View style={{ marginBottom: 10 }}>
-      <Text style={styles.label}>{label}</Text>
+      <Text style={[textStyle, styles.label]}>{label}</Text>
       <View
         style={[
           containerStyle,
@@ -60,7 +60,7 @@ const Input: React.FC<InputProps> = ({
         />
         <TextInput
           secureTextEntry={secureTextEntry}
-          placeholderTextColor={isDarkMode ? "white" : "black"}
+          placeholderTextColor="lightgrey"
           autoCorrect={false}
           onFocus={() => {
             onFocus();
@@ -86,7 +86,6 @@ const styles = StyleSheet.create({
   label: {
     marginVertical: 5,
     fontSize: 14,
-    color: COLORS.grey,
   },
   inputContainer: {
     height: 45,
@@ -94,6 +93,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     borderWidth: 0.5,
     alignItems: "center",
+    borderRadius: 5,
   },
   lightContainer: {
     backgroundColor: "white",

@@ -54,13 +54,20 @@ const Register = ({ navigation }: RegisterScreenProp) => {
       handleError(t("pLastName"), "lastName");
       valid = false;
     }
+
     if (!inputs.mobileNumber) {
       handleError(t("pPhone"), "mobileNumber");
+      valid = false;
+    } else if (inputs.mobileNumber.length !== 10) {
+      handleError(t("minPhone"), "mobileNumber");
       valid = false;
     }
 
     if (!inputs.password) {
       handleError(t("pPass"), "password");
+      valid = false;
+    } else if (!(inputs.password.length >= 6)) {
+      handleError(t("minPass"), "password");
       valid = false;
     }
 
@@ -71,6 +78,7 @@ const Register = ({ navigation }: RegisterScreenProp) => {
 
   function register() {
     Alert.alert(t("successAdded"));
+    navigation.navigate("Dashboard");
   }
 
   const handleOnChange = (text: string, input: keyof User) => {

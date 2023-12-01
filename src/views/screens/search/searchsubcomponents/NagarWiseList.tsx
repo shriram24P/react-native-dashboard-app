@@ -5,6 +5,7 @@ import { RootDrawerParamList } from "../../../../../App";
 import COLORS from "../../../../const/Colors";
 import ListButtons from "../../../components/ListButtons";
 import { useTheme } from "../../../../customTheme/ThemeContext";
+import { useTranslation } from "react-i18next";
 
 interface NagarWiseListScreenProp {
   navigation: DrawerNavigationProp<RootDrawerParamList, "NagarWiseList">;
@@ -81,6 +82,7 @@ const NagarWiseList = ({ navigation }: NagarWiseListScreenProp) => {
     );
     setSearchResults(filteredResults);
   };
+  const { t } = useTranslation();
   return (
     <>
       <View style={containerStyle}>
@@ -99,13 +101,13 @@ const NagarWiseList = ({ navigation }: NagarWiseListScreenProp) => {
           >
             <TextInput
               style={[textStyle, styles.input]}
-              placeholder="Vibhag"
+              placeholder={t("vibhag")}
               value={searchText}
               onChangeText={(text) => {
                 setSearchText(text);
                 handleSearch(text);
               }}
-              placeholderTextColor={isDarkMode ? "white" : "black"}
+              placeholderTextColor={isDarkMode ? "lightgrey" : "grey"}
             />
           </View>
           <View
@@ -117,7 +119,7 @@ const NagarWiseList = ({ navigation }: NagarWiseListScreenProp) => {
           >
             <ListButtons
               iconName="clipboard-search-outline"
-              buttonText="Search"
+              buttonText={t("search")}
               onPress={() => {}}
               buttonWidth={120}
               buttonHeight={60}
@@ -126,7 +128,7 @@ const NagarWiseList = ({ navigation }: NagarWiseListScreenProp) => {
             />
             <ListButtons
               iconName="rotate-left"
-              buttonText="Reset"
+              buttonText={t("reset")}
               onPress={() => {}}
               buttonWidth={120}
               buttonHeight={60}
@@ -150,11 +152,11 @@ const NagarWiseList = ({ navigation }: NagarWiseListScreenProp) => {
           <Text style={styles.headerTopBarText}>Details</Text>
         </View>
         <View style={styles.header}>
-          <Text style={[textStyle, styles.heading]}>Sr.No.</Text>
+          <Text style={[textStyle, styles.heading]}>{t("srno")}</Text>
           <Text style={[textStyle, styles.heading, { marginRight: 15 }]}>
-            Vibhag
+            {t("vibhag")}
           </Text>
-          <Text style={[textStyle, styles.heading, {}]}>Total</Text>
+          <Text style={[textStyle, styles.heading, {}]}>{t("total")}</Text>
         </View>
         <FlatList
           data={searchResults}

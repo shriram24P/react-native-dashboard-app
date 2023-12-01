@@ -32,6 +32,8 @@ import NonVotersEntry from "./src/views/screens/NonVoters/NonVotersEntry";
 import CustomDrawer from "./src/views/components/CustomDrawer";
 import { ThemeProvider, useTheme } from "./src/customTheme/ThemeContext";
 import { StyleSheet } from "react-native";
+import Settings from "./src/views/screens/Settings";
+import Login from "./src/views/screens/Login";
 
 export type RootDrawerParamList = {
   Home: undefined;
@@ -60,6 +62,8 @@ export type RootDrawerParamList = {
   Sync: undefined;
   NonVoters: undefined;
   NonVotersEntry: undefined;
+  Settings: undefined;
+  Login: undefined;
 };
 
 const Drawer = createDrawerNavigator<RootDrawerParamList>();
@@ -97,10 +101,34 @@ const App: React.FC = () => {
             }}
             drawerContent={(props) => <CustomDrawer {...props} />}
           >
-            <Drawer.Screen name="Home" component={Home} />
-            <Drawer.Screen name="Register" component={Register} />
-            <Drawer.Screen name="Dashboard" component={Dashboard} />
-            <Drawer.Screen name="AboutUs" component={AboutUs} />
+            <Drawer.Screen
+              name="Home"
+              component={Home}
+              options={() => ({
+                drawerItemStyle: { height: 0 },
+              })}
+            />
+            <Drawer.Screen
+              name="Register"
+              component={Register}
+              options={() => ({
+                drawerItemStyle: { height: 0 },
+              })}
+            />
+            <Drawer.Screen
+              name="Dashboard"
+              component={Dashboard}
+              options={() => ({
+                drawerItemStyle: { height: 0 },
+              })}
+            />
+            <Drawer.Screen
+              name="AboutUs"
+              component={AboutUs}
+              options={() => ({
+                drawerItemStyle: { height: 0 },
+              })}
+            />
             <Drawer.Screen
               name="SearchScreen"
               component={SearchScreen}
@@ -252,6 +280,20 @@ const App: React.FC = () => {
             <Drawer.Screen
               name="NonVotersEntry"
               component={NonVotersEntry}
+              options={() => ({
+                drawerItemStyle: { height: 0 },
+              })}
+            />
+            <Drawer.Screen
+              name="Settings"
+              component={Settings}
+              options={() => ({
+                drawerItemStyle: { height: 0 },
+              })}
+            />
+            <Drawer.Screen
+              name="Login"
+              component={Login}
               options={() => ({
                 drawerItemStyle: { height: 0 },
               })}

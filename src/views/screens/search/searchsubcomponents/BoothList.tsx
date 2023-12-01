@@ -14,6 +14,7 @@ import COLORS from "../../../../const/Colors";
 import { Calendar } from "react-native-calendars";
 import ListButtons from "../../../components/ListButtons";
 import { useTheme } from "../../../../customTheme/ThemeContext";
+import { useTranslation } from "react-i18next";
 
 interface BoothListScreenProp {
   navigation: DrawerNavigationProp<RootDrawerParamList, "BoothList">;
@@ -85,6 +86,8 @@ const BoothList = ({ navigation }: BoothListScreenProp) => {
     );
     setSearchResults(filteredResults);
   };
+
+  const { t } = useTranslation();
   return (
     <>
       <View style={containerStyle}>
@@ -103,13 +106,13 @@ const BoothList = ({ navigation }: BoothListScreenProp) => {
           >
             <TextInput
               style={[textStyle, styles.input]}
-              placeholder="Booth"
+              placeholder={t("booth")}
               value={searchText}
               onChangeText={(text) => {
                 setSearchText(text);
                 handleSearch(text);
               }}
-              placeholderTextColor={isDarkMode ? "white" : "black"}
+              placeholderTextColor={isDarkMode ? "lightgrey" : "grey"}
             />
           </View>
           <View
@@ -121,7 +124,7 @@ const BoothList = ({ navigation }: BoothListScreenProp) => {
           >
             <ListButtons
               iconName="clipboard-search-outline"
-              buttonText="Search"
+              buttonText={t("search")}
               onPress={() => {}}
               buttonWidth={120}
               buttonHeight={60}
@@ -130,7 +133,7 @@ const BoothList = ({ navigation }: BoothListScreenProp) => {
             />
             <ListButtons
               iconName="rotate-left"
-              buttonText="Reset"
+              buttonText={t("reset")}
               onPress={() => {}}
               buttonWidth={120}
               buttonHeight={60}
@@ -156,9 +159,9 @@ const BoothList = ({ navigation }: BoothListScreenProp) => {
           </Text>
         </View>
         <View style={styles.header}>
-          <Text style={[textStyle, styles.heading]}>Sr.No.</Text>
-          <Text style={[textStyle, styles.heading]}>Booth</Text>
-          <Text style={[textStyle, styles.heading]}>Total</Text>
+          <Text style={[textStyle, styles.heading]}>{t("srno")}</Text>
+          <Text style={[textStyle, styles.heading]}>{t("booth")}</Text>
+          <Text style={[textStyle, styles.heading]}>{t("total")}</Text>
         </View>
         <FlatList
           data={searchResults}

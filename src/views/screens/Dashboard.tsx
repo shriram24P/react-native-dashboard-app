@@ -164,7 +164,7 @@ const Dashboard = ({ navigation }: DashboardScreenProp) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.button, { backgroundColor: "rgb(185, 163, 244)" }]}
-              onPress={() => {}}
+              onPress={() => navigation.navigate("Settings")}
             >
               <Icon
                 name="gear"

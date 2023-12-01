@@ -12,6 +12,7 @@ import {
   ImageSourcePropType,
   KeyboardAvoidingView,
   Platform,
+  PermissionsAndroid,
 } from "react-native";
 import React, { useState, useEffect, memo } from "react";
 import { RootDrawerParamList } from "../../../../App";
@@ -35,6 +36,8 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { SelectCountry } from "react-native-element-dropdown";
 import { useTheme } from "../../../customTheme/ThemeContext";
+import BleManager from "react-native-ble-plx";
+import BluetoothSerial from "react-native-bluetooth-serial-next";
 
 interface SearchScreenProp {
   navigation: DrawerNavigationProp<RootDrawerParamList, "SearchScreen">;
@@ -108,6 +111,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
   const [selectedData, setSelectedData] = useState("");
 
   const [option, setOption] = useState("");
+  const [isConnected, setIsConnected] = useState(false);
 
   const { t } = useTranslation();
   const { isDarkMode } = useTheme();
@@ -783,7 +787,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     }}
                   >
                     <Text style={[textStyle, { fontSize: 14, marginLeft: 20 }]}>
-                      Sr.No. :
+                      {t("srno")}
                     </Text>
                     <Text
                       style={[textStyle, { marginRight: 50, fontSize: 14 }]}
@@ -800,7 +804,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     }}
                   >
                     <Text style={[textStyle, { fontSize: 14, marginLeft: 20 }]}>
-                      Name :
+                      {t("name")}
                     </Text>
                     <Text
                       style={[textStyle, { marginRight: 50, fontSize: 14 }]}
@@ -817,7 +821,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     }}
                   >
                     <Text style={[textStyle, { fontSize: 14, marginLeft: 19 }]}>
-                      Age :
+                      {t("age")}
                     </Text>
                     <Text
                       style={[textStyle, { marginRight: 50, fontSize: 14 }]}
@@ -834,7 +838,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     }}
                   >
                     <Text style={[textStyle, { fontSize: 14, marginLeft: 19 }]}>
-                      Phone :
+                      {t("phone")}
                     </Text>
                     <Text
                       style={[textStyle, { marginLeft: 100, fontSize: 14 }]}
@@ -866,7 +870,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     }}
                   >
                     <Text style={[textStyle, { fontSize: 14, marginLeft: 20 }]}>
-                      Mobile No. 2 :
+                      {t("phone")} 2 :
                     </Text>
                     <Text style={[textStyle, { fontSize: 14, marginLeft: 20 }]}>
                       {selectedUser.phone2}
@@ -901,7 +905,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     }}
                   >
                     <Text style={[textStyle, { fontSize: 14, marginLeft: 20 }]}>
-                      Mobile No. 3 :
+                      {t("phone")} 3 :
                     </Text>
                     <Text style={[textStyle, { fontSize: 14, marginLeft: 20 }]}>
                       {selectedUser.phone2}
@@ -936,7 +940,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     }}
                   >
                     <Text style={[textStyle, { fontSize: 14, marginLeft: 20 }]}>
-                      Mobile No. 4 :
+                      {t("phone")} 4 :
                     </Text>
                     <Text style={[textStyle, { fontSize: 14, marginLeft: 20 }]}>
                       {selectedUser.phone2}
@@ -970,7 +974,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     }}
                   >
                     <Text style={[textStyle, { fontSize: 14, marginLeft: 20 }]}>
-                      Booth No. :
+                      {t("booth")} :
                     </Text>
                     <Text
                       style={[textStyle, { marginRight: 50, fontSize: 14 }]}
@@ -987,7 +991,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     }}
                   >
                     <Text style={[textStyle, { fontSize: 14, marginLeft: 20 }]}>
-                      House No. :
+                      {t("house")} :
                     </Text>
                     <Text
                       style={[textStyle, { marginRight: 50, fontSize: 14 }]}
@@ -1004,7 +1008,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     }}
                   >
                     <Text style={[textStyle, { fontSize: 14, marginLeft: 20 }]}>
-                      Address :
+                      {t("address")} :
                     </Text>
                     <Text
                       style={[textStyle, { marginRight: 50, fontSize: 14 }]}
@@ -1027,7 +1031,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                         { marginLeft: 20, marginRight: 10, fontSize: 14 },
                       ]}
                     >
-                      Vibhag :
+                      {t("vibhag")} :
                     </Text>
                     <TextInput
                       style={[
@@ -1041,7 +1045,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                           marginRight: 15,
                         },
                       ]}
-                      placeholder="Vibhag"
+                      placeholder={t("vibhag")}
                       placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                     />
                   </View>
@@ -1060,7 +1064,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                         { marginLeft: 20, marginRight: 10, fontSize: 14 },
                       ]}
                     >
-                      House No. :
+                      {t("house")} :
                     </Text>
                     <TextInput
                       style={[
@@ -1075,7 +1079,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                           marginRight: 15,
                         },
                       ]}
-                      placeholder="House No."
+                      placeholder={t("house")}
                       placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                     />
                   </View>
@@ -1094,7 +1098,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                         { marginLeft: 20, marginRight: 10, fontSize: 14 },
                       ]}
                     >
-                      Society :
+                      {t("society")} :
                     </Text>
                     <TextInput
                       style={[
@@ -1109,7 +1113,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                           marginRight: 15,
                         },
                       ]}
-                      placeholder="Society"
+                      placeholder={t("society")}
                       placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                     />
                   </View>
@@ -1128,7 +1132,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                         { marginLeft: 20, marginRight: 10, fontSize: 14 },
                       ]}
                     >
-                      Post :
+                      {t("post")} :
                     </Text>
                     <TextInput
                       style={[
@@ -1143,7 +1147,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                           marginRight: 15,
                         },
                       ]}
-                      placeholder="Post"
+                      placeholder={t("post")}
                       placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                     />
                   </View>
@@ -1162,7 +1166,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                         { marginLeft: 20, marginRight: 10, fontSize: 14 },
                       ]}
                     >
-                      Caste :
+                      {t("caste")} :
                     </Text>
                     <TextInput
                       style={[
@@ -1177,7 +1181,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                           marginRight: 15,
                         },
                       ]}
-                      placeholder="Caste"
+                      placeholder={t("caste")}
                       placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                     />
                   </View>
@@ -1196,7 +1200,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                         { marginLeft: 20, marginRight: 10, fontSize: 14 },
                       ]}
                     >
-                      Party Worker :
+                      {t("partyworker")} :
                     </Text>
                     <TextInput
                       style={[
@@ -1211,7 +1215,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                           marginRight: 15,
                         },
                       ]}
-                      placeholder="Party Worker"
+                      placeholder={t("partyworker")}
                       placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                     />
                   </View>
@@ -1230,7 +1234,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                         { marginLeft: 20, marginRight: 10, fontSize: 14 },
                       ]}
                     >
-                      PartyWorker Mobile :
+                      {t("partyworker")} {t("phone")} :
                     </Text>
                     <TextInput
                       style={[
@@ -1246,7 +1250,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                         },
                       ]}
                       placeholder="PartyWorker Mobile"
-                      placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
+                      placeholderTextColor={isDarkMode ? "lightgrey" : "grey"}
                     />
                   </View>
                   <View
@@ -1269,7 +1273,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                           marginLeft: 20,
                         }}
                       >
-                        <Text style={[textStyle]}>Dead? :</Text>
+                        <Text style={[textStyle]}>{t("dead")}? :</Text>
                         <View
                           style={{
                             marginLeft: 70,
@@ -1278,13 +1282,13 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                           }}
                         >
                           <RadioButton.Item
-                            label="No"
+                            label={t("no")}
                             value="first"
                             labelStyle={[textStyle, { fontSize: 14 }]}
                             color={isDarkMode ? "white" : COLORS.darkBlue}
                           />
                           <RadioButton.Item
-                            label="Yes"
+                            label={t("yes")}
                             value="second"
                             labelStyle={[textStyle, { fontSize: 14 }]}
                             color={isDarkMode ? "white" : COLORS.darkBlue}
@@ -1406,7 +1410,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                   >
                     <View style={{ marginTop: -10 }}>
                       <ListButtons
-                        buttonText="All Voters on This Address"
+                        buttonText={t("allVAdd")}
                         iconName=""
                         onPress={() => {}}
                         buttonHeight={40}
@@ -1416,7 +1420,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                     </View>
                     <View style={{ marginTop: -20 }}>
                       <ListButtons
-                        buttonText="All Voters on This Booth"
+                        buttonText={t("allVBooth")}
                         iconName=""
                         onPress={() => {}}
                         buttonHeight={40}
@@ -1442,7 +1446,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
           {selectedUser && (
             <View style={[containerStyle]}>
               <Text style={[textStyle, { alignSelf: "center", marginTop: 10 }]}>
-                {selectedUser.name} Family
+                {selectedUser.name} {t("family")}
               </Text>
               <View
                 style={{
@@ -1563,7 +1567,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                       { marginLeft: 20, marginRight: 10, fontSize: 18 },
                     ]}
                   >
-                    Mobile :
+                    {t("phone")} :
                   </Text>
                   <TextInput
                     style={[
@@ -1597,7 +1601,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                       { marginLeft: 20, marginRight: 10, fontSize: 18 },
                     ]}
                   >
-                    Mobile 2 :
+                    {t("phone")} 2 :
                   </Text>
                   <TextInput
                     style={[
@@ -1631,7 +1635,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                       { marginLeft: 20, marginRight: 10, fontSize: 18 },
                     ]}
                   >
-                    Mobile 3 :
+                    {t("phone")} 3 :
                   </Text>
                   <TextInput
                     style={[
@@ -1665,7 +1669,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                       { marginLeft: 20, marginRight: 10, fontSize: 18 },
                     ]}
                   >
-                    Mobile 4 :
+                    {t("phone")} 4 :
                   </Text>
                   <TextInput
                     style={[
@@ -1699,7 +1703,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                       { marginLeft: 20, marginRight: 10, fontSize: 18 },
                     ]}
                   >
-                    House No. :
+                    {t("house")} :
                   </Text>
                   <TextInput
                     style={[
@@ -1733,7 +1737,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                       { marginLeft: 20, marginRight: 10, fontSize: 18 },
                     ]}
                   >
-                    Society :
+                    {t("society")} :
                   </Text>
                   <TextInput
                     style={[
@@ -1748,8 +1752,8 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                         marginRight: 15,
                       },
                     ]}
-                    placeholder="Society"
-                    placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
+                    placeholder={t("society")}
+                    placeholderTextColor={isDarkMode ? "lightgrey" : "grey"}
                   />
                 </View>
                 <View
@@ -1767,7 +1771,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                       { marginLeft: 20, marginRight: 10, fontSize: 18 },
                     ]}
                   >
-                    Vibhag :
+                    {t("vibhag")} :
                   </Text>
                   <TextInput
                     style={[
@@ -1782,7 +1786,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                         marginRight: 15,
                       },
                     ]}
-                    placeholder="Vibhag"
+                    placeholder={t("vibhag")}
                     placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                   />
                 </View>
@@ -1873,7 +1877,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                       { marginLeft: 20, marginRight: 10, fontSize: 18 },
                     ]}
                   >
-                    Old Town :
+                    {t("oldT")} :
                   </Text>
                   <TextInput
                     style={[
@@ -1887,7 +1891,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                         marginRight: 15,
                       },
                     ]}
-                    placeholder="Old Town"
+                    placeholder={t("oldT")}
                     placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                   />
                 </View>
@@ -1906,7 +1910,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                       { marginLeft: 20, marginRight: 10, fontSize: 18 },
                     ]}
                   >
-                    Caste :
+                    {t("caste")} :
                   </Text>
                   <TextInput
                     style={[
@@ -1921,7 +1925,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                         marginRight: 15,
                       },
                     ]}
-                    placeholder="Caste"
+                    placeholder={t("caste")}
                     placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                   />
                 </View>
@@ -1940,7 +1944,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                       { marginLeft: 20, marginRight: 10, fontSize: 18 },
                     ]}
                   >
-                    PartyWorker :
+                    {t("partyworker")} :
                   </Text>
                   <TextInput
                     style={[
@@ -1955,7 +1959,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                         marginRight: 15,
                       },
                     ]}
-                    placeholder="PartyWorker"
+                    placeholder={t("partyworker")}
                     placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                   />
                 </View>
@@ -1974,7 +1978,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                       { marginLeft: 20, marginRight: 10, fontSize: 14 },
                     ]}
                   >
-                    PartyWorker Mobile :
+                    {t("partyworker")} {t("phone")} :
                   </Text>
                   <TextInput
                     style={[
@@ -2002,7 +2006,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                       { marginRight: 10, marginLeft: 20, fontSize: 18 },
                     ]}
                   >
-                    Relation
+                    {t("favour")}
                   </Text>
                   <Dropdown
                     style={[
@@ -2138,7 +2142,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                       { marginLeft: 20, marginRight: 10, fontSize: 14 },
                     ]}
                   >
-                    Problems :
+                    {t("problem")} :
                   </Text>
                   <TextInput
                     style={[
@@ -2153,7 +2157,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                         marginRight: 15,
                       },
                     ]}
-                    placeholder="Problems"
+                    placeholder={t("problem")}
                     placeholderTextColor={isDarkMode ? "lightgrey" : "black"}
                   />
                 </View>
@@ -2210,7 +2214,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
             <TextInput
               style={[textStyle, styles.input]}
               placeholder={t("pFullName")}
-              placeholderTextColor={isDarkMode ? "white" : "black"}
+              placeholderTextColor={isDarkMode ? "lightgrey" : "grey"}
               value={searchText}
               onChangeText={(text) => {
                 setSearchText(text);
@@ -2222,6 +2226,7 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
             style={{
               display: "flex",
               flexDirection: "row",
+              justifyContent: "space-around",
             }}
           >
             <View
@@ -2229,16 +2234,16 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
                 styles.searchBar,
                 {
                   width: 110,
-                  marginLeft: 20,
+                  marginLeft: 25,
                   borderColor: isDarkMode ? "white" : COLORS.darkBlue,
                   borderRadius: 10,
                 },
               ]}
             >
               <TextInput
-                style={[containerStyle, styles.input]}
+                style={[textStyle, styles.input]}
                 placeholder={t("lName")}
-                placeholderTextColor={isDarkMode ? "white" : "black"}
+                placeholderTextColor={isDarkMode ? "lightgrey" : "grey"}
                 value={searchText}
                 onChangeText={(text) => {
                   setSearchText(text);
@@ -2258,9 +2263,9 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
               ]}
             >
               <TextInput
-                style={styles.input}
+                style={[textStyle, styles.input]}
                 placeholder={t("name")}
-                placeholderTextColor={isDarkMode ? "white" : "black"}
+                placeholderTextColor={isDarkMode ? "lightgrey" : "grey"}
                 value={searchText}
                 onChangeText={(text) => {
                   setSearchText(text);
@@ -2272,17 +2277,17 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
               style={[
                 styles.searchBar,
                 {
-                  width: 120,
-                  marginRight: 10,
+                  width: 140,
+                  marginRight: 20,
                   borderColor: isDarkMode ? "white" : COLORS.darkBlue,
                   borderRadius: 10,
                 },
               ]}
             >
               <TextInput
-                style={styles.input}
+                style={[textStyle, styles.input]}
                 placeholder={t("pMiddleName")}
-                placeholderTextColor={isDarkMode ? "white" : "black"}
+                placeholderTextColor={isDarkMode ? "lightgrey" : "grey"}
                 value={searchText}
                 onChangeText={(text) => {
                   setSearchText(text);
@@ -2310,9 +2315,9 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
               ]}
             >
               <TextInput
-                style={styles.input}
+                style={[textStyle, styles.input]}
                 placeholder={t("pCard")}
-                placeholderTextColor={isDarkMode ? "white" : "black"}
+                placeholderTextColor={isDarkMode ? "lightgrey" : "grey"}
                 value={searchText}
                 onChangeText={(text) => {
                   setSearchText(text);
@@ -2331,9 +2336,9 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
               ]}
             >
               <TextInput
-                style={styles.input}
+                style={[textStyle, styles.input]}
                 placeholder={t("pBooth")}
-                placeholderTextColor={isDarkMode ? "white" : "black"}
+                placeholderTextColor={isDarkMode ? "lightgrey" : "grey"}
                 value={searchText}
                 onChangeText={(text) => {
                   setSearchText(text);

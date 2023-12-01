@@ -132,7 +132,7 @@ const NonVotersEntry = ({ navigation }: NonVotersEntryScreenProp) => {
           marginHorizontal: 20,
         }}
       >
-        <Text style={[textStyle, { fontSize: 24 }]}>New Entry...</Text>
+        <Text style={[textStyle, { fontSize: 24 }]}>New Entry</Text>
         <ListButtons
           buttonText="Save"
           iconName="content-save-all"
@@ -140,7 +140,7 @@ const NonVotersEntry = ({ navigation }: NonVotersEntryScreenProp) => {
             saveData();
           }}
           buttonHeight={50}
-          buttonWidth={100}
+          buttonWidth={170}
           borderRadi={10}
         />
       </View>
@@ -775,7 +775,7 @@ const NonVotersEntry = ({ navigation }: NonVotersEntryScreenProp) => {
             saveData();
           }}
           buttonHeight={50}
-          buttonWidth={170}
+          buttonWidth={190}
           borderRadi={10}
         />
       </View>
