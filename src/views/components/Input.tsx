@@ -9,6 +9,7 @@ interface InputProps {
   label: string;
   iconName: string;
   placeholder: string;
+
   error?: string;
   password?: boolean;
   onFocus?(): void;
@@ -23,6 +24,7 @@ const Input: React.FC<InputProps> = ({
   label,
   iconName,
   error,
+  value,
   password,
   keyboardType,
   secureTextEntry = false,
@@ -61,6 +63,7 @@ const Input: React.FC<InputProps> = ({
         <TextInput
           secureTextEntry={secureTextEntry}
           placeholderTextColor="lightgrey"
+          value={value}
           autoCorrect={false}
           onFocus={() => {
             onFocus();

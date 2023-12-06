@@ -7,7 +7,7 @@ import {
   Image,
   Switch,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { RootDrawerParamList } from "../../../App";
 import * as Animatable from "react-native-animatable";
@@ -15,18 +15,30 @@ import * as Animatable from "react-native-animatable";
 import COLORS from "./../../const/Colors";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../../customTheme/ThemeContext";
+import Loader from "../components/Loader";
 
 interface HomeScreenProp {
   navigation: DrawerNavigationProp<RootDrawerParamList, "Home">;
 }
 
 const Home = ({ navigation }: HomeScreenProp) => {
+  const [loading, setLoading] = React.useState(false);
+  const [loginBtn, setLoginBtn] = React.useState(false);
   const { t } = useTranslation();
   const { isDarkMode } = useTheme();
   const containerStyle = isDarkMode
     ? styles.darkContainer
     : styles.lightContainer;
   const textStyle = isDarkMode ? styles.darkText : styles.lightText;
+
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+
+      navigation.navigate("Login");
+    }, 2000);
+  }, []);
   return (
     <>
       <View style={[containerStyle, { height: "100%" }]}>
@@ -73,72 +85,29 @@ const Home = ({ navigation }: HomeScreenProp) => {
           >
             {t("welcome")}
           </Text>
-          <Animatable.Text
-            animation="pulse"
-            easing="ease-out-sine"
-            iterationCount="infinite"
-            style={{
-              textAlign: "center",
-              fontSize: 15,
-              color: "white",
-              fontWeight: "800",
-              marginTop: 50,
-              padding: 10,
-              backgroundColor: COLORS.darkBlue,
-              borderRadius: 10,
-              width: "50%",
-            }}
-            onPress={() => navigation.navigate("Login")}
-          >
-            {t("login")}
-          </Animatable.Text>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <View
+          {!loginBtn ? (
+            <Loader visible={loading} marginT={600} marginL={100} />
+          ) : (
+            <Animatable.Text
+              animation="pulse"
+              easing="ease-out-sine"
+              iterationCount="infinite"
               style={{
-                height: 2,
-                width: 80,
-                backgroundColor: "grey",
-                marginTop: 40,
+                textAlign: "center",
+                fontSize: 15,
+                color: "white",
+                fontWeight: "800",
+                marginTop: 50,
+                padding: 10,
+                backgroundColor: COLORS.darkBlue,
+                borderRadius: 10,
+                width: "50%",
               }}
-            ></View>
-            <Text style={{ marginTop: 40, marginLeft: 5, marginRight: 5 }}>
-              Or
-            </Text>
-            <View
-              style={{
-                height: 2,
-                width: 80,
-                backgroundColor: "grey",
-                marginTop: 40,
-              }}
-            ></View>
-          </View>
-          <Animatable.Text
-            animation="pulse"
-            easing="ease-out-sine"
-            iterationCount="infinite"
-            style={{
-              textAlign: "center",
-              fontSize: 15,
-              color: "white",
-              fontWeight: "800",
-              marginTop: 40,
-              padding: 10,
-              backgroundColor: COLORS.darkBlue,
-              borderRadius: 10,
-              width: "50%",
-            }}
-            onPress={() => navigation.navigate("Register")}
-          >
-            {t("tapRegi")}
-          </Animatable.Text>
+              onPress={() => navigation.navigate("Login")}
+            >
+              {t("login")}
+            </Animatable.Text>
+          )}
         </View>
       </View>
     </>

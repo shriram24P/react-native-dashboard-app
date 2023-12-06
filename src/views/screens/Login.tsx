@@ -6,7 +6,7 @@ import {
   Alert,
   StyleSheet,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { RootDrawerParamList } from "../../../App";
 import { SafeAreaView } from "react-native";
@@ -17,63 +17,82 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "../../customTheme/ThemeContext";
 import { useToast } from "react-native-toast-notifications";
 
+import axios from "axios";
+
 interface LoginScreenProp {
   navigation: DrawerNavigationProp<RootDrawerParamList, "Login">;
 }
 
 interface User {
-  mobileNumber: string;
+  userName: string;
   password: string;
 }
 
 const Login = ({ navigation }: LoginScreenProp) => {
-  const [inputs, setInputs] = useState<User>({
-    mobileNumber: "",
-    password: "",
-  });
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
 
   const [errors, setErrors] = useState<User>({
-    mobileNumber: "",
+    userName: "",
     password: "",
   });
 
   const { t } = useTranslation();
 
-  const validate = () => {
-    Keyboard.dismiss();
-    let valid = true;
-
-    if (!inputs.mobileNumber) {
-      handleError(t("pPhone"), "mobileNumber");
-      valid = false;
-    } else if (inputs.mobileNumber.length !== 10) {
-      handleError(t("minPhone"), "mobileNumber");
-      valid = false;
-    }
-
-    if (!inputs.password) {
-      handleError(t("pPass"), "password");
-      valid = false;
-    } else if (!(inputs.password.length >= 6)) {
-      handleError(t("minPass"), "password");
-      valid = false;
-    }
-
-    if (valid) {
-      register();
-    }
-  };
-
-  function register() {
-    Alert.alert(t("successAdded"));
-  }
-
-  const handleOnChange = (text: string, input: keyof User) => {
-    setInputs((prevState) => ({ ...prevState, [input]: text }));
-  };
-
   const handleError = (errorMessage: string, input: keyof User) => {
     setErrors((prevState) => ({ ...prevState, [input]: errorMessage }));
+  };
+  const validate = async () => {
+    Keyboard.dismiss();
+    // let valid = true;
+
+    // if (!userName) {
+    //   handleError(t("pPhone"), "userName");
+    //   valid = false;
+    // }
+
+    // if (!password) {
+    //   handleError(t("pPass"), "password");
+    //   valid = false;
+    // }
+
+    // try {
+    //   const url = "http://localhost:4001/users/login";
+    //   const response = await fetch(url, {
+    //     method: "POST",
+    //     headers: {
+    //       Accept: "application/json",
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       userName,
+    //       password,
+    //     }),
+    //   });
+
+    //   let result = await response.json();
+    //   console.log(result);
+    //   if (result) {
+    //     Alert.alert("Successfully Logged In");
+    //   } else {
+    //     console.log("invalid credentials");
+    //   }
+    // } catch (error) {
+    //   console.log("Error Occured", error);
+    // }
+
+    debugger;
+    axios
+      .post("http://localhost:4001/users/login", {
+        userName,
+        password,
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const { isDarkMode } = useTheme();
@@ -81,6 +100,7 @@ const Login = ({ navigation }: LoginScreenProp) => {
     ? styles.darkContainer
     : styles.lightContainer;
   const textStyle = isDarkMode ? styles.darkText : styles.lightText;
+
   return (
     <SafeAreaView style={[containerStyle, { height: "100%" }]}>
       <View
@@ -105,19 +125,21 @@ const Login = ({ navigation }: LoginScreenProp) => {
           {t("Login")}
         </Text>
         <Input
-          keyboardType="numeric"
+          keyboardType=""
           placeholder={t("enterPhone")}
+          value={userName}
           iconName="phone-outline"
           label={t("phone")}
-          error={errors.mobileNumber}
+          error={errors.userName}
           onFocus={() => {
-            handleError("", "mobileNumber");
+            handleError("", "userName");
           }}
-          onChangeText={(text) => handleOnChange(text, "mobileNumber")}
+          onChangeText={(text) => setUserName(text)}
         />
         <Input
           secureTextEntry={true}
           placeholder={t("enterPassword")}
+          value={password}
           iconName="lock-outline"
           label={t("password")}
           keyboardType="default"
@@ -125,10 +147,45 @@ const Login = ({ navigation }: LoginScreenProp) => {
           onFocus={() => {
             handleError("", "password");
           }}
-          onChangeText={(text) => handleOnChange(text, "password")}
+          onChangeText={(text) => setPassword(text)}
         />
         <View style={{ marginTop: 20 }}>
           <Button title={t("login")} onPress={validate} />
+        </View>
+
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <View
+            style={{
+              height: 2,
+              width: 80,
+              backgroundColor: "grey",
+              marginTop: 40,
+            }}
+          ></View>
+          <Text style={{ marginTop: 40, marginLeft: 5, marginRight: 5 }}>
+            Or
+          </Text>
+          <View
+            style={{
+              height: 2,
+              width: 80,
+              backgroundColor: "grey",
+              marginTop: 40,
+            }}
+          ></View>
+        </View>
+        <View style={{ marginTop: 20 }}>
+          <Button
+            title={t("tapRegi")}
+            onPress={() => navigation.navigate("Register")}
+          />
         </View>
       </View>
     </SafeAreaView>

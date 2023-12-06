@@ -37,6 +37,15 @@ const CustomDrawer: React.FC<CustomDrawerProps> = (props) => {
     i18next.changeLanguage(handleLanguage);
   };
 
+  const menuItems = [
+    { name: "Home", icon: "home" },
+    { name: "Login", icon: "enter-outline" },
+    { name: "Register", icon: "people-outline" },
+    { name: "Dashboard", icon: "browsers-sharp" },
+    { name: "AboutUs", icon: "information-outline" },
+    { name: "MyComponent", icon: "information-outline" },
+  ];
+
   return (
     <DrawerContentScrollView {...rest}>
       {/* Your custom drawer header */}
@@ -49,122 +58,38 @@ const CustomDrawer: React.FC<CustomDrawerProps> = (props) => {
         style={{
           display: "flex",
           flexDirection: "column",
-          marginTop: -210,
-          marginLeft: 15,
+          marginTop: -180,
+          marginLeft: 5,
+          borderTopLeftRadius: 40,
         }}
       >
-        <TouchableOpacity
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            paddingVertical: 10,
-            alignItems: "center",
-          }}
-          onPress={() => navigation.navigate("Home")}
-        >
-          <Icon name="home" size={18} color="white" />
-          <Text
+        {menuItems.map((item, index) => (
+          <TouchableOpacity
+            key={index}
+            onPress={() => navigation.navigate(item.name)}
             style={{
-              color: "white",
-              fontSize: 18,
-              marginLeft: 10,
-              paddingHorizontal: 5,
+              flexDirection: "row",
+              alignItems: "center",
+              padding: 15,
+              width: "95%",
+              marginLeft: 5,
+              backgroundColor:
+                state.index === index ? "rgba(0, 0, 0, 0.1)" : "transparent",
             }}
           >
-            {t("home")}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            paddingVertical: 10,
-            alignItems: "center",
-          }}
-          onPress={() => navigation.navigate("Login")}
-        >
-          <Icon name="enter-outline" size={18} color="white" />
-          <Text
-            style={{
-              color: "white",
-              fontSize: 18,
-              marginLeft: 10,
-              paddingHorizontal: 5,
-            }}
-          >
-            {t("login")}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            paddingVertical: 10,
-            alignItems: "center",
-          }}
-          onPress={() => navigation.navigate("Register")}
-        >
-          <Icon name="people-outline" size={18} color="white" />
-          <Text
-            style={{
-              color: "white",
-              fontSize: 18,
-              marginLeft: 10,
-              paddingHorizontal: 5,
-            }}
-          >
-            {t("register")}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            paddingVertical: 10,
-            alignItems: "center",
-          }}
-          onPress={() => navigation.navigate("Dashboard")}
-        >
-          <Icon name="browsers-sharp" size={18} color="white" />
-          <Text
-            style={{
-              color: "white",
-              fontSize: 18,
-              marginLeft: 10,
-              paddingHorizontal: 5,
-            }}
-          >
-            Dashboard
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            paddingVertical: 10,
-            alignItems: "center",
-          }}
-          onPress={() => navigation.navigate("AboutUs")}
-        >
-          <Icon name="information-outline" size={18} color="white" />
-          <Text
-            style={{
-              color: "white",
-              fontSize: 18,
-              marginLeft: 10,
-              paddingHorizontal: 5,
-            }}
-          >
-            About Us
-          </Text>
-        </TouchableOpacity>
+            <Icon name={item.icon} size={20} color={"white"} />
+            <Text style={{ marginLeft: 10, color: "white", fontSize: 16 }}>
+              {item.name}
+            </Text>
+          </TouchableOpacity>
+        ))}
       </View>
       <View
         style={{
           flex: 1,
           justifyContent: "space-between",
           alignItems: "flex-start",
-          marginTop: 410,
+          marginTop: 320,
           marginBottom: 10,
         }}
       >
@@ -174,15 +99,15 @@ const CustomDrawer: React.FC<CustomDrawerProps> = (props) => {
             flexDirection: "row",
             alignItems: "center",
             marginBottom: 20,
-            marginLeft: 20,
+            marginLeft: 30,
           }}
         >
-          <Icon name="log-out-outline" size={22} color="white" />
+          <Icon name="log-out-outline" size={20} color="white" />
           <Text
             style={{
               color: "white",
-              fontSize: 18,
-              marginLeft: 10,
+              fontSize: 16,
+              marginLeft: 5,
               paddingHorizontal: 5,
             }}
           >
@@ -191,9 +116,9 @@ const CustomDrawer: React.FC<CustomDrawerProps> = (props) => {
         </TouchableOpacity>
         <View
           style={{
-            height: 2,
+            height: 1.5,
             width: "90%",
-            backgroundColor: "white",
+            backgroundColor: "grey",
             marginLeft: 20,
             marginBottom: 20,
             elevation: 5,
@@ -205,23 +130,28 @@ const CustomDrawer: React.FC<CustomDrawerProps> = (props) => {
             display: "flex",
             flexDirection: "row",
             justifyContent: "space-between",
-            marginLeft: 20,
+            marginLeft: -12,
             paddingVertical: 5,
           }}
         >
-          <Icon name="language" size={22} color="white" />
+          <Icon
+            name="language"
+            size={20}
+            color="white"
+            style={{ marginLeft: 40 }}
+          />
           <Text
             style={{
               color: "white",
-              fontSize: 18,
+              fontSize: 16,
               paddingHorizontal: 5,
-              marginRight: 60,
-              marginLeft: -10,
+              marginRight: 62,
+              marginLeft: 10,
             }}
           >
             {t("lng")}
           </Text>
-          <View style={{ marginRight: -20 }}>
+          <View style={{}}>
             <Switch
               value={i18next.language === "ma"}
               onValueChange={changeLng}
@@ -250,18 +180,23 @@ const CustomDrawer: React.FC<CustomDrawerProps> = (props) => {
             display: "flex",
             flexDirection: "row",
             justifyContent: "space-between",
-            marginLeft: 20,
+            marginLeft: -12,
             marginTop: 10,
             paddingVertical: 5,
           }}
         >
-          <Icon name="moon" size={22} color="white" />
+          <Icon
+            name="moon"
+            size={20}
+            color="white"
+            style={{ marginLeft: 40 }}
+          />
           <Text
             style={{
               color: "white",
-              marginLeft: 15,
-              fontSize: 18,
-              marginRight: 50,
+              marginLeft: 10,
+              fontSize: 16,
+              marginRight: 32,
               paddingHorizontal: 5,
             }}
           >
