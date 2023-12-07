@@ -152,41 +152,6 @@ const Login = ({ navigation }: LoginScreenProp) => {
         <View style={{ marginTop: 20 }}>
           <Button title={t("login")} onPress={validate} />
         </View>
-
-        <View
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <View
-            style={{
-              height: 2,
-              width: 80,
-              backgroundColor: "grey",
-              marginTop: 40,
-            }}
-          ></View>
-          <Text style={{ marginTop: 40, marginLeft: 5, marginRight: 5 }}>
-            Or
-          </Text>
-          <View
-            style={{
-              height: 2,
-              width: 80,
-              backgroundColor: "grey",
-              marginTop: 40,
-            }}
-          ></View>
-        </View>
-        <View style={{ marginTop: 20 }}>
-          <Button
-            title={t("tapRegi")}
-            onPress={() => navigation.navigate("Register")}
-          />
-        </View>
       </View>
     </SafeAreaView>
   );

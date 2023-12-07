@@ -27,7 +27,7 @@ const Loader: React.FC<LoaderProps> = ({
         <View
           style={[styles.loader, { marginTop: marginT, marginLeft: marginL }]}
         >
-          <ActivityIndicator size="large" color={COLORS.blue} />
+          <ActivityIndicator size="large" color={COLORS.darkBlue} />
           <Text style={{ alignItems: "center", marginLeft: 15, fontSize: 16 }}>
             Loading...
           </Text>

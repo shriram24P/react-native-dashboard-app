@@ -40,10 +40,9 @@ const CustomDrawer: React.FC<CustomDrawerProps> = (props) => {
   const menuItems = [
     { name: "Home", icon: "home" },
     { name: "Login", icon: "enter-outline" },
-    { name: "Register", icon: "people-outline" },
+    // { name: "Register", icon: "people-outline" },
     { name: "Dashboard", icon: "browsers-sharp" },
     { name: "AboutUs", icon: "information-outline" },
-    { name: "MyComponent", icon: "information-outline" },
   ];
 
   return (
@@ -89,7 +88,7 @@ const CustomDrawer: React.FC<CustomDrawerProps> = (props) => {
           flex: 1,
           justifyContent: "space-between",
           alignItems: "flex-start",
-          marginTop: 320,
+          marginTop: 450,
           marginBottom: 10,
         }}
       >

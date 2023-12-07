@@ -2373,7 +2373,10 @@ const SearchScreen = ({ navigation }: SearchScreenProp) => {
             </TouchableOpacity>
           </View>
           <View
-            style={[containerStyle, { display: "flex", flexDirection: "row" }]}
+            style={[
+              containerStyle,
+              { display: "flex", flexDirection: "row", paddingBottom: 10 },
+            ]}
           >
             <RadioButton.Group
               onValueChange={(newValue) => setChecked(newValue)}
@@ -2441,7 +2444,7 @@ const styles = StyleSheet.create({
   tableContainer: {
     paddingHorizontal: 20,
     flex: 1,
-    marginTop: 10,
+    marginTop: 20,
   },
   headerTopBar: {
     backgroundColor: COLORS.darkBlue,
